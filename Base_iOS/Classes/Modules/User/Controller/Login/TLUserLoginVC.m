@@ -8,25 +8,12 @@
 
 #import "TLUserLoginVC.h"
 
-#import "BindMobileVC.h"
-#import "TLUserRegisterVC.h"
 #import "TLUserForgetPwdVC.h"
 
 #import "APICodeMacro.h"
-#import "AppMacro.h"
 #import "NSString+Check.h"
-#import "UIBarButtonItem+convience.h"
-#import "UILabel+Extension.h"
-
-//#import "CurrencyModel.h"
 
 #import "AccountTf.h"
-
-//腾讯云
-//#import "ChatManager.h"
-//#import "IMModel.h"
-//
-//#import <ImSDK/TIMManager.h>
 
 @interface TLUserLoginVC ()
 
@@ -46,23 +33,11 @@
     
     self.title = @"登录";
     
-    [self setBarButtonItem];
-    
     [self setUpUI];
-    //腾讯云登录成功
-    [self setUpNotification];
     
 }
 
 #pragma mark - Init
-
-- (void)setBarButtonItem {
-
-    //取消按钮
-    [UIBarButtonItem addLeftItemWithImageName:kCancelIcon frame:CGRectMake(-30, 0, 80, 44) vc:self action:@selector(back)];
-    //注册
-    [UIBarButtonItem addRightItemWithTitle:@"注册" titleColor:kTextColor frame:CGRectMake(0, 0, 60, 44) vc:self action:@selector(goReg)];
-}
 
 - (void)setUpUI {
     
@@ -111,10 +86,10 @@
         [bgView addSubview:line];
         [line mas_makeConstraints:^(MASConstraintMaker *make) {
             
-            make.left.mas_equalTo(0);
-            make.right.mas_equalTo(0);
-            make.height.mas_equalTo(0.5);
-            make.top.mas_equalTo((i+1)*h);
+            make.left.equalTo(@0);
+            make.right.equalTo(@0);
+            make.height.equalTo(@0.5);
+            make.top.equalTo(@((i+1)*h));
             
         }];
     }
@@ -131,8 +106,8 @@
         
     }];
     
-    //找回密码
-    UIButton *forgetPwdBtn = [UIButton buttonWithTitle:@"找回密码?" titleColor:kTextColor2 backgroundColor:kClearColor titleFont:14.0];
+    //忘记密码
+    UIButton *forgetPwdBtn = [UIButton buttonWithTitle:@"忘记密码" titleColor:kTextColor2 backgroundColor:kClearColor titleFont:14.0];
     
     forgetPwdBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [forgetPwdBtn addTarget:self action:@selector(findPwd) forControlEvents:UIControlEventTouchUpInside];
@@ -147,50 +122,13 @@
     
 }
 
-- (void)setUpNotification {
-
-    //登录成功之后，给予回调
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(login) name:kUserLoginNotification object:nil];
-
-}
-
 #pragma mark - Events
-
-- (void)back {
-    
-    [self.view endEditing:YES];
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-//登录成功
-- (void)login {
-
-    //获取腾讯云IM签名、账号并登录
-//    [[ChatManager sharedManager] loginIM];
-//    [[NSNotificationCenter defaultCenter] postNotificationName:kUserLoginNotification object:nil];
-
-    [self dismissViewControllerAnimated:YES completion:nil];
-
-    if (self.loginSuccess) {
-
-        self.loginSuccess();
-    }
-
-}
 
 - (void)findPwd {
     
     TLUserForgetPwdVC *vc = [[TLUserForgetPwdVC alloc] init];
+    
     [self.navigationController pushViewController:vc animated:YES];
-    
-}
-
-- (void)goReg {
-    
-    TLUserRegisterVC *registerVC = [[TLUserRegisterVC alloc] init];
-    
-    [self.navigationController pushViewController:registerVC animated:YES];
     
 }
 
@@ -255,78 +193,18 @@
         [[TLUser user] saveUserInfo:userInfo];
         //初始化用户信息
         [[TLUser user] setUserInfoWithDict:userInfo];
-        //获取人民币和积分账户
-//        [self requestAccountNumber];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kUserLoginNotification object:nil];
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
+        self.tabBarController.selectedIndex = 0;
         
     } failure:^(NSError *error) {
         
         
     }];
     
-}
-
-#pragma mark - 账户
-//- (void)requestAccountNumber {
-//
-//    //获取人民币和积分账户
-//    TLNetworking *http = [TLNetworking new];
-//    http.code = @"802503";
-//    http.parameters[@"userId"] = [TLUser user].userId;
-//    http.parameters[@"token"] = [TLUser user].token;
-//
-//    [http postWithSuccess:^(id responseObject) {
-//
-//        NSArray <CurrencyModel *> *arr = [CurrencyModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
-//
-//        [arr enumerateObjectsUsingBlock:^(CurrencyModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//
-//            if ([obj.currency isEqualToString:@"JF"]) {
-//
-//                [TLUser user].jfAccountNumber = obj.accountNumber;
-//
-//            } else if ([obj.currency isEqualToString:@"CNY"]) {
-//
-//                [TLUser user].rmbAccountNumber = obj.accountNumber;
-//            }
-//
-//        }];
-//
-//    } failure:^(NSError *error) {
-//
-//
-//    }];
-//}
-
-- (void)tagsAliasCallback:(int)iResCode
-                     tags:(NSSet *)tags
-                    alias:(NSString *)alias {
-    NSString *callbackString =
-    [NSString stringWithFormat:@"%d, \ntags: %@, \nalias: %@\n", iResCode,
-     [self logSet:tags], alias];
-    
-    NSLog(@"TagsAlias回调:%@", callbackString);
-}
-
-- (NSString *)logSet:(NSSet *)dic {
-    if (![dic count]) {
-        return nil;
-    }
-    NSString *tempStr1 =
-    [[dic description] stringByReplacingOccurrencesOfString:@"\\u"
-                                                 withString:@"\\U"];
-    NSString *tempStr2 =
-    [tempStr1 stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
-    NSString *tempStr3 =
-    [[@"\"" stringByAppendingString:tempStr2] stringByAppendingString:@"\""];
-    NSData *tempData = [tempStr3 dataUsingEncoding:NSUTF8StringEncoding];
-    NSString *str =
-    [NSPropertyListSerialization propertyListFromData:tempData
-                                     mutabilityOption:NSPropertyListImmutable
-                                               format:NULL
-                                     errorDescription:NULL];
-    return str;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {

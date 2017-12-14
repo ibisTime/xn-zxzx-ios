@@ -27,7 +27,7 @@
     if (self.childViewControllers.count > 0) {
         [self.navigationItem setHidesBackButton:YES];
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn setImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"返回-白色"] forState:UIControlStateNormal];
         btn.contentMode = UIViewContentModeScaleToFill;
         btn.frame = CGRectMake(-10, 0, 40, 44);
         [btn addTarget:self action:@selector(clickButton) forControlEvents:UIControlEventTouchUpInside];

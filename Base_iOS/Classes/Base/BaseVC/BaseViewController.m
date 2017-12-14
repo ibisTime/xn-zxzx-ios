@@ -50,11 +50,6 @@
 
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
 
-    
-    TabbarViewController *tabbar = (TabbarViewController*)self.tabBarController;
-    if (tabbar) {
-       // [tabbar removeOriginTabbarButton];
-    }
 }
 
 - (UIScrollView *)bgSV {
@@ -91,6 +86,7 @@
 }
 
 - (BOOL)isRootViewController {
+    
     return (self == self.navigationController.viewControllers.firstObject);
 }
 

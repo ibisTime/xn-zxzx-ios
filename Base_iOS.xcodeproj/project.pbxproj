@@ -45,6 +45,19 @@
 		2121702A1F384216007C9855 /* ZHAddressChooseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 212170111F384216007C9855 /* ZHAddressChooseVC.m */; };
 		2121702B1F384216007C9855 /* ZHReceivingAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 212170131F384216007C9855 /* ZHReceivingAddress.m */; };
 		2121703D1F3842BC007C9855 /* ZHAddressChooseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2121703C1F3842BC007C9855 /* ZHAddressChooseView.m */; };
+		21301E601FE25A9100A98CB7 /* AuthVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301E5F1FE25A9100A98CB7 /* AuthVC.m */; };
+		21301E641FE26C1700A98CB7 /* UIImage+Tint.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301E631FE26C1700A98CB7 /* UIImage+Tint.m */; };
+		21301E881FE2775D00A98CB7 /* MineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301E871FE2775D00A98CB7 /* MineVC.m */; };
+		21301E8D1FE2776B00A98CB7 /* MineGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301E891FE2776A00A98CB7 /* MineGroup.m */; };
+		21301E8E1FE2776B00A98CB7 /* MineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301E8B1FE2776A00A98CB7 /* MineModel.m */; };
+		21301E931FE2777D00A98CB7 /* MineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301E901FE2777D00A98CB7 /* MineCell.m */; };
+		21301E941FE2777D00A98CB7 /* MineTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301E911FE2777D00A98CB7 /* MineTableView.m */; };
+		21301E9B1FE2781300A98CB7 /* SettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301E9A1FE2781300A98CB7 /* SettingVC.m */; };
+		21301EA01FE2789900A98CB7 /* SettingGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301E9C1FE2789800A98CB7 /* SettingGroup.m */; };
+		21301EA11FE2789900A98CB7 /* SettingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301E9F1FE2789900A98CB7 /* SettingModel.m */; };
+		21301EA61FE278F400A98CB7 /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301EA31FE278F400A98CB7 /* SettingCell.m */; };
+		21301EA71FE278F400A98CB7 /* SettingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301EA41FE278F400A98CB7 /* SettingTableView.m */; };
+		21301EAA1FE27B0500A98CB7 /* CreditReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301EA91FE27B0500A98CB7 /* CreditReportVC.m */; };
 		216AB7EC1F189F04006C26A1 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 216AB7EB1F189F03006C26A1 /* libstdc++.6.0.9.tbd */; };
 		216AB7EE1F189F11006C26A1 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 216AB7ED1F189F11006C26A1 /* libresolv.tbd */; };
 		216AB7F01F189F22006C26A1 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 216AB7EF1F189F22006C26A1 /* libsqlite3.tbd */; };
@@ -203,6 +216,32 @@
 		212170131F384216007C9855 /* ZHReceivingAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHReceivingAddress.m; sourceTree = "<group>"; };
 		2121703B1F3842BC007C9855 /* ZHAddressChooseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHAddressChooseView.h; sourceTree = "<group>"; };
 		2121703C1F3842BC007C9855 /* ZHAddressChooseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHAddressChooseView.m; sourceTree = "<group>"; };
+		21301E5E1FE25A9100A98CB7 /* AuthVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthVC.h; sourceTree = "<group>"; };
+		21301E5F1FE25A9100A98CB7 /* AuthVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuthVC.m; sourceTree = "<group>"; };
+		21301E621FE26C1700A98CB7 /* UIImage+Tint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Tint.h"; sourceTree = "<group>"; };
+		21301E631FE26C1700A98CB7 /* UIImage+Tint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Tint.m"; sourceTree = "<group>"; };
+		21301E861FE2775D00A98CB7 /* MineVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineVC.h; sourceTree = "<group>"; };
+		21301E871FE2775D00A98CB7 /* MineVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineVC.m; sourceTree = "<group>"; };
+		21301E891FE2776A00A98CB7 /* MineGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineGroup.m; sourceTree = "<group>"; };
+		21301E8A1FE2776A00A98CB7 /* MineGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineGroup.h; sourceTree = "<group>"; };
+		21301E8B1FE2776A00A98CB7 /* MineModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineModel.m; sourceTree = "<group>"; };
+		21301E8C1FE2776A00A98CB7 /* MineModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineModel.h; sourceTree = "<group>"; };
+		21301E8F1FE2777D00A98CB7 /* MineTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTableView.h; sourceTree = "<group>"; };
+		21301E901FE2777D00A98CB7 /* MineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineCell.m; sourceTree = "<group>"; };
+		21301E911FE2777D00A98CB7 /* MineTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTableView.m; sourceTree = "<group>"; };
+		21301E921FE2777D00A98CB7 /* MineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineCell.h; sourceTree = "<group>"; };
+		21301E991FE2781300A98CB7 /* SettingVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingVC.h; sourceTree = "<group>"; };
+		21301E9A1FE2781300A98CB7 /* SettingVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingVC.m; sourceTree = "<group>"; };
+		21301E9C1FE2789800A98CB7 /* SettingGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingGroup.m; sourceTree = "<group>"; };
+		21301E9D1FE2789800A98CB7 /* SettingGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingGroup.h; sourceTree = "<group>"; };
+		21301E9E1FE2789800A98CB7 /* SettingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingModel.h; sourceTree = "<group>"; };
+		21301E9F1FE2789900A98CB7 /* SettingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingModel.m; sourceTree = "<group>"; };
+		21301EA21FE278F400A98CB7 /* SettingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableView.h; sourceTree = "<group>"; };
+		21301EA31FE278F400A98CB7 /* SettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingCell.m; sourceTree = "<group>"; };
+		21301EA41FE278F400A98CB7 /* SettingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableView.m; sourceTree = "<group>"; };
+		21301EA51FE278F400A98CB7 /* SettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingCell.h; sourceTree = "<group>"; };
+		21301EA81FE27B0500A98CB7 /* CreditReportVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreditReportVC.h; sourceTree = "<group>"; };
+		21301EA91FE27B0500A98CB7 /* CreditReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreditReportVC.m; sourceTree = "<group>"; };
 		216AB7EB1F189F03006C26A1 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		216AB7ED1F189F11006C26A1 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		216AB7EF1F189F22006C26A1 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -484,6 +523,7 @@
 		21111B4C1F8B5EFF0021B3FE /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				21301E611FE26BF600A98CB7 /* UIImage */,
 				21111B5A1F8B5EFF0021B3FE /* UILabel */,
 				21111B5F1F8B5EFF0021B3FE /* UIApplication */,
 				21111B651F8B5EFF0021B3FE /* UIButton */,
@@ -752,9 +792,9 @@
 		21301E541FE255DC00A98CB7 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
-				21301E591FE2560400A98CB7 /* Controller */,
-				21301E5A1FE2560400A98CB7 /* Model */,
-				21301E581FE2560400A98CB7 /* View */,
+				21301E761FE276B200A98CB7 /* Controller */,
+				21301E751FE276AD00A98CB7 /* View */,
+				21301E741FE276A500A98CB7 /* Model */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -776,33 +816,96 @@
 		21301E571FE255F100A98CB7 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				21301E5E1FE25A9100A98CB7 /* AuthVC.h */,
+				21301E5F1FE25A9100A98CB7 /* AuthVC.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		21301E581FE2560400A98CB7 /* View */ = {
+		21301E611FE26BF600A98CB7 /* UIImage */ = {
 			isa = PBXGroup;
 			children = (
+				21301E621FE26C1700A98CB7 /* UIImage+Tint.h */,
+				21301E631FE26C1700A98CB7 /* UIImage+Tint.m */,
 			);
-			name = View;
-			path = Base_iOS/Classes/Modules/Auth/View;
-			sourceTree = SOURCE_ROOT;
+			name = UIImage;
+			path = "New Group";
+			sourceTree = "<group>";
 		};
-		21301E591FE2560400A98CB7 /* Controller */ = {
+		21301E741FE276A500A98CB7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				21301E8A1FE2776A00A98CB7 /* MineGroup.h */,
+				21301E891FE2776A00A98CB7 /* MineGroup.m */,
+				21301E8C1FE2776A00A98CB7 /* MineModel.h */,
+				21301E8B1FE2776A00A98CB7 /* MineModel.m */,
+				21301E981FE277C700A98CB7 /* Setting */,
 			);
-			name = Controller;
-			path = Base_iOS/Classes/Modules/Auth/Controller;
-			sourceTree = SOURCE_ROOT;
+			path = Model;
+			sourceTree = "<group>";
 		};
-		21301E5A1FE2560400A98CB7 /* Model */ = {
+		21301E751FE276AD00A98CB7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				21301E921FE2777D00A98CB7 /* MineCell.h */,
+				21301E901FE2777D00A98CB7 /* MineCell.m */,
+				21301E8F1FE2777D00A98CB7 /* MineTableView.h */,
+				21301E911FE2777D00A98CB7 /* MineTableView.m */,
+				21301E971FE277BD00A98CB7 /* Setting */,
 			);
-			name = Model;
-			path = Base_iOS/Classes/Modules/Auth/Model;
-			sourceTree = SOURCE_ROOT;
+			path = View;
+			sourceTree = "<group>";
+		};
+		21301E761FE276B200A98CB7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				21301E861FE2775D00A98CB7 /* MineVC.h */,
+				21301E871FE2775D00A98CB7 /* MineVC.m */,
+				21301E951FE2779500A98CB7 /* CreditReport */,
+				21301E961FE277AD00A98CB7 /* Setting */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		21301E951FE2779500A98CB7 /* CreditReport */ = {
+			isa = PBXGroup;
+			children = (
+				21301EA81FE27B0500A98CB7 /* CreditReportVC.h */,
+				21301EA91FE27B0500A98CB7 /* CreditReportVC.m */,
+			);
+			path = CreditReport;
+			sourceTree = "<group>";
+		};
+		21301E961FE277AD00A98CB7 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				21301E991FE2781300A98CB7 /* SettingVC.h */,
+				21301E9A1FE2781300A98CB7 /* SettingVC.m */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		21301E971FE277BD00A98CB7 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				21301EA51FE278F400A98CB7 /* SettingCell.h */,
+				21301EA31FE278F400A98CB7 /* SettingCell.m */,
+				21301EA21FE278F400A98CB7 /* SettingTableView.h */,
+				21301EA41FE278F400A98CB7 /* SettingTableView.m */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		21301E981FE277C700A98CB7 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				21301E9D1FE2789800A98CB7 /* SettingGroup.h */,
+				21301E9C1FE2789800A98CB7 /* SettingGroup.m */,
+				21301E9E1FE2789800A98CB7 /* SettingModel.h */,
+				21301E9F1FE2789900A98CB7 /* SettingModel.m */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
 		};
 		21AC58FE1FDE798A00F19DE8 /* Header */ = {
 			isa = PBXGroup;
@@ -1369,11 +1472,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				21AC58AE1FDE75AA00F19DE8 /* HttpSign.m in Sources */,
+				21301E8D1FE2776B00A98CB7 /* MineGroup.m in Sources */,
 				21111B9F1F8B5F2C0021B3FE /* City.m in Sources */,
 				21AC58951FDE741A00F19DE8 /* CaptchaView.m in Sources */,
 				21111BA01F8B5F2C0021B3FE /* Province.m in Sources */,
+				21301EAA1FE27B0500A98CB7 /* CreditReportVC.m in Sources */,
 				21111BA11F8B5F2C0021B3FE /* AddressPickerView.m in Sources */,
 				21111BA21F8B5F2C0021B3FE /* CircleGuideView.m in Sources */,
+				21301EA11FE2789900A98CB7 /* SettingModel.m in Sources */,
 				21AC58851FDE73B200F19DE8 /* TLChangeMobileVC.m in Sources */,
 				21AC589F1FDE754400F19DE8 /* AppConfig.m in Sources */,
 				21AC58AD1FDE75AA00F19DE8 /* HttpRequestService.m in Sources */,
@@ -1404,7 +1510,9 @@
 				21AC59451FDE7A1B00F19DE8 /* CustomPickerView.m in Sources */,
 				21AC59441FDE7A1B00F19DE8 /* TLPickerTextField.m in Sources */,
 				21AC594D1FDE7A1B00F19DE8 /* TLNetworking.m in Sources */,
+				21301EA61FE278F400A98CB7 /* SettingCell.m in Sources */,
 				21111BCD1F8B5F2C0021B3FE /* CustomTextView.m in Sources */,
+				21301E941FE2777D00A98CB7 /* MineTableView.m in Sources */,
 				21AC595A1FDE804500F19DE8 /* UILabel+Extension.m in Sources */,
 				21111BCF1F8B5F2C0021B3FE /* DetailWebView.m in Sources */,
 				21111BD01F8B5F2C0021B3FE /* ZipImg.m in Sources */,
@@ -1413,6 +1521,7 @@
 				21AC58AB1FDE75AA00F19DE8 /* HttpRequestObject.m in Sources */,
 				21AC58871FDE73B200F19DE8 /* TLPwdRelatedVC.m in Sources */,
 				21AC59501FDE7A1B00F19DE8 /* TLPlaceholderView.m in Sources */,
+				21301E881FE2775D00A98CB7 /* MineVC.m in Sources */,
 				21AC58841FDE73B200F19DE8 /* BindMobileVC.m in Sources */,
 				21AC594E1FDE7A1B00F19DE8 /* TLPageDataHelper.m in Sources */,
 				21111BE31F8B5F2C0021B3FE /* LKViewAttribute.m in Sources */,
@@ -1422,10 +1531,12 @@
 				21AC59411FDE7A1B00F19DE8 /* TLProgressHUD.m in Sources */,
 				21AC593D1FDE7A1B00F19DE8 /* TLTextView.m in Sources */,
 				21AC58721FDE734F00F19DE8 /* TLAccountBaseVC.m in Sources */,
+				21301E9B1FE2781300A98CB7 /* SettingVC.m in Sources */,
 				21111BEC1F8B5F2C0021B3FE /* Foundation+Log.m in Sources */,
 				21111BED1F8B5F2C0021B3FE /* NSArray+Custom.m in Sources */,
 				21AC59421FDE7A1B00F19DE8 /* TLDatePicker.m in Sources */,
 				21AC58AC1FDE75AA00F19DE8 /* HttpRequestTool.m in Sources */,
+				21301E8E1FE2776B00A98CB7 /* MineModel.m in Sources */,
 				2121702B1F384216007C9855 /* ZHReceivingAddress.m in Sources */,
 				21AC59461FDE7A1B00F19DE8 /* TLImagePicker.m in Sources */,
 				21AC59851FDE828500F19DE8 /* NSObject+Extension.m in Sources */,
@@ -1437,15 +1548,18 @@
 				21216F8C1F380DD3007C9855 /* ZHAddressCell.m in Sources */,
 				2121703D1F3842BC007C9855 /* ZHAddressChooseView.m in Sources */,
 				21F82C9B1F17719D0019B176 /* BaseModel.m in Sources */,
+				21301E931FE2777D00A98CB7 /* MineCell.m in Sources */,
 				21F82CA01F17719D0019B176 /* BaseCollectionView.m in Sources */,
 				21AC587B1FDE737200F19DE8 /* TLUserForgetPwdVC.m in Sources */,
 				21AC59551FDE7F1500F19DE8 /* WebVC.m in Sources */,
 				21AC58901FDE73FE00F19DE8 /* TLUser.m in Sources */,
+				21301EA71FE278F400A98CB7 /* SettingTableView.m in Sources */,
 				21AC597D1FDE823C00F19DE8 /* NSString+CGSize.m in Sources */,
 				21F82C9D1F17719D0019B176 /* BaseWKWebViewController.m in Sources */,
 				21AC597F1FDE823C00F19DE8 /* NSString+Check.m in Sources */,
 				21AC59731FDE820600F19DE8 /* NSDictionary+Extension.m in Sources */,
 				21158E431F1C4F4D00A07266 /* CustomTabBar.m in Sources */,
+				21301EA01FE2789900A98CB7 /* SettingGroup.m in Sources */,
 				21F82C9C1F17719D0019B176 /* BaseViewController.m in Sources */,
 				21FB30CB1F26E9EF0028ADEE /* UINavigationController+MethodSwizzling.m in Sources */,
 				21AC596C1FDE814C00F19DE8 /* UIView+Extension.m in Sources */,
@@ -1459,6 +1573,7 @@
 				21FB30CC1F26E9EF0028ADEE /* UIViewController+MethodSwizzling.m in Sources */,
 				21F82D1F1F17719D0019B176 /* main.m in Sources */,
 				21F82C9A1F17719D0019B176 /* AppDelegate.mm in Sources */,
+				21301E641FE26C1700A98CB7 /* UIImage+Tint.m in Sources */,
 				2121702A1F384216007C9855 /* ZHAddressChooseVC.m in Sources */,
 				21AC593C1FDE7A1B00F19DE8 /* TLTableView.m in Sources */,
 				21AC593F1FDE7A1B00F19DE8 /* SelectScrollView.m in Sources */,
@@ -1469,6 +1584,7 @@
 				21AC58791FDE737200F19DE8 /* TLUserLoginVC.m in Sources */,
 				21FB30CA1F26E9EF0028ADEE /* HTMLStrVC.m in Sources */,
 				21AC58861FDE73B200F19DE8 /* TLAccountSetBaseVC.m in Sources */,
+				21301E601FE25A9100A98CB7 /* AuthVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

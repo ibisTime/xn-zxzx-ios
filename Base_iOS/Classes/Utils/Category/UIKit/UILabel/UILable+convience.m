@@ -66,7 +66,7 @@
     
     UILabel *label = [[UILabel alloc] initWithFrame:frame];
     label.text = title;
-    label.textColor = kTextColor;
+    label.textColor = kWhiteColor;
     label.textAlignment = NSTextAlignmentCenter;
     label.font = Font(kWidth(18.0));
     
