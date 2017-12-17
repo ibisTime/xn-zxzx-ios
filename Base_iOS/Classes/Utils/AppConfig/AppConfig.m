@@ -39,28 +39,28 @@ void TLLog(NSString *format, ...) {
     
     _runEnv = runEnv;
     
-    self.companyCode = @"CD-COIN000017";
-    self.systemCode = @"CD-COIN000017";
+    self.companyCode = @"CD-ZXZX000018";
+    self.systemCode = @"CD-ZXZX000018";
     
     switch (_runEnv) {
             
         case RunEnvRelease: {
             
-            self.qiniuDomain = @"http://ozfszueqz.bkt.clouddn.com";
+            self.qiniuDomain = @"http://ormcdjjs0.bkt.clouddn.com";
             self.addr = @"http://47.52.77.214:4001";
 
         }break;
             
         case RunEnvDev: {
-            //apidev.bcoin.im:4001
-            self.qiniuDomain = @"http://ozfszueqz.bkt.clouddn.com";
-            self.addr = @"http://121.43.101.148:4001";
+
+            self.qiniuDomain = @"http://ormcdjjs0.bkt.clouddn.com";
+            self.addr = @"http://121.43.101.148:4101";
             
         }break;
             
         case RunEnvTest: {
             
-            self.qiniuDomain = @"http://ozfszueqz.bkt.clouddn.com";
+            self.qiniuDomain = @"http://ormcdjjs0.bkt.clouddn.com";
             self.addr = @"http://47.96.161.183:4001";
 
         }break;

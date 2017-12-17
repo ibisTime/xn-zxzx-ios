@@ -10,17 +10,11 @@
 
 @interface UILabel (convience)
 
-- (instancetype)initWithFrame:(CGRect)frame
-                 textAligment:(NSTextAlignment)aligment
-              backgroundColor:(UIColor *)color
-                         font:(UIFont *)font
-                    textColor:(UIColor *)textColor;
-
 + (UILabel *)labelWithFrame:(CGRect)frame
-                 textAligment:(NSTextAlignment)aligment
-              backgroundColor:(UIColor *)color
-                         font:(UIFont *)font
-                    textColor:(UIColor *)textColor;
+               textAligment:(NSTextAlignment)aligment
+            backgroundColor:(UIColor *)color
+                       font:(UIFont *)font
+                  textColor:(UIColor *)textColor;
 
 //设置Label的字体
 + (UILabel *)labelWithBackgroundColor:(UIColor *)color textColor:(UIColor *)textColor font:(CGFloat)font;

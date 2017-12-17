@@ -13,7 +13,17 @@
 
 #import "MineCell.h"
 
+#define kHeaderImgHeight 100
+
 @interface MineTableView ()<UITableViewDataSource, UITableViewDelegate>
+// 头像
+@property (nonatomic, strong) UIImageView *headIV;
+// 自定义添加的view
+@property (nonatomic, strong) UIView *otherView;
+// 放大比例
+@property (nonatomic, assign) CGFloat scale;
+// 手机号
+@property (nonatomic, strong) UILabel *mobileLbl;
 
 @end
 
@@ -28,7 +38,14 @@ static NSString *identifierCell = @"MineCell";
         self.dataSource = self;
         self.delegate = self;
         
+        self.backgroundColor = kClearColor;
+        
         [self registerClass:[MineCell class] forCellReuseIdentifier:identifierCell];
+        
+        if (@available(iOS 11.0, *)) {
+            
+            self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        }
     }
     
     return self;
@@ -94,6 +111,25 @@ static NSString *identifierCell = @"MineCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
     return 0.1;
+}
+
+#pragma mark - UIScrollViewDelgate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    CGFloat offsetY = scrollView.contentOffset.y;
+    
+    if (scrollView.contentOffset.y < 0) {
+        // 高度拉伸
+        CGFloat imgH = kHeaderImgHeight - offsetY;
+        CGFloat imgW = kScreenWidth;
+        
+        UIView *imgView = [self.superview viewWithTag:1500];
+        
+        imgView.frame = CGRectMake(offsetY * self.scale, 0, imgW, imgH);
+        
+    }
+    
+    NSLog(@"%lf",offsetY);
 }
 
 @end

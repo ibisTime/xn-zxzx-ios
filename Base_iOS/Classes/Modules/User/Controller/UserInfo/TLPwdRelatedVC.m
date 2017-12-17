@@ -16,8 +16,6 @@
 
 @property (nonatomic,assign) TLPwdType type;
 @property (nonatomic,strong) TLTextField *phoneTf;
-//谷歌验证码
-@property (nonatomic, strong) TLTextField *googleAuthTF;
 
 @property (nonatomic,strong) CaptchaView *captchaView;
 @property (nonatomic,strong) TLTextField *pwdTf;
@@ -84,33 +82,7 @@
     [self.bgSV addSubview:phoneTf];
     self.phoneTf = phoneTf;
     
-    
-    //谷歌验证码
-    self.googleAuthTF = [[TLTextField alloc] initWithFrame:CGRectMake(0, phoneTf.yy + 1, phoneTf.width, phoneTf.height)
-                                                 leftTitle:@"谷歌验证码"
-                                                titleWidth:leftW
-                                               placeholder:@"请输入谷歌验证码"];
-    
-    [self.view addSubview:self.googleAuthTF];
-    
-    self.googleAuthTF.hidden = ![TLUser user].isGoogleAuthOpen;
-
-    //复制
-    UIView *authView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 95, self.googleAuthTF.height)];
-    
-    UIButton *pasteBtn = [UIButton buttonWithTitle:@"粘贴" titleColor:kWhiteColor backgroundColor:kThemeColor titleFont:13.0 cornerRadius:5];
-    
-    pasteBtn.frame = CGRectMake(0, 0, 85, self.googleAuthTF.height - 15);
-    
-    pasteBtn.centerY = authView.height/2.0;
-    
-    [pasteBtn addTarget:self action:@selector(clickPaste) forControlEvents:UIControlEventTouchUpInside];
-    
-    [authView addSubview:pasteBtn];
-    
-    self.googleAuthTF.rightView = authView;
-    
-    CGFloat captchaViewY = [TLUser user].isGoogleAuthOpen ? self.googleAuthTF.yy + 1: phoneTf.y + 1;
+    CGFloat captchaViewY = phoneTf.yy + 1;
     //验证码
     CaptchaView *captchaView = [[CaptchaView alloc] initWithFrame:CGRectMake(phoneTf.x, captchaViewY, phoneTf.width, phoneTf.height)];
     
@@ -208,20 +180,6 @@
     
 }
 
-- (void)clickPaste {
-    
-    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-    
-    if (pasteboard.string != nil) {
-        
-        self.googleAuthTF.text = pasteboard.string;
-        
-    } else {
-        
-        [TLAlert alertWithInfo:@"粘贴内容为空"];
-    }
-}
-
 - (void)next:(UIButton *)sender {
 
     [_rePwdTf becomeFirstResponder];
@@ -240,15 +198,6 @@
         [TLAlert alertWithInfo:@"请输入正确的手机号"];
         
         return;
-    }
-    
-    if ([TLUser user].isGoogleAuthOpen) {
-        
-        if (![self.googleAuthTF.text valid]) {
-            
-            [TLAlert alertWithInfo:@"请输入谷歌验证码"];
-            return;
-        }
     }
     
     if (!(self.captchaView.captchaTf.text && self.captchaView.captchaTf.text.length > 3)) {
@@ -298,12 +247,6 @@
     }
     
     http.parameters[@"smsCaptcha"] = self.captchaView.captchaTf.text;
-    
-    if ([TLUser user].isGoogleAuthOpen) {
-        
-        http.parameters[@"googleCaptcha"] = self.googleAuthTF.text;
-
-    }
 
     [http postWithSuccess:^(id responseObject) {
         

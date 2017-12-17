@@ -196,10 +196,6 @@
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kUserLoginNotification object:nil];
         
-        [self dismissViewControllerAnimated:YES completion:nil];
-        
-        self.tabBarController.selectedIndex = 0;
-        
     } failure:^(NSError *error) {
         
         

@@ -14,6 +14,8 @@
 #import "MineGroup.h"
 //V
 #import "MineTableView.h"
+#import "MineHeaderView.h"
+
 //C
 #import "CreditReportVC.h"
 #import "SettingVC.h"
@@ -21,13 +23,17 @@
 
 #import "TLImagePicker.h"
 #import "TLUploadManager.h"
+#import <UIImageView+WebCache.h>
+#import "NSString+Extension.h"
 
-@interface MineVC ()
+@interface MineVC ()<MineHeaderSeletedDelegate>
 
 //
 @property (nonatomic, strong) MineGroup *group;
 //
 @property (nonatomic, strong) MineTableView *tableView;
+
+@property (nonatomic, strong) MineHeaderView *headerView;
 
 @property (nonatomic, strong) TLImagePicker *imagePicker;
 
@@ -35,23 +41,20 @@
 
 @implementation MineVC
 
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:animated];
-    
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.title = @"我的";
+
     //模型
     [self initGroup];
     //
     [self initTableView];
     //通知
     [self addNotification];
+    //
+    [self changeInfo];
 }
 
 - (void)initGroup {
@@ -104,18 +107,28 @@
 
 - (void)initTableView {
     
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 100)];
+    
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.backgroundColor = kAppCustomMainColor;
+    
+    imageView.tag = 1500;
+    
+    [self.view addSubview:imageView];
+    
     self.tableView = [[MineTableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - kTabBarHeight) style:UITableViewStyleGrouped];
     
     self.tableView.mineGroup = self.group;
     
-//    self.tableView.tableHeaderView = self.headerView;
-    
-    if (@available(iOS 11.0, *)) {
-        
-        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    }
-    
     [self.view addSubview:self.tableView];
+    
+    //tableview的header
+    self.headerView = [[MineHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 100)];
+    
+    self.headerView.delegate = self;
+
+    self.tableView.tableHeaderView = self.headerView;
+    
 }
 
 - (TLImagePicker *)imagePicker {
@@ -166,25 +179,18 @@
 #pragma mark - Events
 - (void)changeInfo {
     //
-//    if ([TLUser user].photo) {
-//
-//        [self.headerView.photoBtn setTitle:@"" forState:UIControlStateNormal];
-//
-//        [self.headerView.photoBtn sd_setImageWithURL:[NSURL URLWithString:[[TLUser user].photo convertImageUrl]] forState:UIControlStateNormal];
-//
-//    } else {
-//
-//        NSString *nickName = [TLUser user].nickname;
-//
-//        NSString *title = [nickName substringToIndex:1];
-//
-//        [self.headerView.photoBtn setTitle:title forState:UIControlStateNormal];
-//
-//        [self.headerView.photoBtn setImage:nil forState:UIControlStateNormal];
-//
-//    }
-//
-//    self.headerView.nameLbl.text = [TLUser user].nickname;
+    
+    [self.headerView.userPhoto sd_setImageWithURL:[NSURL URLWithString:[[TLUser user].photo convertImageUrl]] placeholderImage:USER_PLACEHOLDER_SMALL];
+    
+    self.headerView.nameLbl.text = [TLUser user].mobile;
+    
+}
+
+- (void)loginOut {
+    
+    self.headerView.nameLbl.text = @"";
+    
+    self.headerView.userPhoto.image = USER_PLACEHOLDER_SMALL;
     
 }
 
@@ -211,10 +217,26 @@
     }];
 }
 
+#pragma mark - MineHeaderSeletedDelegate
+- (void)didSelectedWithType:(MineHeaderSeletedType)type {
+    
+    switch (type) {
+            
+        case MineHeaderSeletedTypeSelectPhoto:
+        {
+            [self.imagePicker picker];
+
+        }break;
+            
+        default:
+            break;
+            
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 @end

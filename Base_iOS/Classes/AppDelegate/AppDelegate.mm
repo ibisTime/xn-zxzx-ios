@@ -18,6 +18,8 @@
 
 #import "TLUserLoginVC.h"
 
+#import "UIViewController+Extension.h"
+
 @interface AppDelegate ()
 
 @end
@@ -96,22 +98,38 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    
-    TabbarViewController *tabbarCtrl = [[TabbarViewController alloc] init];
-    self.window.rootViewController = tabbarCtrl;
+
+    if([[TLUser user] isLogin]){
+        
+        TabbarViewController *tabbarCtrl = [[TabbarViewController alloc] init];
+        
+        self.window.rootViewController = tabbarCtrl;
+        
+    } else {
+        
+        self.window.rootViewController = [[NavigationController alloc] initWithRootViewController:[[TLUserLoginVC alloc] init]];
+    }
     
     //重新登录
     if([TLUser user].isLogin) {
         
         [[TLUser user] reLogin];
-        //            [[ChatManager sharedManager] loginIM];
         
     };
     
+    //登入
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLogin) name:kUserLoginNotification object:nil];
     //登出
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginOut) name:kUserLoginOutNotification object:nil];
-    //登录
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLogin) name:kIMLoginNotification object:nil];
+}
+
+#pragma mark - 用户登录
+- (void)userLogin {
+    
+    TabbarViewController *tabbarVC = [[TabbarViewController alloc] init];
+    
+    self.window.rootViewController = tabbarVC;
+    
 }
 
 #pragma mark- 退出登录
@@ -120,10 +138,9 @@
     //user 退出
     [[TLUser user] loginOut];
     
-}
-
-#pragma mark - 用户登录
-- (void)userLogin {
+    NavigationController *nav = [[NavigationController alloc] initWithRootViewController:[[TLUserLoginVC alloc] init]];
+    
+    self.window.rootViewController = nav;
     
 }
 

@@ -98,7 +98,7 @@ NSString *const kUserInfoChange = @"kUserInfoChange";
         self.userId = responseObject[@"data"][@"userId"];
         
         [self updateUserInfo];
-        [self requestQiniuDomain];
+//        [self requestQiniuDomain];
         
     } failure:^(NSError *error) {
         
@@ -184,7 +184,7 @@ NSString *const kUserInfoChange = @"kUserInfoChange";
 
 - (void)saveUserInfo:(NSDictionary *)userInfo {
 
-    NSLog(@"原%@--现%@",[TLUser user].userId,userInfo[@"userId"]);
+    NSLog(@"原UserId:%@--现UserId:%@",[TLUser user].userId,userInfo[@"userId"]);
     
     if (![[TLUser user].userId isEqualToString:userInfo[@"userId"]]) {
         

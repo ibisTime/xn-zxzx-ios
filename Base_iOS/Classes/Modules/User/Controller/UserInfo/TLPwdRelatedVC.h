@@ -6,7 +6,7 @@
 //  Copyright © 2016年  caizhuoyue. All rights reserved.
 //
 
-#import "TLAccountSetBaseVC.h"
+#import "TLAccountBaseVC.h"
 
 
 typedef  NS_ENUM(NSInteger,TLPwdType) {
@@ -17,7 +17,7 @@ typedef  NS_ENUM(NSInteger,TLPwdType) {
     TLPwdTypeSetTrade,//设置交易密码
 };
 
-@interface TLPwdRelatedVC : TLAccountSetBaseVC
+@interface TLPwdRelatedVC : TLAccountBaseVC
 
 //是否从钱包模块进入
 @property (nonatomic, assign) BOOL isWallet;

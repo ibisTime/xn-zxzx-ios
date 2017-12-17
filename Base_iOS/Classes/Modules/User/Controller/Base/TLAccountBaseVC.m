@@ -8,6 +8,9 @@
 
 #import "TLAccountBaseVC.h"
 
+#import <UIScrollView+TLAdd.h>
+#import "AppColorMacro.h"
+
 @interface TLAccountBaseVC ()
 
 @end
@@ -22,25 +25,32 @@
 }
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.view.backgroundColor = [UIColor backgroundColor];
+
+    self.view.backgroundColor = kBackgroundColor;
     
     //---//--//
     self.bgSV = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-    _bgSV.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-    self.bgSV.contentSize = CGSizeMake(kScreenWidth, kScreenHeight + 1);
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
-    [self.bgSV addGestureRecognizer:tap];
-    [self.view addSubview:_bgSV];
-
-}
-
-- (UIStatusBarStyle)preferredStatusBarStyle {
-
-    return UIStatusBarStyleDefault;
+    self.bgSV.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    self.bgSV.contentSize = CGSizeMake(kScreenWidth, kSuperViewHeight + 1);
     
+    [self.bgSV adjustsContentInsets];
+
+    [self.view addSubview:self.bgSV];
+
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
+    
+    [self.bgSV addGestureRecognizer:tap];
+    
+
 }
+
+//- (UIStatusBarStyle)preferredStatusBarStyle {
+//
+//    return UIStatusBarStyleDefault;
+//
+//}
 
 - (void)tap {
 

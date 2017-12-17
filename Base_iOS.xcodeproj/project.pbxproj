@@ -29,7 +29,6 @@
 		21111BBD1F8B5F2C0021B3FE /* TLPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21111AE81F8B5ED10021B3FE /* TLPhotoCell.m */; };
 		21111BCB1F8B5F2C0021B3FE /* MovieAddComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 21111AED1F8B5ED10021B3FE /* MovieAddComment.m */; };
 		21111BCD1F8B5F2C0021B3FE /* CustomTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 21111ACF1F8B5ED00021B3FE /* CustomTextView.m */; };
-		21111BCF1F8B5F2C0021B3FE /* DetailWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 21111B3B1F8B5ED30021B3FE /* DetailWebView.m */; };
 		21111BD01F8B5F2C0021B3FE /* ZipImg.m in Sources */ = {isa = PBXBuildFile; fileRef = 21111ADC1F8B5ED00021B3FE /* ZipImg.m */; };
 		21111BD81F8B5F2C0021B3FE /* UIApplication+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = 21111B601F8B5EFF0021B3FE /* UIApplication+Custom.m */; };
 		21111BE31F8B5F2C0021B3FE /* LKViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 21111B7D1F8B5EFF0021B3FE /* LKViewAttribute.m */; };
@@ -58,6 +57,8 @@
 		21301EA61FE278F400A98CB7 /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301EA31FE278F400A98CB7 /* SettingCell.m */; };
 		21301EA71FE278F400A98CB7 /* SettingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301EA41FE278F400A98CB7 /* SettingTableView.m */; };
 		21301EAA1FE27B0500A98CB7 /* CreditReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301EA91FE27B0500A98CB7 /* CreditReportVC.m */; };
+		21301EAD1FE3698A00A98CB7 /* MineHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301EAC1FE3698A00A98CB7 /* MineHeaderView.m */; };
+		21301EF01FE3D18A00A98CB7 /* UIViewController+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301EEE1FE3D18A00A98CB7 /* UIViewController+Extension.m */; };
 		216AB7EC1F189F04006C26A1 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 216AB7EB1F189F03006C26A1 /* libstdc++.6.0.9.tbd */; };
 		216AB7EE1F189F11006C26A1 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 216AB7ED1F189F11006C26A1 /* libresolv.tbd */; };
 		216AB7F01F189F22006C26A1 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 216AB7EF1F189F22006C26A1 /* libsqlite3.tbd */; };
@@ -67,9 +68,7 @@
 		21AC58791FDE737200F19DE8 /* TLUserLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC58741FDE736C00F19DE8 /* TLUserLoginVC.m */; };
 		21AC587A1FDE737200F19DE8 /* TLUserRegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC58751FDE736D00F19DE8 /* TLUserRegisterVC.m */; };
 		21AC587B1FDE737200F19DE8 /* TLUserForgetPwdVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC58771FDE737000F19DE8 /* TLUserForgetPwdVC.m */; };
-		21AC58841FDE73B200F19DE8 /* BindMobileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC587C1FDE73A700F19DE8 /* BindMobileVC.m */; };
 		21AC58851FDE73B200F19DE8 /* TLChangeMobileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC587D1FDE73A900F19DE8 /* TLChangeMobileVC.m */; };
-		21AC58861FDE73B200F19DE8 /* TLAccountSetBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC587F1FDE73AC00F19DE8 /* TLAccountSetBaseVC.m */; };
 		21AC58871FDE73B200F19DE8 /* TLPwdRelatedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC58811FDE73AF00F19DE8 /* TLPwdRelatedVC.m */; };
 		21AC588E1FDE73FE00F19DE8 /* UserDefaultsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC588B1FDE73FB00F19DE8 /* UserDefaultsUtil.m */; };
 		21AC588F1FDE73FE00F19DE8 /* TLUserExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC588C1FDE73FD00F19DE8 /* TLUserExt.m */; };
@@ -137,10 +136,11 @@
 		21FB30CA1F26E9EF0028ADEE /* HTMLStrVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21FB305F1F26E9EF0028ADEE /* HTMLStrVC.m */; };
 		21FB30CB1F26E9EF0028ADEE /* UINavigationController+MethodSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 21FB30621F26E9EF0028ADEE /* UINavigationController+MethodSwizzling.m */; };
 		21FB30CC1F26E9EF0028ADEE /* UIViewController+MethodSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 21FB30641F26E9EF0028ADEE /* UIViewController+MethodSwizzling.m */; };
-		297C531BBC795ED661A638F6 /* libPods-Base_iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E041B8AEBBDCC121169B52FB /* libPods-Base_iOS.a */; };
+		A228C41812598BC494A7539B /* libPods-Base_iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1877AACFBD19D996D3E628B4 /* libPods-Base_iOS.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1877AACFBD19D996D3E628B4 /* libPods-Base_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Base_iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D92F7998FE0FF842471AF8F /* Pods-Base_iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Base_iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-Base_iOS/Pods-Base_iOS.release.xcconfig"; sourceTree = "<group>"; };
 		210FD1C81F667376001DA03D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		210FD1CA1F6673BA001DA03D /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -188,8 +188,6 @@
 		21111B111F8B5ED10021B3FE /* BannerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BannerCell.h; sourceTree = "<group>"; };
 		21111B131F8B5ED10021B3FE /* CircleGuideView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CircleGuideView.h; sourceTree = "<group>"; };
 		21111B141F8B5ED10021B3FE /* CircleGuideView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircleGuideView.m; sourceTree = "<group>"; };
-		21111B3B1F8B5ED30021B3FE /* DetailWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailWebView.m; sourceTree = "<group>"; };
-		21111B3C1F8B5ED30021B3FE /* DetailWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailWebView.h; sourceTree = "<group>"; };
 		21111B601F8B5EFF0021B3FE /* UIApplication+Custom.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+Custom.m"; sourceTree = "<group>"; };
 		21111B611F8B5EFF0021B3FE /* UIApplication+Custom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIApplication+Custom.h"; sourceTree = "<group>"; };
 		21111B7C1F8B5EFF0021B3FE /* LKViewAttribute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LKViewAttribute.h; sourceTree = "<group>"; };
@@ -242,6 +240,10 @@
 		21301EA51FE278F400A98CB7 /* SettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingCell.h; sourceTree = "<group>"; };
 		21301EA81FE27B0500A98CB7 /* CreditReportVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreditReportVC.h; sourceTree = "<group>"; };
 		21301EA91FE27B0500A98CB7 /* CreditReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreditReportVC.m; sourceTree = "<group>"; };
+		21301EAB1FE3698A00A98CB7 /* MineHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineHeaderView.h; sourceTree = "<group>"; };
+		21301EAC1FE3698A00A98CB7 /* MineHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineHeaderView.m; sourceTree = "<group>"; };
+		21301EEE1FE3D18A00A98CB7 /* UIViewController+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Extension.m"; sourceTree = "<group>"; };
+		21301EEF1FE3D18A00A98CB7 /* UIViewController+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Extension.h"; sourceTree = "<group>"; };
 		216AB7EB1F189F03006C26A1 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		216AB7ED1F189F11006C26A1 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		216AB7EF1F189F22006C26A1 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -258,14 +260,10 @@
 		21AC58761FDE736F00F19DE8 /* TLUserForgetPwdVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLUserForgetPwdVC.h; sourceTree = "<group>"; };
 		21AC58771FDE737000F19DE8 /* TLUserForgetPwdVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLUserForgetPwdVC.m; sourceTree = "<group>"; };
 		21AC58781FDE737200F19DE8 /* TLUserRegisterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLUserRegisterVC.h; sourceTree = "<group>"; };
-		21AC587C1FDE73A700F19DE8 /* BindMobileVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BindMobileVC.m; sourceTree = "<group>"; };
 		21AC587D1FDE73A900F19DE8 /* TLChangeMobileVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLChangeMobileVC.m; sourceTree = "<group>"; };
 		21AC587E1FDE73AA00F19DE8 /* TLPwdRelatedVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLPwdRelatedVC.h; sourceTree = "<group>"; };
-		21AC587F1FDE73AC00F19DE8 /* TLAccountSetBaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLAccountSetBaseVC.m; sourceTree = "<group>"; };
-		21AC58801FDE73AD00F19DE8 /* BindMobileVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BindMobileVC.h; sourceTree = "<group>"; };
 		21AC58811FDE73AF00F19DE8 /* TLPwdRelatedVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLPwdRelatedVC.m; sourceTree = "<group>"; };
 		21AC58821FDE73B000F19DE8 /* TLChangeMobileVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLChangeMobileVC.h; sourceTree = "<group>"; };
-		21AC58831FDE73B200F19DE8 /* TLAccountSetBaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLAccountSetBaseVC.h; sourceTree = "<group>"; };
 		21AC58881FDE73F700F19DE8 /* UserDefaultsUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultsUtil.h; sourceTree = "<group>"; };
 		21AC58891FDE73F800F19DE8 /* TLUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLUser.h; sourceTree = "<group>"; };
 		21AC588A1FDE73FA00F19DE8 /* TLUserExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLUserExt.h; sourceTree = "<group>"; };
@@ -399,7 +397,6 @@
 		21FB30631F26E9EF0028ADEE /* UIViewController+MethodSwizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MethodSwizzling.h"; sourceTree = "<group>"; };
 		21FB30641F26E9EF0028ADEE /* UIViewController+MethodSwizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MethodSwizzling.m"; sourceTree = "<group>"; };
 		63F0FF5CA6D8C7CAF539F595 /* Pods-Base_iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Base_iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Base_iOS/Pods-Base_iOS.debug.xcconfig"; sourceTree = "<group>"; };
-		E041B8AEBBDCC121169B52FB /* libPods-Base_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Base_iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -418,8 +415,8 @@
 				210FD1CD1F6673C4001DA03D /* QuartzCore.framework in Frameworks */,
 				210FD1CB1F6673BA001DA03D /* CoreTelephony.framework in Frameworks */,
 				210FD1C91F667376001DA03D /* SystemConfiguration.framework in Frameworks */,
-				297C531BBC795ED661A638F6 /* libPods-Base_iOS.a in Frameworks */,
 				21176EEA1F32FC9800C5217A /* CoreMotion.framework in Frameworks */,
+				A228C41812598BC494A7539B /* libPods-Base_iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,6 +520,7 @@
 		21111B4C1F8B5EFF0021B3FE /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				21301EED1FE3D17400A98CB7 /* UIViewController */,
 				21301E611FE26BF600A98CB7 /* UIImage */,
 				21111B5A1F8B5EFF0021B3FE /* UILabel */,
 				21111B5F1F8B5EFF0021B3FE /* UIApplication */,
@@ -767,10 +765,6 @@
 		2121701E1F384216007C9855 /* UserInfo */ = {
 			isa = PBXGroup;
 			children = (
-				21AC58801FDE73AD00F19DE8 /* BindMobileVC.h */,
-				21AC587C1FDE73A700F19DE8 /* BindMobileVC.m */,
-				21AC58831FDE73B200F19DE8 /* TLAccountSetBaseVC.h */,
-				21AC587F1FDE73AC00F19DE8 /* TLAccountSetBaseVC.m */,
 				21AC58821FDE73B000F19DE8 /* TLChangeMobileVC.h */,
 				21AC587D1FDE73A900F19DE8 /* TLChangeMobileVC.m */,
 				21AC587E1FDE73AA00F19DE8 /* TLPwdRelatedVC.h */,
@@ -847,10 +841,7 @@
 		21301E751FE276AD00A98CB7 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				21301E921FE2777D00A98CB7 /* MineCell.h */,
-				21301E901FE2777D00A98CB7 /* MineCell.m */,
-				21301E8F1FE2777D00A98CB7 /* MineTableView.h */,
-				21301E911FE2777D00A98CB7 /* MineTableView.m */,
+				21301EAE1FE3699300A98CB7 /* Mine */,
 				21301E971FE277BD00A98CB7 /* Setting */,
 			);
 			path = View;
@@ -905,6 +896,28 @@
 				21301E9F1FE2789900A98CB7 /* SettingModel.m */,
 			);
 			path = Setting;
+			sourceTree = "<group>";
+		};
+		21301EAE1FE3699300A98CB7 /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				21301E921FE2777D00A98CB7 /* MineCell.h */,
+				21301E901FE2777D00A98CB7 /* MineCell.m */,
+				21301E8F1FE2777D00A98CB7 /* MineTableView.h */,
+				21301E911FE2777D00A98CB7 /* MineTableView.m */,
+				21301EAB1FE3698A00A98CB7 /* MineHeaderView.h */,
+				21301EAC1FE3698A00A98CB7 /* MineHeaderView.m */,
+			);
+			path = Mine;
+			sourceTree = "<group>";
+		};
+		21301EED1FE3D17400A98CB7 /* UIViewController */ = {
+			isa = PBXGroup;
+			children = (
+				21301EEF1FE3D18A00A98CB7 /* UIViewController+Extension.h */,
+				21301EEE1FE3D18A00A98CB7 /* UIViewController+Extension.m */,
+			);
+			path = UIViewController;
 			sourceTree = "<group>";
 		};
 		21AC58FE1FDE798A00F19DE8 /* Header */ = {
@@ -1293,8 +1306,6 @@
 			children = (
 				21FB305E1F26E9EF0028ADEE /* HTMLStrVC.h */,
 				21FB305F1F26E9EF0028ADEE /* HTMLStrVC.m */,
-				21111B3C1F8B5ED30021B3FE /* DetailWebView.h */,
-				21111B3B1F8B5ED30021B3FE /* DetailWebView.m */,
 				21AC59541FDE7F1400F19DE8 /* WebVC.h */,
 				21AC59531FDE7F1300F19DE8 /* WebVC.m */,
 			);
@@ -1327,7 +1338,7 @@
 				216AB7EF1F189F22006C26A1 /* libsqlite3.tbd */,
 				216AB7ED1F189F11006C26A1 /* libresolv.tbd */,
 				216AB7EB1F189F03006C26A1 /* libstdc++.6.0.9.tbd */,
-				E041B8AEBBDCC121169B52FB /* libPods-Base_iOS.a */,
+				1877AACFBD19D996D3E628B4 /* libPods-Base_iOS.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1366,7 +1377,6 @@
 				TargetAttributes = {
 					21F827CE1F1742E80019B176 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = 9354AGEFUW;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -1418,9 +1428,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Base_iOS/Pods-Base_iOS-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
-				"${PODS_ROOT}/PYPhotoBrowser/PYPhotoBrowser/PYPhotosView.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
-				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/TZImagePickerController.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -1437,9 +1445,32 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Base_iOS/Pods-Base_iOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/CDCommon/CDCommon.framework",
+				"${BUILT_PRODUCTS_DIR}/HappyDNS/HappyDNS.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
+				"${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${BUILT_PRODUCTS_DIR}/Qiniu/Qiniu.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CDCommon.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HappyDNS.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJExtension.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Qiniu.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1514,7 +1545,6 @@
 				21111BCD1F8B5F2C0021B3FE /* CustomTextView.m in Sources */,
 				21301E941FE2777D00A98CB7 /* MineTableView.m in Sources */,
 				21AC595A1FDE804500F19DE8 /* UILabel+Extension.m in Sources */,
-				21111BCF1F8B5F2C0021B3FE /* DetailWebView.m in Sources */,
 				21111BD01F8B5F2C0021B3FE /* ZipImg.m in Sources */,
 				21AC59431FDE7A1B00F19DE8 /* HourPickerView.m in Sources */,
 				21111BD81F8B5F2C0021B3FE /* UIApplication+Custom.m in Sources */,
@@ -1522,11 +1552,11 @@
 				21AC58871FDE73B200F19DE8 /* TLPwdRelatedVC.m in Sources */,
 				21AC59501FDE7A1B00F19DE8 /* TLPlaceholderView.m in Sources */,
 				21301E881FE2775D00A98CB7 /* MineVC.m in Sources */,
-				21AC58841FDE73B200F19DE8 /* BindMobileVC.m in Sources */,
 				21AC594E1FDE7A1B00F19DE8 /* TLPageDataHelper.m in Sources */,
 				21111BE31F8B5F2C0021B3FE /* LKViewAttribute.m in Sources */,
 				21AC59481FDE7A1B00F19DE8 /* TLTimeButton.m in Sources */,
 				21111BE51F8B5F2C0021B3FE /* UIControl+Block.m in Sources */,
+				21301EF01FE3D18A00A98CB7 /* UIViewController+Extension.m in Sources */,
 				21AC59821FDE825700F19DE8 /* NSNumber+Extension.m in Sources */,
 				21AC59411FDE7A1B00F19DE8 /* TLProgressHUD.m in Sources */,
 				21AC593D1FDE7A1B00F19DE8 /* TLTextView.m in Sources */,
@@ -1556,6 +1586,7 @@
 				21301EA71FE278F400A98CB7 /* SettingTableView.m in Sources */,
 				21AC597D1FDE823C00F19DE8 /* NSString+CGSize.m in Sources */,
 				21F82C9D1F17719D0019B176 /* BaseWKWebViewController.m in Sources */,
+				21301EAD1FE3698A00A98CB7 /* MineHeaderView.m in Sources */,
 				21AC597F1FDE823C00F19DE8 /* NSString+Check.m in Sources */,
 				21AC59731FDE820600F19DE8 /* NSDictionary+Extension.m in Sources */,
 				21158E431F1C4F4D00A07266 /* CustomTabBar.m in Sources */,
@@ -1583,7 +1614,6 @@
 				21AC59601FDE80A300F19DE8 /* UIButton+Custom.m in Sources */,
 				21AC58791FDE737200F19DE8 /* TLUserLoginVC.m in Sources */,
 				21FB30CA1F26E9EF0028ADEE /* HTMLStrVC.m in Sources */,
-				21AC58861FDE73B200F19DE8 /* TLAccountSetBaseVC.m in Sources */,
 				21301E601FE25A9100A98CB7 /* AuthVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1688,7 +1718,7 @@
 			baseConfigurationReference = 63F0FF5CA6D8C7CAF539F595 /* Pods-Base_iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 9354AGEFUW;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1726,7 +1756,7 @@
 			baseConfigurationReference = 1D92F7998FE0FF842471AF8F /* Pods-Base_iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 9354AGEFUW;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

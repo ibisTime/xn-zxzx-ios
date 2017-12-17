@@ -22,7 +22,8 @@
 //C
 #import "TLChangeMobileVC.h"
 #import "TLPwdRelatedVC.h"
-#import "TabbarViewController.h"
+#import "NavigationController.h"
+#import "TLUserLoginVC.h"
 
 @interface SettingVC ()
 
@@ -76,6 +77,7 @@
     [changeMobile setAction:^{
         
         TLChangeMobileVC *changeMobileVC = [[TLChangeMobileVC alloc] init];
+        
         [weakSelf.navigationController pushViewController:changeMobileVC animated:YES];
         
     }];
@@ -85,7 +87,7 @@
     changeLoginPwd.text = @"修改登录密码";
     [changeLoginPwd setAction:^{
         
-        TLPwdRelatedVC *pwdRelatedVC = [TLPwdRelatedVC new];
+        TLPwdRelatedVC *pwdRelatedVC = [[TLPwdRelatedVC alloc] initWithType:TLPwdTypeReset];
         
         pwdRelatedVC.success = ^{
             
@@ -134,6 +136,7 @@
     });
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kUserLoginOutNotification object:nil];
+    
 }
 
 - (void)didReceiveMemoryWarning {

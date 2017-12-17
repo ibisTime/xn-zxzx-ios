@@ -101,7 +101,7 @@
         NSString *token = responseObject[@"data"][@"uploadToken"];
         
         QNConfiguration *config = [QNConfiguration build:^(QNConfigurationBuilder *builder) {
-            builder.zone = [QNZone zone0];
+            builder.zone = [QNZone zone2];
         }];
         
         QNUploadManager *manager = [[QNUploadManager alloc] initWithConfiguration:config];
@@ -124,7 +124,9 @@
         } option:nil];
         
     } failure:^(NSError *error) {
+        
         if (failure) {
+            
             failure(error);
         }
     }];

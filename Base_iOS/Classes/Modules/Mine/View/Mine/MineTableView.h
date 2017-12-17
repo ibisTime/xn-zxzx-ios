@@ -14,4 +14,6 @@
 
 @property (nonatomic, strong) MineGroup *mineGroup;
 
+@property (nonatomic,assign)CGFloat headerImgHeight;
+
 @end

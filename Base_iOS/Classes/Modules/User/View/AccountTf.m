@@ -16,7 +16,6 @@
     
     if (self = [super initWithFrame:frame]) {
         
-        
         UIView *leftBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 46, frame.size.height)];
         
         _leftIconView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 0, 16, 16)];

@@ -14,9 +14,9 @@
 #import "AppConfig.h"
 #import "AppColorMacro.h"
 
-#import <MBProgressHUD.h>
+#import "TLAlert.h"
 
-@interface HttpRequestTool () <MBProgressHUDDelegate>
+@interface HttpRequestTool ()
 
 
 @property (nonatomic, strong) NSMutableDictionary *requestList;
@@ -162,7 +162,7 @@
         if ([responseObj[@"errorCode"] isEqual:@"4"]) {
             //token错误  4
             
-            [self showTextOnly:@"为了您的账户安全，请重新登录"];
+            [TLAlert alertWithInfo:@"为了您的账户安全，请重新登录"];
 //            [[NSNotificationCenter defaultCenter] postNotificationName:kUserLoginOutNotification object:nil];
 
             return;
@@ -175,7 +175,7 @@
 
         } else if(self.isShowMsg) { //异常也是失败
             
-            [self showTextOnly:responseObj[@"errorInfo"]];
+            [TLAlert alertWithInfo:responseObj[@"errorInfo"]];
             
         }
         
@@ -185,7 +185,7 @@
         
         if (self.isShowMsg) {
             
-            [self showTextOnly:@"您的网络不通畅"];
+            [TLAlert alertWithInfo:@"您的网络不通畅"];
             
         }
         [_requestList removeObjectForKey:apiMethod];
@@ -253,37 +253,5 @@
         [_requestList removeObjectForKey:apiMethod];
     }
 }
-
-#pragma mark - show error message when debug
-- (void)showTextOnly:(NSString *)text {
-    
-    if (_progressHUD) {
-        return;
-    }
-    
-    _progressHUD = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-    _progressHUD.mode = MBProgressHUDModeText;
-    
-    _progressHUD.animationType = MBProgressHUDAnimationZoom;
-    
-    _progressHUD.delegate = self;
-    _progressHUD.labelText = text;
-    _progressHUD.margin = 10.f;
-    _progressHUD.removeFromSuperViewOnHide = YES;
-    _progressHUD.color = kBlackColor;
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        [_progressHUD hide:YES];
-        
-        _progressHUD = nil;
-    });
-    
-}
-
-
-
-
-
 
 @end

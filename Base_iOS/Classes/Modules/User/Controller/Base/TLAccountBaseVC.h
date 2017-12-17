@@ -6,7 +6,7 @@
 //  Copyright © 2016年  caizhuoyue. All rights reserved.
 //
 
-#import "TLBaseVC.h"
+#import "BaseViewController.h"
 #import "TLTextField.h"
 
 #define ACCOUNT_MARGIN 0;
@@ -14,6 +14,8 @@
 //#define ACCOUNT_MIDDLE_MARGIN 0;
 
 
-@interface TLAccountBaseVC : TLBaseVC
+@interface TLAccountBaseVC : BaseViewController
+
 @property (nonatomic,strong) UIScrollView *bgSV;
+
 @end

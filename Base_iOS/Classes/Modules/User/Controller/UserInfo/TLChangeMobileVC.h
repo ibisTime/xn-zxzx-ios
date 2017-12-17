@@ -6,9 +6,9 @@
 //  Copyright © 2016年  caizhuoyue. All rights reserved.
 //
 
-#import "TLAccountSetBaseVC.h"
+#import "TLAccountBaseVC.h"
 
-@interface TLChangeMobileVC : TLAccountSetBaseVC
+@interface TLChangeMobileVC : TLAccountBaseVC
 
 
 @property (nonatomic,copy) void(^changeMobileSuccess)(NSString *mobile);

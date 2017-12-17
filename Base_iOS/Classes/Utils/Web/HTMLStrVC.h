@@ -6,7 +6,7 @@
 //  Copyright © 2017年 caizhuoyue. All rights reserved.
 //
 
-#import "TLBaseVC.h"
+#import "BaseViewController.h"
 
 typedef NS_ENUM(NSUInteger, HTMLType) {
     HTMLTypeAboutUs = 0,    //关于我们
@@ -14,7 +14,7 @@ typedef NS_ENUM(NSUInteger, HTMLType) {
     
 };
 
-@interface HTMLStrVC : TLBaseVC
+@interface HTMLStrVC :BaseViewController
 
 @property (nonatomic, assign) HTMLType type;
 
