@@ -120,40 +120,6 @@ NSString *const kUserInfoChange = @"kUserInfoChange";
     }];
 }
 
-#pragma mark - 账户
-//- (void)requestAccountNumber {
-//
-//    CoinWeakSelf;
-//
-//    //获取人民币和积分账户
-//    TLNetworking *http = [TLNetworking new];
-//    http.code = @"802503";
-//    http.parameters[@"userId"] = [TLUser user].userId;
-//    http.parameters[@"token"] = [TLUser user].token;
-//
-//    [http postWithSuccess:^(id responseObject) {
-//
-//        NSArray <CurrencyModel *> *arr = [CurrencyModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
-//
-//        [arr enumerateObjectsUsingBlock:^(CurrencyModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//
-//            if ([obj.currency isEqualToString:@"JF"]) {
-//
-//                weakSelf.jfAccountNumber = obj.accountNumber;
-//
-//            } else if ([obj.currency isEqualToString:@"CNY"]) {
-//
-//                weakSelf.rmbAccountNumber = obj.accountNumber;
-//            }
-//
-//        }];
-//
-//    } failure:^(NSError *error) {
-//
-//
-//    }];
-//}
-
 - (void)loginOut {
 
     self.userId = nil;
@@ -163,10 +129,6 @@ NSString *const kUserInfoChange = @"kUserInfoChange";
     self.nickname = nil;
     self.email = nil;
     self.tradepwdFlag = nil;
-    self.googleAuthFlag = nil;
-    self.level = nil;
-    self.rmbAccountNumber = nil;
-    self.jfAccountNumber = nil;
     self.unReadMsgCount = 0;
     self.realName = nil;
     self.idNo = nil;
@@ -212,8 +174,6 @@ NSString *const kUserInfoChange = @"kUserInfoChange";
         [self setUserInfoWithDict:responseObject[@"data"]];
         [self saveUserInfo:responseObject[@"data"]];
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:kUserLoginNotification object:nil];
-
     } failure:^(NSError *error) {
         
         
@@ -228,13 +188,8 @@ NSString *const kUserInfoChange = @"kUserInfoChange";
     self.realName = dict[@"realName"];
     self.idNo = dict[@"idNo"];
     self.tradepwdFlag = [NSString stringWithFormat:@"%@", dict[@"tradepwdFlag"]];
-    self.level = dict[@"level"];
     self.photo = dict[@"photo"];
     self.email = dict[@"email"];
-    
-    //腾讯云-设置昵称和头像
-//    [IMAPlatform sharedInstance].host.icon = [self.photo convertImageUrl];
-
     
 }
 

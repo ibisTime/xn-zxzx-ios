@@ -99,23 +99,19 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
 
+    //重新登录
     if([[TLUser user] isLogin]){
         
         TabbarViewController *tabbarCtrl = [[TabbarViewController alloc] init];
         
         self.window.rootViewController = tabbarCtrl;
         
+        [[TLUser user] reLogin];
+
     } else {
         
         self.window.rootViewController = [[NavigationController alloc] initWithRootViewController:[[TLUserLoginVC alloc] init]];
     }
-    
-    //重新登录
-    if([TLUser user].isLogin) {
-        
-        [[TLUser user] reLogin];
-        
-    };
     
     //登入
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLogin) name:kUserLoginNotification object:nil];
@@ -144,14 +140,66 @@
     
 }
 
-#pragma mark 微信支付结果
-//- (void)onResp:(BaseResp *)resp {
-//
-//    if ([resp isKindOfClass:[PayResp class]]) {
-//        //支付返回结果
-//        NSNotification *notification = [NSNotification notificationWithName:ORDER_PAY_NOTIFICATION object:[NSNumber numberWithInt:resp.errCode]];
-//        [[NSNotificationCenter defaultCenter] postNotification:notification];
-//    }
-//}
+#pragma mark - 微信和芝麻认证回调
+// iOS9 NS_AVAILABLE_IOS
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    
+    if ([url.host isEqualToString:@"certi.back"]) {
+        
+        //查询是否认证成功
+        TLNetworking *http = [TLNetworking new];
+        http.showView = [UIApplication sharedApplication].keyWindow;
+        http.code = @"805252";
+        http.parameters[@"bizNo"] = [TLUser user].tempBizNo;
+        http.parameters[@"userId"] = [TLUser user].userId;
+        http.parameters[@"searchCode"] = [TLUser user].tempSearchCode;
+        
+        [http postWithSuccess:^(id responseObject) {
+            
+            NSString *str = [NSString stringWithFormat:@"%@", responseObject[@"data"]];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"RealNameAuthResult" object:str];
+            
+        } failure:^(NSError *error) {
+            
+            
+        }];
+        
+        return YES;
+    }
+
+    return YES;
+}
+
+// iOS9 NS_DEPRECATED_IOS
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    
+    if ([url.host isEqualToString:@"certi.back"]) {
+        
+        //查询是否认证成功
+        TLNetworking *http = [TLNetworking new];
+        http.showView = [UIApplication sharedApplication].keyWindow;
+        http.code = @"805252";
+        http.parameters[@"bizNo"] = [TLUser user].tempBizNo;
+        http.parameters[@"userId"] = [TLUser user].userId;
+        http.parameters[@"searchCode"] = [TLUser user].tempSearchCode;
+
+        [http postWithSuccess:^(id responseObject) {
+            
+            NSString *str = [NSString stringWithFormat:@"%@", responseObject[@"data"]];
+
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"RealNameAuthResult" object:str];
+            
+        } failure:^(NSError *error) {
+            
+            
+        }];
+        
+        return YES;
+    }
+    
+    return YES;
+
+}
 
 @end

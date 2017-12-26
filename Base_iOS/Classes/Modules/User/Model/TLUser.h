@@ -24,8 +24,6 @@
 @property (nonatomic, strong) NSString *status;
 //前端类型
 @property (nonatomic, copy) NSString *kind;
-//等级
-@property (nonatomic, copy) NSString *level;
 //登录名
 @property (nonatomic, copy) NSString *loginName;
 //昵称
@@ -49,20 +47,12 @@
 
 //0 未设置交易密码 1已设置
 @property (nonatomic, copy) NSString *tradepwdFlag;
-//谷歌验证
-@property (nonatomic, copy) NSString *googleAuthFlag;
-//开启/关闭谷歌验证
-@property (nonatomic, assign) BOOL isGoogleAuthOpen;
 //真实姓名
 @property (nonatomic, copy) NSString *realName;
 //身份证
 @property (nonatomic, copy) NSString *idNo;
 
 @property (nonatomic, copy) NSString *remark;
-//人民币账户
-@property (nonatomic, copy) NSString *rmbAccountNumber;
-//积分账户
-@property (nonatomic, copy) NSString *jfAccountNumber;
 
 @property (nonatomic, copy) NSString *updateDatetime;
 @property (nonatomic, copy) NSString *updater;
@@ -75,6 +65,10 @@
 @property (nonatomic, copy) NSString *tempBizNo;
 @property (nonatomic, copy) NSString *tempRealName;
 @property (nonatomic, copy) NSString *tempIdNo;
+
+//临时调查单
+@property (nonatomic, copy) NSString *tempSearchCode;
+
 //未读消息数
 @property (nonatomic, assign) NSInteger unReadMsgCount;
 

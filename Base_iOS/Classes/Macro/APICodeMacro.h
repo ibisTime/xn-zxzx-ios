@@ -27,6 +27,8 @@
 
 //根据ckey查询系统参数
 #define USER_CKEY_CVALUE    @"805917"
+//根据parentKey查询数据字典
+#define USER_DICT_PARENTKEY @"805906"
 
 //七牛图片上传
 #define IMG_UPLOAD_CODE @"805951"
