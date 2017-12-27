@@ -109,13 +109,22 @@
 #pragma mark - Events
 - (void)startInvest {
     
-//    ZMAuthVC *authVC = [ZMAuthVC new];
+    BaseWeakSelf;
+    
+    ZMAuthVC *authVC = [ZMAuthVC new];
+
+    authVC.success = ^{
+
+        BaseInfoAuthVC *authVC = [BaseInfoAuthVC new];
+
+        [self.navigationController pushViewController:authVC animated:YES];
+    };
+
+    [self.navigationController pushViewController:authVC animated:YES];
+    
+//    BaseInfoAuthVC *authVC = [BaseInfoAuthVC new];
 //
 //    [self.navigationController pushViewController:authVC animated:YES];
-    
-    BaseInfoAuthVC *authVC = [BaseInfoAuthVC new];
-    
-    [self.navigationController pushViewController:authVC animated:YES];
 }
 
 #pragma mark - Data

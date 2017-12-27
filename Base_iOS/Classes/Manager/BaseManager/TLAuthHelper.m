@@ -16,9 +16,13 @@
 + (BOOL)isEnableLocation {
 
     CLAuthorizationStatus authStatus = [CLLocationManager authorizationStatus];
-    if (authStatus == kCLAuthorizationStatusDenied) {
+    
+    if (authStatus == kCLAuthorizationStatusDenied || authStatus == kCLAuthorizationStatusNotDetermined) {
+        
         return NO;
+        
     } else {
+        
         return YES;
     }
 

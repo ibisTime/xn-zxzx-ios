@@ -56,6 +56,8 @@
 		212B1DC01FF27B8800C61685 /* UIView+XMGExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 212B1DBF1FF27B8800C61685 /* UIView+XMGExtension.m */; };
 		212B1DC31FF27CED00C61685 /* JobInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 212B1DC21FF27CED00C61685 /* JobInfoView.m */; };
 		212B1DC61FF2813C00C61685 /* EmergencyContactView.m in Sources */ = {isa = PBXBuildFile; fileRef = 212B1DC51FF2813C00C61685 /* EmergencyContactView.m */; };
+		212B1DCA1FF399DE00C61685 /* IdAuthVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 212B1DC91FF399DE00C61685 /* IdAuthVC.m */; };
+		212B1DCD1FF39EA700C61685 /* BaseAuthVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 212B1DCC1FF39EA700C61685 /* BaseAuthVC.m */; };
 		212BB8251FECA46A00AFD519 /* QuestionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 212BB8241FECA46A00AFD519 /* QuestionTableView.m */; };
 		21301E601FE25A9100A98CB7 /* AuthVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301E5F1FE25A9100A98CB7 /* AuthVC.m */; };
 		21301E641FE26C1700A98CB7 /* UIImage+Tint.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301E631FE26C1700A98CB7 /* UIImage+Tint.m */; };
@@ -248,6 +250,10 @@
 		212B1DC21FF27CED00C61685 /* JobInfoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobInfoView.m; sourceTree = "<group>"; };
 		212B1DC41FF2813C00C61685 /* EmergencyContactView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmergencyContactView.h; sourceTree = "<group>"; };
 		212B1DC51FF2813C00C61685 /* EmergencyContactView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmergencyContactView.m; sourceTree = "<group>"; };
+		212B1DC81FF399DE00C61685 /* IdAuthVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IdAuthVC.h; sourceTree = "<group>"; };
+		212B1DC91FF399DE00C61685 /* IdAuthVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IdAuthVC.m; sourceTree = "<group>"; };
+		212B1DCB1FF39EA700C61685 /* BaseAuthVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseAuthVC.h; sourceTree = "<group>"; };
+		212B1DCC1FF39EA700C61685 /* BaseAuthVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseAuthVC.m; sourceTree = "<group>"; };
 		212BB8231FECA46A00AFD519 /* QuestionTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuestionTableView.h; sourceTree = "<group>"; };
 		212BB8241FECA46A00AFD519 /* QuestionTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuestionTableView.m; sourceTree = "<group>"; };
 		21301E5E1FE25A9100A98CB7 /* AuthVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthVC.h; sourceTree = "<group>"; };
@@ -856,6 +862,15 @@
 			path = Address;
 			sourceTree = "<group>";
 		};
+		212B1DC71FF399BC00C61685 /* IdAuth */ = {
+			isa = PBXGroup;
+			children = (
+				212B1DC81FF399DE00C61685 /* IdAuthVC.h */,
+				212B1DC91FF399DE00C61685 /* IdAuthVC.m */,
+			);
+			path = IdAuth;
+			sourceTree = "<group>";
+		};
 		21301E531FE255D500A98CB7 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
@@ -904,8 +919,11 @@
 			children = (
 				21301E5E1FE25A9100A98CB7 /* AuthVC.h */,
 				21301E5F1FE25A9100A98CB7 /* AuthVC.m */,
+				212B1DCB1FF39EA700C61685 /* BaseAuthVC.h */,
+				212B1DCC1FF39EA700C61685 /* BaseAuthVC.m */,
 				212B1D9C1FF21F1800C61685 /* QuestionRemarkVC.h */,
 				212B1D9D1FF21F1800C61685 /* QuestionRemarkVC.m */,
+				212B1DC71FF399BC00C61685 /* IdAuth */,
 				212B1DA31FF240C800C61685 /* BaseInfo */,
 				212B1D9F1FF2262800C61685 /* ZMAuth */,
 			);
@@ -1629,6 +1647,7 @@
 				21111BBA1F8B5F2C0021B3FE /* TLImagePickerController.m in Sources */,
 				21AC59611FDE80A300F19DE8 /* UIButton+EnLargeEdge.m in Sources */,
 				21AC597C1FDE823C00F19DE8 /* NSString+Extension.m in Sources */,
+				212B1DCA1FF399DE00C61685 /* IdAuthVC.m in Sources */,
 				212B1DB31FF2444800C61685 /* BaseInfoView.m in Sources */,
 				21111BBB1F8B5F2C0021B3FE /* TLPhotoChooseItem.m in Sources */,
 				21111BBC1F8B5F2C0021B3FE /* TLChooseResultManager.m in Sources */,
@@ -1658,6 +1677,7 @@
 				21AC59501FDE7A1B00F19DE8 /* TLPlaceholderView.m in Sources */,
 				21301E881FE2775D00A98CB7 /* MineVC.m in Sources */,
 				21AC594E1FDE7A1B00F19DE8 /* TLPageDataHelper.m in Sources */,
+				212B1DCD1FF39EA700C61685 /* BaseAuthVC.m in Sources */,
 				21111BE31F8B5F2C0021B3FE /* LKViewAttribute.m in Sources */,
 				212B1DC31FF27CED00C61685 /* JobInfoView.m in Sources */,
 				21AC59481FDE7A1B00F19DE8 /* TLTimeButton.m in Sources */,

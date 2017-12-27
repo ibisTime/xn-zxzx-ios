@@ -68,7 +68,8 @@
 
 //临时调查单
 @property (nonatomic, copy) NSString *tempSearchCode;
-
+//临时报告单
+@property (nonatomic, copy) NSString *tempReportCode;
 //未读消息数
 @property (nonatomic, assign) NSInteger unReadMsgCount;
 

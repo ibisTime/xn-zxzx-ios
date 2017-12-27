@@ -13,14 +13,14 @@
 #import "QuestionModel.h"
 //V
 #import "QuestionTableView.h"
-//C
-#import "QuestionRemarkVC.h"
+
 
 @interface AuthVC ()<RefreshDelegate>
 //
 @property (nonatomic, strong) QuestionTableView *tableView;
 //问卷列表
 @property (nonatomic, strong) NSMutableArray <QuestionModel *> *questions;
+
 
 @end
 
@@ -33,9 +33,9 @@
     self.title = @"认证";
     //
     [self initTableView];
-    //获取调查列表
+    //获取调查单列表
     [self requestQuestionList];
-    
+    //刷新数据
     [self.tableView beginRefreshing];
 
 }
@@ -121,13 +121,12 @@
 - (void)refreshTableView:(TLTableView *)refreshTableview didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     QuestionModel *question = self.questions[indexPath.row];
-    
+    //调查单code
     [TLUser user].tempSearchCode = question.code;
+    //报告单code
+    [TLUser user].tempReportCode = question.reportCode;
     
-    QuestionRemarkVC *remarkVC = [QuestionRemarkVC new];
-    
-    [self.navigationController pushViewController:remarkVC animated:YES];
-    
+    [self pushViewController];
 }
 
 - (void)didReceiveMemoryWarning {

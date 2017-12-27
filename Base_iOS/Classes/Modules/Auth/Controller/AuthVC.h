@@ -6,8 +6,8 @@
 //  Copyright © 2017年 caizhuoyue. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "BaseAuthVC.h"
 
-@interface AuthVC : BaseViewController
+@interface AuthVC : BaseAuthVC
 
 @end

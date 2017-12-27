@@ -16,6 +16,8 @@
 //C
 
 #import "APICodeMacro.h"
+#import <UIScrollView+TLAdd.h>
+#import "NSString+Check.h"
 
 #define CellHeight 46
 
@@ -112,7 +114,10 @@
     
     [self.bgSV addSubview:self.contactView];
     
+    self.bgSV.height -= (65 + kBottomInsetHeight);
     self.bgSV.contentSize = CGSizeMake(kScreenWidth, self.contactView.yy + 10);
+    [self.bgSV adjustsContentInsets];
+
 }
 
 - (void)initBottomView {
@@ -149,7 +154,210 @@
 #pragma mark - Events
 - (void)clickNext {
     
+    //检查用户填写是否正确
+    [self checkUserInfo];
+    //提交基本信息
+    [self commitUserInfo];
     
+}
+
+- (void)checkUserInfo {
+    
+    if (![self.baseInfoView.edcationTF.text valid]) {
+        
+        [TLAlert alertWithInfo:@"请选择学历"];
+        return;
+    };
+    
+    if (![self.baseInfoView.marriageTF.text valid]) {
+        
+        [TLAlert alertWithInfo:@"请选择婚姻状态"];
+        
+        return;
+    }
+    
+    if (![self.baseInfoView.childernNumTF.text valid]) {
+        
+        [TLAlert alertWithInfo:@"请输入子女数量"];
+        
+        return;
+    }
+    
+    if (![self.baseInfoView.liveProvinceTF.text valid]) {
+        
+        [TLAlert alertWithInfo:@"请输入居住省市"];
+        
+        return;
+    }
+    
+    if (![self.baseInfoView.addressTF.text valid]) {
+        
+        [TLAlert alertWithInfo:@"请输入详细地址"];
+        
+        return;
+    }
+    
+    if (![self.baseInfoView.liveTimeTF.text valid]) {
+        
+        [TLAlert alertWithInfo:@"请输入居住时长"];
+        
+        return;
+    }
+    
+    if ([self.baseInfoView.qqTF.text valid]) {
+        
+        if (self.baseInfoView.qqTF.text.length < 6) {
+            
+            [TLAlert alertWithInfo:@"请输入正确的QQ号码"];
+            return ;
+        }
+    }
+    
+    if ([self.baseInfoView.emailTF.text valid]) {
+        
+        if (![self.baseInfoView.emailTF.text isValidateEmail]) {
+            
+            [TLAlert alertWithInfo:@"请输入正确的邮箱格式"];
+            return;
+        }
+    }
+    
+    if (![self.jobInfoView.jobTF.text valid]) {
+        
+        [TLAlert alertWithInfo:@"请选择职业"];
+        return;
+    };
+    
+    if (![self.jobInfoView.incomeTF.text valid]) {
+        
+        [TLAlert alertWithInfo:@"请选择月收入"];
+        
+        return;
+    }
+    
+    if (![self.jobInfoView.companyNameTF.text valid]) {
+        
+        [TLAlert alertWithInfo:@"请输入单位名称"];
+        
+        return;
+    }
+    
+    if (![self.jobInfoView.provinceTF.text valid]) {
+        
+        [TLAlert alertWithInfo:@"请选择单位所在省市"];
+        
+        return;
+    }
+    
+    if (![self.jobInfoView.addressTF.text valid]) {
+        
+        [TLAlert alertWithInfo:@"请输入详细地址"];
+        
+        return;
+    }
+    
+    
+    if (![self.contactView.familyRelationTF.text valid]) {
+        
+        [TLAlert alertWithInfo:@"请选择亲属关系"];
+        return;
+    };
+    
+    if (![self.contactView.familyNameTF.text valid]) {
+        
+        [TLAlert alertWithInfo:@"请输入亲属姓名"];
+        return;
+    }
+    
+    if (![self.contactView.familyMobileTF.text valid]) {
+        
+        [TLAlert alertWithInfo:@"请输入亲属联系人手机号"];
+        return;
+    }
+    
+    if (self.contactView.familyMobileTF.text.length != 11) {
+        
+        [TLAlert alertWithInfo:@"请输入11位手机号"];
+        
+        return;
+    }
+    
+    if (![self.contactView.societyRelationTF.text valid]) {
+        
+        [TLAlert alertWithInfo:@"请选择社会关系"];
+        return;
+    }
+    
+    if (![self.contactView.societyNameTF.text valid]) {
+        
+        [TLAlert alertWithInfo:@"请输入社会联系人姓名"];
+        return;
+    }
+    
+    if (![self.contactView.societyMobileTF.text valid]) {
+        
+        [TLAlert alertWithInfo:@"请输入社会联系人手机号"];
+        return;
+    }
+    
+    if (self.contactView.societyMobileTF.text.length != 11) {
+        
+        [TLAlert alertWithInfo:@"请输入11位手机号"];
+        
+        return;
+    }
+    
+}
+//提交基本信息
+
+- (void)commitUserInfo {
+    
+    TLNetworking *http = [TLNetworking new];
+    
+    http.showView = self.view;
+    
+    http.code = @"805253";
+    http.parameters[@"userId"] = [TLUser user].userId;
+    http.parameters[@"searchCode"] = [TLUser user].tempSearchCode;
+    //基本信息
+    http.parameters[@"address"] = self.baseInfoView.addressTF.text;
+    http.parameters[@"childrenNum"] = self.baseInfoView.childernNumTF.text;
+    http.parameters[@"education"] = self.baseInfoView.selectEdcation;
+    http.parameters[@"email"] = self.baseInfoView.emailTF.text;
+    http.parameters[@"liveTime"] = self.baseInfoView.selectLiveTime;
+    http.parameters[@"marriage"] = self.baseInfoView.selectMarriage;
+    http.parameters[@"provinceCity"] = self.baseInfoView.liveProvinceTF.text;
+    http.parameters[@"qq"] = self.baseInfoView.qqTF.text;
+    //职业信息
+    http.parameters[@"companyAddress"] = self.jobInfoView.addressTF.text;
+    http.parameters[@"company"] = self.jobInfoView.companyNameTF.text;
+    http.parameters[@"income"] = self.jobInfoView.selectIncome;
+    http.parameters[@"occupation"] = self.jobInfoView.selectJob;
+    http.parameters[@"phone"] = self.jobInfoView.mobileTF.text;
+    http.parameters[@"companyProvinceCity"] = self.jobInfoView.provinceTF.text;
+    //紧急联系人
+    http.parameters[@"familyRelation"] = self.contactView.selectFamily;
+    http.parameters[@"familyName"] = self.contactView.familyNameTF.text;
+    http.parameters[@"familyMobile"] = self.contactView.familyMobileTF.text;
+    
+    http.parameters[@"societyRelation"] = self.contactView.selectSociety;
+    http.parameters[@"societyName"] = self.contactView.societyNameTF.text;
+    http.parameters[@"societyMobile"] = self.contactView.societyMobileTF.text;
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        [TLAlert alertWithSucces:@"提交成功"];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.navigationController popViewControllerAnimated:YES];
+            
+        });
+        
+    } failure:^(NSError *error) {
+        
+        
+    }];
 }
 
 #pragma mark - Data

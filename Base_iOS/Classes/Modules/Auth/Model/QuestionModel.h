@@ -11,40 +11,34 @@
 #import <UIKit/UIKit.h>
 
 @interface QuestionModel : BaseModel
-
-@property (nonatomic, copy) NSString *PTXL3;
-
-@property (nonatomic, copy) NSString *PZM5;
-
-@property (nonatomic, copy) NSString *PDW2;
-
-@property (nonatomic, copy) NSString *loanUser;
-
-@property (nonatomic, copy) NSString *PID1;
-
-@property (nonatomic, copy) NSString *reportCode;
-
-@property (nonatomic, copy) NSString *PZM7;
-
-@property (nonatomic, assign) NSInteger remainCount;
-
+//手机号认证
 @property (nonatomic, copy) NSString *F1;
-
-@property (nonatomic, copy) NSString *code;
-
-@property (nonatomic, copy) NSString *PTD8;
-
-@property (nonatomic, copy) NSString *createDatetime;
-
-@property (nonatomic, copy) NSString *PZM6;
-
+//芝麻认证
 @property (nonatomic, copy) NSString *F2;
-
+//基本信息认证
 @property (nonatomic, copy) NSString *F3;
-
-@property (nonatomic, copy) NSString *salesUser;
-
+//身份证认证
+@property (nonatomic, copy) NSString *PID1;
+//定位认证
+@property (nonatomic, copy) NSString *PDW2;
+//通讯录认证
+@property (nonatomic, copy) NSString *PTXL3;
+//运营商认证
 @property (nonatomic, copy) NSString *PYYS4;
+//芝麻信用评分认证
+@property (nonatomic, copy) NSString *PZM5;
+//行业关注清单认证
+@property (nonatomic, copy) NSString *PZM6;
+//欺诈认证
+@property (nonatomic, copy) NSString *PZM7;
+//同盾认证
+@property (nonatomic, copy) NSString *PTD8;
+//调查单code
+@property (nonatomic, copy) NSString *code;
+//借款员UserID
+@property (nonatomic, copy) NSString *loanUser;
+//资信报告code
+@property (nonatomic, copy) NSString *reportCode;
 //业务员
 @property (nonatomic, copy) NSString *salesUserMobile;
 //问卷状态
@@ -53,5 +47,11 @@
 @property (nonatomic, copy) NSString *statusStr;
 //cellHeight
 @property (nonatomic, assign) CGFloat cellHeight;
+
+@property (nonatomic, assign) NSInteger remainCount;
+
+@property (nonatomic, copy) NSString *createDatetime;
+
+@property (nonatomic, copy) NSString *salesUser;
 
 @end

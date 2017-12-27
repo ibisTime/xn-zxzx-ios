@@ -64,10 +64,7 @@
     
     [self.view addSubview:self.idCard];
     
-    
-    UIColor *bgColor = isRealNameExist ? kPlaceholderColor: kAppCustomMainColor;
-
-    UIButton *confirmBtn = [UIButton buttonWithTitle:@"下一步" titleColor:kWhiteColor backgroundColor:bgColor titleFont:15.0 cornerRadius:45/2.0];
+    UIButton *confirmBtn = [UIButton buttonWithTitle:@"下一步" titleColor:kWhiteColor backgroundColor:kAppCustomMainColor titleFont:15.0 cornerRadius:45/2.0];
     
     confirmBtn.frame = CGRectMake(leftMargin, self.idCard.yy + 40, kScreenWidth - 2*leftMargin, 45);
     
