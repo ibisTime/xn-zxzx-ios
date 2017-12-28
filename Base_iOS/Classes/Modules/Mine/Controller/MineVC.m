@@ -139,8 +139,10 @@
         
         _imagePicker = [[TLImagePicker alloc] initWithVC:self];
         
-        _imagePicker.allowsEditing = YES;
-        _imagePicker.pickFinish = ^(NSDictionary *info){
+        _imagePicker.allowsEditing = NO;
+        _imagePicker.clipHeight = kScreenWidth;
+        
+        _imagePicker.pickFinish = ^(UIImage *photo, NSDictionary *info){
             
             UIImage *image = info[@"UIImagePickerControllerOriginalImage"];
             NSData *imgData = UIImageJPEGRepresentation(image, 0.1);

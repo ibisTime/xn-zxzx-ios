@@ -156,8 +156,6 @@
     
     //检查用户填写是否正确
     [self checkUserInfo];
-    //提交基本信息
-    [self commitUserInfo];
     
 }
 
@@ -306,10 +304,12 @@
         
         return;
     }
-    
-}
-//提交基本信息
 
+    //提交基本信息
+    [self commitUserInfo];
+}
+
+//提交基本信息
 - (void)commitUserInfo {
     
     TLNetworking *http = [TLNetworking new];
@@ -346,11 +346,11 @@
     
     [http postWithSuccess:^(id responseObject) {
         
-        [TLAlert alertWithSucces:@"提交成功"];
+        [TLAlert alertWithSucces:@"基本信息认证成功"];
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-            [self.navigationController popViewControllerAnimated:YES];
+            [self pushViewController];
             
         });
         

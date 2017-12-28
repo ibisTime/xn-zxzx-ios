@@ -9,8 +9,10 @@
 #import "BaseViewController.h"
 
 typedef NS_ENUM(NSUInteger, HTMLType) {
-    HTMLTypeAboutUs = 0,    //关于我们
     
+    HTMLTypeAboutUs = 0,        //关于我们
+    HTMLTypeAuthProtocol,       //通讯录授权协议
+    HTMLTypeInfoRule,           //信息收集及使用规则
 };
 
 @interface HTMLStrVC :BaseViewController

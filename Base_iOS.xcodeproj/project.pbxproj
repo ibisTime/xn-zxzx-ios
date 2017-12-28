@@ -44,6 +44,20 @@
 		2121702A1F384216007C9855 /* ZHAddressChooseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 212170111F384216007C9855 /* ZHAddressChooseVC.m */; };
 		2121702B1F384216007C9855 /* ZHReceivingAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 212170131F384216007C9855 /* ZHReceivingAddress.m */; };
 		2121703D1F3842BC007C9855 /* ZHAddressChooseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2121703C1F3842BC007C9855 /* ZHAddressChooseView.m */; };
+		21290B721FF4892900CB74A7 /* IdentifierAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 21290B711FF4892900CB74A7 /* IdentifierAuthView.m */; };
+		21290B751FF4C09000CB74A7 /* YYImageClipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21290B731FF4C08F00CB74A7 /* YYImageClipViewController.m */; };
+		21290B791FF4D6A700CB74A7 /* ContactAuthVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21290B781FF4D6A700CB74A7 /* ContactAuthVC.m */; };
+		21290B7F1FF4D82700CB74A7 /* ContactManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 21290B7C1FF4D82600CB74A7 /* ContactManager.m */; };
+		21290B801FF4D82700CB74A7 /* ContactModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 21290B7E1FF4D82600CB74A7 /* ContactModel.m */; };
+		21290B831FF4E21E00CB74A7 /* ZMOPScoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21290B821FF4E21E00CB74A7 /* ZMOPScoreVC.m */; };
+		21290B8B1FF4E29B00CB74A7 /* Poseidon.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 21290B871FF4E29A00CB74A7 /* Poseidon.bundle */; };
+		21290B8E1FF4E29B00CB74A7 /* H5Service.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 21290B8A1FF4E29A00CB74A7 /* H5Service.bundle */; };
+		21290B901FF4E34200CB74A7 /* ZMCreditSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21290B8F1FF4E34200CB74A7 /* ZMCreditSDK.framework */; };
+		21290B941FF4E50900CB74A7 /* ZMScoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 21290B921FF4E50800CB74A7 /* ZMScoreModel.m */; };
+		21290B961FF4E8F300CB74A7 /* ZMDependUponSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21290B951FF4E8F300CB74A7 /* ZMDependUponSDK.framework */; };
+		21290B991FF4EE8500CB74A7 /* ZMFoucsNameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21290B981FF4EE8500CB74A7 /* ZMFoucsNameVC.m */; };
+		21290B9C1FF4F03F00CB74A7 /* ZMFoucsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 21290B9B1FF4F03E00CB74A7 /* ZMFoucsModel.m */; };
+		21290BA01FF51AD500CB74A7 /* TongDunVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21290B9F1FF51AD500CB74A7 /* TongDunVC.m */; };
 		212961981FF1106C006D607D /* QuestionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 212961971FF1106C006D607D /* QuestionCell.m */; };
 		2129619B1FF110A2006D607D /* QuestionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2129619A1FF110A2006D607D /* QuestionModel.m */; };
 		212B1D9E1FF21F1800C61685 /* QuestionRemarkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 212B1D9D1FF21F1800C61685 /* QuestionRemarkVC.m */; };
@@ -227,6 +241,30 @@
 		212170131F384216007C9855 /* ZHReceivingAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHReceivingAddress.m; sourceTree = "<group>"; };
 		2121703B1F3842BC007C9855 /* ZHAddressChooseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHAddressChooseView.h; sourceTree = "<group>"; };
 		2121703C1F3842BC007C9855 /* ZHAddressChooseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHAddressChooseView.m; sourceTree = "<group>"; };
+		21290B701FF4892900CB74A7 /* IdentifierAuthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentifierAuthView.h; sourceTree = "<group>"; };
+		21290B711FF4892900CB74A7 /* IdentifierAuthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentifierAuthView.m; sourceTree = "<group>"; };
+		21290B731FF4C08F00CB74A7 /* YYImageClipViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYImageClipViewController.m; sourceTree = "<group>"; };
+		21290B741FF4C09000CB74A7 /* YYImageClipViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYImageClipViewController.h; sourceTree = "<group>"; };
+		21290B771FF4D6A700CB74A7 /* ContactAuthVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactAuthVC.h; sourceTree = "<group>"; };
+		21290B781FF4D6A700CB74A7 /* ContactAuthVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactAuthVC.m; sourceTree = "<group>"; };
+		21290B7B1FF4D82600CB74A7 /* ContactModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactModel.h; sourceTree = "<group>"; };
+		21290B7C1FF4D82600CB74A7 /* ContactManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactManager.m; sourceTree = "<group>"; };
+		21290B7D1FF4D82600CB74A7 /* ContactManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactManager.h; sourceTree = "<group>"; };
+		21290B7E1FF4D82600CB74A7 /* ContactModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactModel.m; sourceTree = "<group>"; };
+		21290B811FF4E21E00CB74A7 /* ZMOPScoreVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMOPScoreVC.h; sourceTree = "<group>"; };
+		21290B821FF4E21E00CB74A7 /* ZMOPScoreVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMOPScoreVC.m; sourceTree = "<group>"; };
+		21290B871FF4E29A00CB74A7 /* Poseidon.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Poseidon.bundle; sourceTree = "<group>"; };
+		21290B8A1FF4E29A00CB74A7 /* H5Service.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = H5Service.bundle; sourceTree = "<group>"; };
+		21290B8F1FF4E34200CB74A7 /* ZMCreditSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZMCreditSDK.framework; sourceTree = "<group>"; };
+		21290B921FF4E50800CB74A7 /* ZMScoreModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMScoreModel.m; sourceTree = "<group>"; };
+		21290B931FF4E50900CB74A7 /* ZMScoreModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMScoreModel.h; sourceTree = "<group>"; };
+		21290B951FF4E8F300CB74A7 /* ZMDependUponSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZMDependUponSDK.framework; sourceTree = "<group>"; };
+		21290B971FF4EE8500CB74A7 /* ZMFoucsNameVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMFoucsNameVC.h; sourceTree = "<group>"; };
+		21290B981FF4EE8500CB74A7 /* ZMFoucsNameVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMFoucsNameVC.m; sourceTree = "<group>"; };
+		21290B9A1FF4F03E00CB74A7 /* ZMFoucsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMFoucsModel.h; sourceTree = "<group>"; };
+		21290B9B1FF4F03E00CB74A7 /* ZMFoucsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMFoucsModel.m; sourceTree = "<group>"; };
+		21290B9E1FF51AD500CB74A7 /* TongDunVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TongDunVC.h; sourceTree = "<group>"; };
+		21290B9F1FF51AD500CB74A7 /* TongDunVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TongDunVC.m; sourceTree = "<group>"; };
 		212961961FF1106C006D607D /* QuestionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuestionCell.h; sourceTree = "<group>"; };
 		212961971FF1106C006D607D /* QuestionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuestionCell.m; sourceTree = "<group>"; };
 		212961991FF110A2006D607D /* QuestionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuestionModel.h; sourceTree = "<group>"; };
@@ -449,7 +487,9 @@
 				216AB7F01F189F22006C26A1 /* libsqlite3.tbd in Frameworks */,
 				216AB7EE1F189F11006C26A1 /* libresolv.tbd in Frameworks */,
 				216AB7EC1F189F04006C26A1 /* libstdc++.6.0.9.tbd in Frameworks */,
+				21290B901FF4E34200CB74A7 /* ZMCreditSDK.framework in Frameworks */,
 				210FD1D31F6673E5001DA03D /* CFNetwork.framework in Frameworks */,
+				21290B961FF4E8F300CB74A7 /* ZMDependUponSDK.framework in Frameworks */,
 				210FD1D11F6673D6001DA03D /* CoreGraphics.framework in Frameworks */,
 				210FD1CF1F6673CC001DA03D /* CoreText.framework in Frameworks */,
 				210FD1CD1F6673C4001DA03D /* QuartzCore.framework in Frameworks */,
@@ -813,11 +853,76 @@
 			path = UserInfo;
 			sourceTree = "<group>";
 		};
+		21290B6A1FF4880D00CB74A7 /* IdAuth */ = {
+			isa = PBXGroup;
+			children = (
+				21290B701FF4892900CB74A7 /* IdentifierAuthView.h */,
+				21290B711FF4892900CB74A7 /* IdentifierAuthView.m */,
+			);
+			path = IdAuth;
+			sourceTree = "<group>";
+		};
+		21290B761FF4D67E00CB74A7 /* ContactAuth */ = {
+			isa = PBXGroup;
+			children = (
+				21290B771FF4D6A700CB74A7 /* ContactAuthVC.h */,
+				21290B781FF4D6A700CB74A7 /* ContactAuthVC.m */,
+			);
+			path = ContactAuth;
+			sourceTree = "<group>";
+		};
+		21290B7A1FF4D7E200CB74A7 /* Contact */ = {
+			isa = PBXGroup;
+			children = (
+				21290B7D1FF4D82600CB74A7 /* ContactManager.h */,
+				21290B7C1FF4D82600CB74A7 /* ContactManager.m */,
+				21290B7B1FF4D82600CB74A7 /* ContactModel.h */,
+				21290B7E1FF4D82600CB74A7 /* ContactModel.m */,
+			);
+			path = Contact;
+			sourceTree = "<group>";
+		};
+		21290B861FF4E29A00CB74A7 /* 芝麻信用 */ = {
+			isa = PBXGroup;
+			children = (
+				21290B951FF4E8F300CB74A7 /* ZMDependUponSDK.framework */,
+				21290B8F1FF4E34200CB74A7 /* ZMCreditSDK.framework */,
+				21290B8A1FF4E29A00CB74A7 /* H5Service.bundle */,
+				21290B871FF4E29A00CB74A7 /* Poseidon.bundle */,
+			);
+			name = "芝麻信用";
+			path = "../../../../橙袋数据时代/cd-data-ios/Base_iOS/Extension/芝麻信用";
+			sourceTree = "<group>";
+		};
+		21290B911FF4E4F500CB74A7 /* ZMAuth */ = {
+			isa = PBXGroup;
+			children = (
+				21290B931FF4E50900CB74A7 /* ZMScoreModel.h */,
+				21290B921FF4E50800CB74A7 /* ZMScoreModel.m */,
+				21290B9A1FF4F03E00CB74A7 /* ZMFoucsModel.h */,
+				21290B9B1FF4F03E00CB74A7 /* ZMFoucsModel.m */,
+			);
+			path = ZMAuth;
+			sourceTree = "<group>";
+		};
+		21290B9D1FF51AC100CB74A7 /* YYSAuth */ = {
+			isa = PBXGroup;
+			children = (
+				21290B9E1FF51AD500CB74A7 /* TongDunVC.h */,
+				21290B9F1FF51AD500CB74A7 /* TongDunVC.m */,
+			);
+			path = YYSAuth;
+			sourceTree = "<group>";
+		};
 		212B1D9F1FF2262800C61685 /* ZMAuth */ = {
 			isa = PBXGroup;
 			children = (
 				212B1DA01FF226FB00C61685 /* ZMAuthVC.h */,
 				212B1DA11FF226FB00C61685 /* ZMAuthVC.m */,
+				21290B811FF4E21E00CB74A7 /* ZMOPScoreVC.h */,
+				21290B821FF4E21E00CB74A7 /* ZMOPScoreVC.m */,
+				21290B971FF4EE8500CB74A7 /* ZMFoucsNameVC.h */,
+				21290B981FF4EE8500CB74A7 /* ZMFoucsNameVC.m */,
 			);
 			path = ZMAuth;
 			sourceTree = "<group>";
@@ -867,6 +972,8 @@
 			children = (
 				212B1DC81FF399DE00C61685 /* IdAuthVC.h */,
 				212B1DC91FF399DE00C61685 /* IdAuthVC.m */,
+				21290B741FF4C09000CB74A7 /* YYImageClipViewController.h */,
+				21290B731FF4C08F00CB74A7 /* YYImageClipViewController.m */,
 			);
 			path = IdAuth;
 			sourceTree = "<group>";
@@ -896,6 +1003,8 @@
 			children = (
 				212961991FF110A2006D607D /* QuestionModel.h */,
 				2129619A1FF110A2006D607D /* QuestionModel.m */,
+				21290B911FF4E4F500CB74A7 /* ZMAuth */,
+				21290B7A1FF4D7E200CB74A7 /* Contact */,
 				212B1DBA1FF25B9700C61685 /* Address */,
 				212B1DB41FF247ED00C61685 /* BaseInfo */,
 			);
@@ -909,6 +1018,7 @@
 				212BB8241FECA46A00AFD519 /* QuestionTableView.m */,
 				212961961FF1106C006D607D /* QuestionCell.h */,
 				212961971FF1106C006D607D /* QuestionCell.m */,
+				21290B6A1FF4880D00CB74A7 /* IdAuth */,
 				212B1DB01FF2431D00C61685 /* BaseInfo */,
 			);
 			path = View;
@@ -923,6 +1033,8 @@
 				212B1DCC1FF39EA700C61685 /* BaseAuthVC.m */,
 				212B1D9C1FF21F1800C61685 /* QuestionRemarkVC.h */,
 				212B1D9D1FF21F1800C61685 /* QuestionRemarkVC.m */,
+				21290B9D1FF51AC100CB74A7 /* YYSAuth */,
+				21290B761FF4D67E00CB74A7 /* ContactAuth */,
 				212B1DC71FF399BC00C61685 /* IdAuth */,
 				212B1DA31FF240C800C61685 /* BaseInfo */,
 				212B1D9F1FF2262800C61685 /* ZMAuth */,
@@ -1344,6 +1456,7 @@
 		21F82C911F17719D0019B176 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				21290B861FF4E29A00CB74A7 /* 芝麻信用 */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1526,8 +1639,10 @@
 			files = (
 				21F82D201F17719D0019B176 /* Main.storyboard in Resources */,
 				21F82D1C1F17719D0019B176 /* Assets.xcassets in Resources */,
+				21290B8B1FF4E29B00CB74A7 /* Poseidon.bundle in Resources */,
 				21F82D1E1F17719D0019B176 /* LaunchScreen.storyboard in Resources */,
 				212B1DB91FF25A5F00C61685 /* addressJSON.txt in Resources */,
+				21290B8E1FF4E29B00CB74A7 /* H5Service.bundle in Resources */,
 				21F82D1D1F17719D0019B176 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1618,9 +1733,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21290B721FF4892900CB74A7 /* IdentifierAuthView.m in Sources */,
 				21AC58AE1FDE75AA00F19DE8 /* HttpSign.m in Sources */,
 				21301E8D1FE2776B00A98CB7 /* MineGroup.m in Sources */,
 				21111B9F1F8B5F2C0021B3FE /* City.m in Sources */,
+				21290B941FF4E50900CB74A7 /* ZMScoreModel.m in Sources */,
 				2129619B1FF110A2006D607D /* QuestionModel.m in Sources */,
 				21AC58951FDE741A00F19DE8 /* CaptchaView.m in Sources */,
 				21111BA01F8B5F2C0021B3FE /* Province.m in Sources */,
@@ -1635,7 +1752,9 @@
 				21111BA91F8B5F2C0021B3FE /* TLBannerView.m in Sources */,
 				21AC589C1FDE751700F19DE8 /* TLBaseModel.m in Sources */,
 				21111BAF1F8B5F2C0021B3FE /* BannerCell.m in Sources */,
+				21290B751FF4C09000CB74A7 /* YYImageClipViewController.m in Sources */,
 				21AC59491FDE7A1B00F19DE8 /* TLCaptchaView.m in Sources */,
+				21290B7F1FF4D82700CB74A7 /* ContactManager.m in Sources */,
 				21AC594C1FDE7A1B00F19DE8 /* TLTextField.m in Sources */,
 				21111BB61F8B5F2C0021B3FE /* PasswordView.m in Sources */,
 				21AC59881FDE891B00F19DE8 /* SegmentUnil.m in Sources */,
@@ -1650,6 +1769,7 @@
 				212B1DCA1FF399DE00C61685 /* IdAuthVC.m in Sources */,
 				212B1DB31FF2444800C61685 /* BaseInfoView.m in Sources */,
 				21111BBB1F8B5F2C0021B3FE /* TLPhotoChooseItem.m in Sources */,
+				21290B831FF4E21E00CB74A7 /* ZMOPScoreVC.m in Sources */,
 				21111BBC1F8B5F2C0021B3FE /* TLChooseResultManager.m in Sources */,
 				21111BBD1F8B5F2C0021B3FE /* TLPhotoCell.m in Sources */,
 				21AC588F1FDE73FE00F19DE8 /* TLUserExt.m in Sources */,
@@ -1684,12 +1804,14 @@
 				21111BE51F8B5F2C0021B3FE /* UIControl+Block.m in Sources */,
 				21301EF01FE3D18A00A98CB7 /* UIViewController+Extension.m in Sources */,
 				21AC59821FDE825700F19DE8 /* NSNumber+Extension.m in Sources */,
+				21290B791FF4D6A700CB74A7 /* ContactAuthVC.m in Sources */,
 				21AC59411FDE7A1B00F19DE8 /* TLProgressHUD.m in Sources */,
 				21AC593D1FDE7A1B00F19DE8 /* TLTextView.m in Sources */,
 				21AC58721FDE734F00F19DE8 /* TLAccountBaseVC.m in Sources */,
 				21301E9B1FE2781300A98CB7 /* SettingVC.m in Sources */,
 				21111BEC1F8B5F2C0021B3FE /* Foundation+Log.m in Sources */,
 				21111BED1F8B5F2C0021B3FE /* NSArray+Custom.m in Sources */,
+				21290BA01FF51AD500CB74A7 /* TongDunVC.m in Sources */,
 				21AC59421FDE7A1B00F19DE8 /* TLDatePicker.m in Sources */,
 				21AC58AC1FDE75AA00F19DE8 /* HttpRequestTool.m in Sources */,
 				21301E8E1FE2776B00A98CB7 /* MineModel.m in Sources */,
@@ -1706,6 +1828,7 @@
 				21F82C9B1F17719D0019B176 /* BaseModel.m in Sources */,
 				21301E931FE2777D00A98CB7 /* MineCell.m in Sources */,
 				21F82CA01F17719D0019B176 /* BaseCollectionView.m in Sources */,
+				21290B9C1FF4F03F00CB74A7 /* ZMFoucsModel.m in Sources */,
 				21AC587B1FDE737200F19DE8 /* TLUserForgetPwdVC.m in Sources */,
 				21AC59551FDE7F1500F19DE8 /* WebVC.m in Sources */,
 				21AC58901FDE73FE00F19DE8 /* TLUser.m in Sources */,
@@ -1713,6 +1836,7 @@
 				21AC597D1FDE823C00F19DE8 /* NSString+CGSize.m in Sources */,
 				21F82C9D1F17719D0019B176 /* BaseWKWebViewController.m in Sources */,
 				21301EAD1FE3698A00A98CB7 /* MineHeaderView.m in Sources */,
+				21290B801FF4D82700CB74A7 /* ContactModel.m in Sources */,
 				21AC597F1FDE823C00F19DE8 /* NSString+Check.m in Sources */,
 				21AC59731FDE820600F19DE8 /* NSDictionary+Extension.m in Sources */,
 				21158E431F1C4F4D00A07266 /* CustomTabBar.m in Sources */,
@@ -1720,6 +1844,7 @@
 				21F82C9C1F17719D0019B176 /* BaseViewController.m in Sources */,
 				21FB30CB1F26E9EF0028ADEE /* UINavigationController+MethodSwizzling.m in Sources */,
 				212B1DC61FF2813C00C61685 /* EmergencyContactView.m in Sources */,
+				21290B991FF4EE8500CB74A7 /* ZMFoucsNameVC.m in Sources */,
 				21AC596C1FDE814C00F19DE8 /* UIView+Extension.m in Sources */,
 				212B1DB71FF2482100C61685 /* KeyValueModel.m in Sources */,
 				21AC594F1FDE7A1B00F19DE8 /* TLUploadManager.m in Sources */,
@@ -1853,6 +1978,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Base_iOS/Extension/Alipay",
 					"$(PROJECT_DIR)/Base_iOS/Extension/Pgy",
+					"$(PROJECT_DIR)/Base_iOS/Extension/芝麻信用",
 				);
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Base_iOS/Resource/Info.plist";
@@ -1891,6 +2017,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Base_iOS/Extension/Alipay",
 					"$(PROJECT_DIR)/Base_iOS/Extension/Pgy",
+					"$(PROJECT_DIR)/Base_iOS/Extension/芝麻信用",
 				);
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Base_iOS/Resource/Info.plist";

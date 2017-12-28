@@ -26,6 +26,14 @@
 
 @implementation AuthVC
 
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    //刷新数据
+    [self.tableView beginRefreshing];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -35,8 +43,6 @@
     [self initTableView];
     //获取调查单列表
     [self requestQuestionList];
-    //刷新数据
-    [self.tableView beginRefreshing];
 
 }
 

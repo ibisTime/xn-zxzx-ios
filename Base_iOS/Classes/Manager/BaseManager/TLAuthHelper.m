@@ -8,6 +8,7 @@
 
 #import "TLAuthHelper.h"
 #import <CoreLocation/CoreLocation.h>
+#import <Contacts/Contacts.h>
 
 #import <UIKit/UIKit.h>
 
@@ -26,6 +27,22 @@
         return YES;
     }
 
+}
+
++ (BOOL)isEnableContact {
+    
+    // 1.获取授权状态
+    CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
+    
+    if (status != CNAuthorizationStatusAuthorized) {
+        
+        return NO;
+        
+    } else {
+        
+        return YES;
+    }
+    
 }
 
 + (void)openSetting {

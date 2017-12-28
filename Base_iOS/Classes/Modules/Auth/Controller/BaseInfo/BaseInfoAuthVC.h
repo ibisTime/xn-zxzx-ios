@@ -6,11 +6,11 @@
 //  Copyright © 2017年 caizhuoyue. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "BaseAuthVC.h"
 
 /**
  基本信息认证
  */
-@interface BaseInfoAuthVC : BaseViewController
+@interface BaseInfoAuthVC : BaseAuthVC
 
 @end

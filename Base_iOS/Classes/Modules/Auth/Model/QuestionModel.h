@@ -41,6 +41,8 @@
 @property (nonatomic, copy) NSString *reportCode;
 //业务员
 @property (nonatomic, copy) NSString *salesUserMobile;
+//运营商认证状态
+@property (nonatomic, copy) NSString *PYYS4Status;
 //问卷状态
 @property (nonatomic, copy) NSString *status;
 //状态转义

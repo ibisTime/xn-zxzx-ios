@@ -132,6 +132,7 @@
     TLNetworking *http = [TLNetworking new];
     
     http.code = @"805251";
+    http.showView = self.view;
     http.parameters[@"idNo"] = self.idCard.text;
     http.parameters[@"realName"] = self.realName.text;
     http.parameters[@"userId"] = [TLUser user].userId;
