@@ -22,6 +22,6 @@
 /**
  黑色Label，带frame
  */
-+ (UILabel *)labelWithTitle:(NSString *)title frame:(CGRect)frame;
++ (UILabel *)labelWithTitle:(NSString *)title frame:(CGRect)frame textColor:(UIColor *)textColor;
 
 @end

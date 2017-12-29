@@ -46,9 +46,24 @@
             
         } break;
             
+        case HTMLTypeAuthProtocol: {
+            
+            ckey = @"addressBookProtocol";
+            
+            name = @"通讯录授权协议";
+            
+        } break;
+            
+        case HTMLTypeInfoRule: {
+            
+            ckey = @"infoCollectRule";
+            
+            name = @"信息收集及使用规则";
+            
+        } break;
     }
 
-    self.navigationItem.titleView = [UILabel labelWithTitle:name frame:CGRectMake(0, 0, 200, 44)];
+    self.navigationItem.titleView = [UILabel labelWithTitle:name frame:CGRectMake(0, 0, 200, 44) textColor:kWhiteColor];
     
     TLNetworking *http = [TLNetworking new];
     http.showView = self.view;

@@ -38,7 +38,7 @@
 #pragma mark - Init
 - (void)initBackItem {
     
-    [UIBarButtonItem addLeftItemWithImageName:@"返回" frame:CGRectMake(-10, 0, 40, 44) vc:self action:@selector(back)];
+    [UIBarButtonItem addLeftItemWithImageName:@"返回-白色" frame:CGRectMake(-10, 0, 40, 44) vc:self action:@selector(back)];
 }
 
 - (void)initWebView {

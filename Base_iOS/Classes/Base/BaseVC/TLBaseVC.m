@@ -55,7 +55,7 @@
 
 - (void)setTitle:(NSString *)title {
     
-    self.navigationItem.titleView = [UILabel labelWithTitle:title frame:CGRectMake(0, 0, 200, 44)];
+    self.navigationItem.titleView = [UILabel labelWithTitle:title frame:CGRectMake(0, 0, 200, 44) textColor:kWhiteColor];
 }
 
 - (void)removePlaceholderView {

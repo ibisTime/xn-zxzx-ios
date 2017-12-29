@@ -8,6 +8,15 @@
 
 #import "BaseViewController.h"
 
+typedef NS_ENUM(NSInteger, ReportType) {
+    
+    ReportTypeLastReport = 0,       //最新的
+    ReportTypeLookReport,           //首页查看报告
+
+};
+
 @interface CreditReportVC : BaseViewController
+
+@property (nonatomic, assign) ReportType type;
 
 @end

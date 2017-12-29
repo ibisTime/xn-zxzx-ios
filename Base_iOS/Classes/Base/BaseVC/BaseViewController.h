@@ -27,5 +27,6 @@
 
 - (void)showReLoginVC;
 
+- (BOOL)isRootViewController;
 
 @end

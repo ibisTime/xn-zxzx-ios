@@ -46,7 +46,6 @@
     // Do any additional setup after loading the view.
     
     self.title = @"我的";
-
     //模型
     [self initGroup];
     //
@@ -69,6 +68,8 @@
     creditReport.action = ^{
         
         CreditReportVC *creditReportVC = [CreditReportVC new];
+        
+        creditReportVC.type = ReportTypeLastReport;
         
         [weakSelf.navigationController pushViewController:creditReportVC  animated:YES];
         

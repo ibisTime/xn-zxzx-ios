@@ -56,8 +56,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    //如果不是根控制器就添加返回按钮
+    if (![self isRootViewController]) {
+        
+        [self initBackItem];
+    }
+}
+
+- (void)initBackItem {
     
-    [UIBarButtonItem addLeftItemWithImageName:@"返回" frame:CGRectMake(-10, 0, 40, 44) vc:self action:@selector(clickBack)];
+//    self.navigationController.viewControllers
+    [UIBarButtonItem addLeftItemWithImageName:@"返回-白色" frame:CGRectMake(-10, 0, 40, 44) vc:self action:@selector(clickBack)];
+
 }
 
 - (void)clickBack {
@@ -196,7 +206,7 @@
         QuestionModel *questionModel = [QuestionModel mj_objectWithKeyValues:responseObject[@"data"]];
         
         //运营商是否已认证(0:未认证  1:等待中  2:成功  3:失败)
-        if ([questionModel.PYYS4 isEqualToString:@"2"]) {
+        if ([questionModel.PYYS4Status isEqualToString:@"2"]) {
             
             [TLAlert alertWithSucces:@"运营商认证成功"];
             
@@ -206,7 +216,7 @@
 
             });
             
-        } else if([questionModel.PYYS4 isEqualToString:@"1"]){
+        } else if([questionModel.PYYS4Status isEqualToString:@"1"]){
             
             //重复调认证状态接口
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -315,6 +325,8 @@
 
             //跳到资质报告
             CreditReportVC *reportVC = [CreditReportVC new];
+            
+            reportVC.type = ReportTypeLookReport;
             
             [self.navigationController pushViewController:reportVC animated:YES];
             

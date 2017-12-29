@@ -35,19 +35,22 @@
     [self setViewEdgeInset];
     
     self.navigationController.navigationBar.shadowImage = [UIImage new];
-    
-    // 设置导航栏背景色
-    [self.navigationController.navigationBar setBackgroundImage:[kAppCustomMainColor convertToImage] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    // 设置导航栏背景色
+    [self.navigationController.navigationBar setBackgroundImage:[kAppCustomMainColor convertToImage] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
     
     [UIApplication sharedApplication].statusBarHidden = NO;
+    
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
 
 - (UIScrollView *)bgSV {
@@ -70,7 +73,7 @@
 #pragma mark - Setting
 - (void)setTitle:(NSString *)title {
     
-    self.navigationItem.titleView = [UILabel labelWithTitle:title frame:CGRectMake(0, 0, 200, 44)];
+    self.navigationItem.titleView = [UILabel labelWithTitle:title frame:CGRectMake(0, 0, 200, 44) textColor:kWhiteColor];
 }
 
 #pragma mark - Private
