@@ -18,6 +18,7 @@
 #import "TLAuthHelper.h"
 
 #import <Contacts/Contacts.h>
+#import "NSString+Check.h"
 
 @interface ContactAuthVC ()
 
@@ -230,9 +231,9 @@
             
             name = [NSString stringWithFormat:@"%@%@", lastName, firstName];
             
-            if (name == nil) {
+            if (![name valid]) {
                 
-                name = @"无";
+                continue ;
             }
         }
         
@@ -243,7 +244,11 @@
             LabelStringModel *stringModel = contact.phones[0];
             
             mobile = stringModel.content;
-            
+            //如果mobile为空就跳过本次循环
+            if (![mobile valid]) {
+                
+                continue ;
+            }
         }
         
         dic = @{@"name": name,

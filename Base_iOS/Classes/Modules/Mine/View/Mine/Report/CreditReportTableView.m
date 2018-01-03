@@ -9,6 +9,9 @@
 #import "CreditReportTableView.h"
 
 #import "CreditRepostCell.h"
+#import "CreditReportDetailCell.h"
+#import "CreditReportIdentifierCell.h"
+#import "CreditReportZM6Cell.h"
 
 #import "TLUIHeader.h"
 #import "AppColorMacro.h"
@@ -21,6 +24,12 @@
 
 static NSString *identifierCell = @"CreditRepostCell";
 
+static NSString *detailCell = @"CreditRepostDetailCell";
+
+static NSString *idCell = @"CreditReportIdentifierCell";
+
+static NSString *zm6Cell = @"CreditReportZM6Cell";
+
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     
     if (self = [super initWithFrame:frame style:style]) {
@@ -29,6 +38,12 @@ static NSString *identifierCell = @"CreditRepostCell";
         self.delegate = self;
         
         [self registerClass:[CreditRepostCell class] forCellReuseIdentifier:identifierCell];
+        
+        [self registerClass:[CreditReportDetailCell class] forCellReuseIdentifier:detailCell];
+
+        [self registerClass:[CreditReportIdentifierCell class] forCellReuseIdentifier:idCell];
+        
+        [self registerClass:[CreditReportZM6Cell class] forCellReuseIdentifier:zm6Cell];
     }
     
     return self;
@@ -38,24 +53,69 @@ static NSString *identifierCell = @"CreditRepostCell";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return self.reportModel.portListArr.count;
+    return self.reportModel.bigArr.count;
 
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 1;
+    PortModel *portModel = self.reportModel.bigArr[section];
+
+    if (!portModel.isFold) {
+        
+        return 1;
+    }
+    
+    return portModel.dataArr.count+1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    //如果是level==0，就用CreditRepostCell
     
-    CreditRepostCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierCell forIndexPath:indexPath];
+    PortModel *portModel = self.reportModel.bigArr[indexPath.section];
+
+    if (indexPath.row == 0) {
+        
+        CreditRepostCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierCell forIndexPath:indexPath];
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.port = portModel;
+        
+        return cell;
+    }
+    
+    if (portModel.isIDAuth) {
+        
+        NSArray *imgArr = @[@"身份证正面照", @"身份证反面照", @"持证自拍"];
+        
+        CreditReportIdentifierCell *cell = [tableView dequeueReusableCellWithIdentifier:idCell forIndexPath:indexPath];
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.photo = imgArr[indexPath.row - 1];
+        
+        cell.infoModel = portModel.dataArr[indexPath.row - 1];
+
+        return cell;
+    }
+    
+    if ([portModel.authCode isEqualToString:@"PZM6"]) {
+        
+        CreditReportZM6Cell *cell = [tableView dequeueReusableCellWithIdentifier:zm6Cell forIndexPath:indexPath];
+        
+        cell.infoModel = portModel.dataArr[indexPath.row - 1];
+
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+        return cell;
+    }
+    
+    CreditReportDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:detailCell forIndexPath:indexPath];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    PortModel *port = self.reportModel.portListArr[indexPath.section];
-    
-    cell.port = port;
+    cell.infoModel = portModel.dataArr[indexPath.row - 1];
     
     return cell;
 }
@@ -66,47 +126,87 @@ static NSString *identifierCell = @"CreditRepostCell";
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-//    QuestionModel *didSelectFoldCellModel = self.reportModel.portListArr[indexPath.section];
-//
-//    [tableView beginUpdates];
-//    if (didSelectFoldCellModel.belowCount == 0) {
-//
-//        //Data
-//        NSArray *submodels = [didSelectFoldCellModel open];
-//        NSIndexSet *indexes = [NSIndexSet indexSetWithIndexesInRange:((NSRange){indexPath.row + 1,submodels.count})];
-//        [self.data insertObjects:submodels atIndexes:indexes];
-//
-//        //Rows
-//        NSMutableArray *indexPaths = [NSMutableArray new];
-//        for (int i = 0; i < submodels.count; i++) {
-//
-//            NSIndexPath *insertIndexPath = [NSIndexPath indexPathForRow:(indexPath.row + 1 + i) inSection:indexPath.section];
-//            [indexPaths addObject:insertIndexPath];
-//        }
-//        [tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
-//
-//    }else {
-//
-//        //Data
-//        NSArray *submodels = [self.data subarrayWithRange:((NSRange){indexPath.row + 1,didSelectFoldCellModel.belowCount})];
-//        [didSelectFoldCellModel closeWithSubmodels:submodels];
-//        [self.data removeObjectsInArray:submodels];
-//
-//        //Rows
-//        NSMutableArray *indexPaths = [NSMutableArray new];
-//
-//        for (int i = 0; i < submodels.count; i++) {
-//
-//            NSIndexPath *insertIndexPath = [NSIndexPath indexPathForRow:(indexPath.row + 1 + i) inSection:indexPath.section];
-//            [indexPaths addObject:insertIndexPath];
-//        }
-//        [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
-//    }
-//    [tableView endUpdates];
+    CreditRepostCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+
+    PortModel *port = self.reportModel.bigArr[indexPath.section];
+    
+    if (indexPath.row != 0) {
+        
+        return ;
+    }
+    
+    if (!port.isFold) {
+        //打开折叠
+        port.isFold = YES;
+        //右箭头旋转
+        [UIView animateWithDuration:0.2 animations:^{
+            
+            cell.arrowIV.transform = CGAffineTransformMakeRotation(M_PI_2);
+            
+        }];
+        
+        //Datas
+        port.dataArr = [self.reportModel getDataWithTitle:port.authCode];
+        
+        //Rows
+        NSMutableArray *indexPaths = [NSMutableArray new];
+        
+        for (int i = 0; i < port.dataArr.count; i++) {
+
+            NSIndexPath *insertIndexPath = [NSIndexPath indexPathForRow:(indexPath.row + 1 + i) inSection:indexPath.section];
+            [indexPaths addObject:insertIndexPath];
+        }
+        [tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+        
+    }else {
+        //关闭折叠
+        port.isFold = NO;
+        
+        //右箭头还原
+        [UIView animateWithDuration:0.2 animations:^{
+            
+            cell.arrowIV.transform = CGAffineTransformIdentity;
+            
+        }];
+        //Rows
+        NSMutableArray *indexPaths = [NSMutableArray new];
+
+        for (int i = 0; i < port.dataArr.count; i++) {
+
+            NSIndexPath *insertIndexPath = [NSIndexPath indexPathForRow:(indexPath.row + 1 + i) inSection:indexPath.section];
+            [indexPaths addObject:insertIndexPath];
+        }
+        [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+    }
     
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.row != 0) {
+        //sectionHeight
+        PortModel *portModel = self.reportModel.bigArr[indexPath.section];
+        
+        BaseInfoModel *infoModel = portModel.dataArr[indexPath.row - 1];
+        
+        if ([infoModel.content isEqualToString:@"section"]) {
+            
+            return 35;
+        }
+        //身份证认证
+        if (portModel.isIDAuth) {
+            
+            CGFloat cellHeight = 15 + kWidth(120) + 45;
+
+            return cellHeight;
+        }
+        
+        //行业关注清单
+        if ([portModel.authCode isEqualToString:@"PZM6"]) {
+            
+            return infoModel.cellHeight;
+        }
+    }
     
     return 45;
 }

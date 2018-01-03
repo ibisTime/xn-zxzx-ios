@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-#import "QuestionModel.h"
+#import "ReportModel.h"
 
 @interface CreditRepostCell : UITableViewCell
+
+//arrow
+@property (nonatomic, strong) UIImageView *arrowIV;
 
 @property (nonatomic, strong) PortModel *port;
 

@@ -51,6 +51,8 @@
         
     }];
     
+    self.arrowIV = arrowIV;
+    
     //title
     self.titleLbl = [UILabel labelWithBackgroundColor:kClearColor textColor:kWhiteColor font:15.0];
     

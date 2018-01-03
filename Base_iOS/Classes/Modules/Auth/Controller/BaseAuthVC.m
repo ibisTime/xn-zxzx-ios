@@ -134,6 +134,13 @@
     
 }
 
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    
+    if (status == kCLAuthorizationStatusAuthorizedWhenInUse) {
+        
+        [self.sysLocationManager startUpdatingLocation];
+    }
+}
 /**
  定位认证
  */

@@ -91,6 +91,10 @@
 		21301EAA1FE27B0500A98CB7 /* CreditReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301EA91FE27B0500A98CB7 /* CreditReportVC.m */; };
 		21301EAD1FE3698A00A98CB7 /* MineHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301EAC1FE3698A00A98CB7 /* MineHeaderView.m */; };
 		21301EF01FE3D18A00A98CB7 /* UIViewController+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301EEE1FE3D18A00A98CB7 /* UIViewController+Extension.m */; };
+		2162F8B71FFB5E8E008E5C1B /* CreditReportIdentifierCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2162F8B61FFB5E8E008E5C1B /* CreditReportIdentifierCell.m */; };
+		2162F8B91FFCAFAE008E5C1B /* local_focus_on.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2162F8B81FFCAFAD008E5C1B /* local_focus_on.txt */; };
+		2162F8BF1FFCB01E008E5C1B /* FoucsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2162F8BE1FFCB01E008E5C1B /* FoucsModel.m */; };
+		2162F8C21FFCDB06008E5C1B /* CreditReportZM6Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2162F8C11FFCDB06008E5C1B /* CreditReportZM6Cell.m */; };
 		216AB7EC1F189F04006C26A1 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 216AB7EB1F189F03006C26A1 /* libstdc++.6.0.9.tbd */; };
 		216AB7EE1F189F11006C26A1 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 216AB7ED1F189F11006C26A1 /* libresolv.tbd */; };
 		216AB7F01F189F22006C26A1 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 216AB7EF1F189F22006C26A1 /* libsqlite3.tbd */; };
@@ -151,6 +155,7 @@
 		21AC59821FDE825700F19DE8 /* NSNumber+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC59811FDE825700F19DE8 /* NSNumber+Extension.m */; };
 		21AC59851FDE828500F19DE8 /* NSObject+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC59841FDE828500F19DE8 /* NSObject+Extension.m */; };
 		21AC59881FDE891B00F19DE8 /* SegmentUnil.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC59871FDE891B00F19DE8 /* SegmentUnil.m */; };
+		21AC65231FFA982C001C5024 /* CreditReportDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC65221FFA982C001C5024 /* CreditReportDetailCell.m */; };
 		21F82C9A1F17719D0019B176 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 21F82B5A1F17719D0019B176 /* AppDelegate.mm */; };
 		21F82C9B1F17719D0019B176 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F82B5E1F17719D0019B176 /* BaseModel.m */; };
 		21F82C9C1F17719D0019B176 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F82B611F17719D0019B176 /* BaseViewController.m */; };
@@ -333,6 +338,13 @@
 		21301EAC1FE3698A00A98CB7 /* MineHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineHeaderView.m; sourceTree = "<group>"; };
 		21301EEE1FE3D18A00A98CB7 /* UIViewController+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Extension.m"; sourceTree = "<group>"; };
 		21301EEF1FE3D18A00A98CB7 /* UIViewController+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Extension.h"; sourceTree = "<group>"; };
+		2162F8B51FFB5E8E008E5C1B /* CreditReportIdentifierCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreditReportIdentifierCell.h; sourceTree = "<group>"; };
+		2162F8B61FFB5E8E008E5C1B /* CreditReportIdentifierCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreditReportIdentifierCell.m; sourceTree = "<group>"; };
+		2162F8B81FFCAFAD008E5C1B /* local_focus_on.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = local_focus_on.txt; sourceTree = "<group>"; };
+		2162F8BD1FFCB01E008E5C1B /* FoucsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FoucsModel.h; sourceTree = "<group>"; };
+		2162F8BE1FFCB01E008E5C1B /* FoucsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FoucsModel.m; sourceTree = "<group>"; };
+		2162F8C01FFCDB06008E5C1B /* CreditReportZM6Cell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreditReportZM6Cell.h; sourceTree = "<group>"; };
+		2162F8C11FFCDB06008E5C1B /* CreditReportZM6Cell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreditReportZM6Cell.m; sourceTree = "<group>"; };
 		216AB7EB1F189F03006C26A1 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		216AB7ED1F189F11006C26A1 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		216AB7EF1F189F22006C26A1 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -455,6 +467,8 @@
 		21AC59841FDE828500F19DE8 /* NSObject+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Extension.m"; sourceTree = "<group>"; };
 		21AC59861FDE891B00F19DE8 /* SegmentUnil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SegmentUnil.h; sourceTree = "<group>"; };
 		21AC59871FDE891B00F19DE8 /* SegmentUnil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SegmentUnil.m; sourceTree = "<group>"; };
+		21AC65211FFA982C001C5024 /* CreditReportDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreditReportDetailCell.h; sourceTree = "<group>"; };
+		21AC65221FFA982C001C5024 /* CreditReportDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreditReportDetailCell.m; sourceTree = "<group>"; };
 		21F827CF1F1742E80019B176 /* Base_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Base_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21F82B591F17719D0019B176 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		21F82B5A1F17719D0019B176 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
@@ -930,6 +944,12 @@
 				21290BA71FF5D89200CB74A7 /* CreditReportTableView.m */,
 				21290BA91FF5D8C700CB74A7 /* CreditRepostCell.h */,
 				21290BAA1FF5D8C700CB74A7 /* CreditRepostCell.m */,
+				21AC65211FFA982C001C5024 /* CreditReportDetailCell.h */,
+				21AC65221FFA982C001C5024 /* CreditReportDetailCell.m */,
+				2162F8B51FFB5E8E008E5C1B /* CreditReportIdentifierCell.h */,
+				2162F8B61FFB5E8E008E5C1B /* CreditReportIdentifierCell.m */,
+				2162F8C01FFCDB06008E5C1B /* CreditReportZM6Cell.h */,
+				2162F8C11FFCDB06008E5C1B /* CreditReportZM6Cell.m */,
 			);
 			path = Report;
 			sourceTree = "<group>";
@@ -952,6 +972,9 @@
 			children = (
 				21290BAD1FF6222D00CB74A7 /* ReportModel.h */,
 				21290BAE1FF6222D00CB74A7 /* ReportModel.m */,
+				2162F8BD1FFCB01E008E5C1B /* FoucsModel.h */,
+				2162F8BE1FFCB01E008E5C1B /* FoucsModel.m */,
+				2162F8B81FFCAFAD008E5C1B /* local_focus_on.txt */,
 			);
 			path = ReportModel;
 			sourceTree = "<group>";
@@ -1682,6 +1705,7 @@
 				21F82D1E1F17719D0019B176 /* LaunchScreen.storyboard in Resources */,
 				212B1DB91FF25A5F00C61685 /* addressJSON.txt in Resources */,
 				21290B8E1FF4E29B00CB74A7 /* H5Service.bundle in Resources */,
+				2162F8B91FFCAFAE008E5C1B /* local_focus_on.txt in Resources */,
 				21F82D1D1F17719D0019B176 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1797,10 +1821,12 @@
 				21AC594C1FDE7A1B00F19DE8 /* TLTextField.m in Sources */,
 				21111BB61F8B5F2C0021B3FE /* PasswordView.m in Sources */,
 				21AC59881FDE891B00F19DE8 /* SegmentUnil.m in Sources */,
+				2162F8C21FFCDB06008E5C1B /* CreditReportZM6Cell.m in Sources */,
 				21111BB71F8B5F2C0021B3FE /* WTReTextField.m in Sources */,
 				212961981FF1106C006D607D /* QuestionCell.m in Sources */,
 				21111BB81F8B5F2C0021B3FE /* WTReParser.m in Sources */,
 				21AC596D1FDE814C00F19DE8 /* UIView+Responder.m in Sources */,
+				2162F8B71FFB5E8E008E5C1B /* CreditReportIdentifierCell.m in Sources */,
 				21111BB91F8B5F2C0021B3FE /* TLDisplayPhotoVC.m in Sources */,
 				21111BBA1F8B5F2C0021B3FE /* TLImagePickerController.m in Sources */,
 				21AC59611FDE80A300F19DE8 /* UIButton+EnLargeEdge.m in Sources */,
@@ -1857,6 +1883,7 @@
 				21AC58AC1FDE75AA00F19DE8 /* HttpRequestTool.m in Sources */,
 				21301E8E1FE2776B00A98CB7 /* MineModel.m in Sources */,
 				2121702B1F384216007C9855 /* ZHReceivingAddress.m in Sources */,
+				21AC65231FFA982C001C5024 /* CreditReportDetailCell.m in Sources */,
 				21AC59461FDE7A1B00F19DE8 /* TLImagePicker.m in Sources */,
 				21AC59851FDE828500F19DE8 /* NSObject+Extension.m in Sources */,
 				21AC58991FDE74AF00F19DE8 /* TLBaseVC.m in Sources */,
@@ -1896,6 +1923,7 @@
 				21AC588E1FDE73FE00F19DE8 /* UserDefaultsUtil.m in Sources */,
 				21F82C9F1F17719D0019B176 /* TabbarViewController.m in Sources */,
 				212170291F384216007C9855 /* ZHAddAddressVC.m in Sources */,
+				2162F8BF1FFCB01E008E5C1B /* FoucsModel.m in Sources */,
 				212B1DA61FF240E900C61685 /* BaseInfoAuthVC.m in Sources */,
 				21FB30CC1F26E9EF0028ADEE /* UIViewController+MethodSwizzling.m in Sources */,
 				21F82D1F1F17719D0019B176 /* main.m in Sources */,
