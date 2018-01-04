@@ -51,7 +51,6 @@ FOUNDATION_EXTERN NSString *const kPTD8;
 //同盾认证
 @property (nonatomic, strong) NSArray <BaseInfoModel *> *tdAuthArr;
 
-
 //根据认证种类获取数据
 - (NSArray<BaseInfoModel *> *)getDataWithTitle:(NSString *)title;
 
@@ -84,6 +83,8 @@ FOUNDATION_EXTERN NSString *const kPTD8;
 @property (nonatomic, copy) NSString *photo;
 //cellHeight
 @property (nonatomic, assign) CGFloat cellHeight;
+//是否是紧急联系人
+@property (nonatomic, assign) BOOL isEMContact;
 
 @end
 

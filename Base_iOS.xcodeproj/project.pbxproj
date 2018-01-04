@@ -76,6 +76,7 @@
 		212B1DCA1FF399DE00C61685 /* IdAuthVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 212B1DC91FF399DE00C61685 /* IdAuthVC.m */; };
 		212B1DCD1FF39EA700C61685 /* BaseAuthVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 212B1DCC1FF39EA700C61685 /* BaseAuthVC.m */; };
 		212BB8251FECA46A00AFD519 /* QuestionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 212BB8241FECA46A00AFD519 /* QuestionTableView.m */; };
+		212E4E491FFDF86B00830736 /* CreditReportEMContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 212E4E481FFDF86B00830736 /* CreditReportEMContactCell.m */; };
 		21301E601FE25A9100A98CB7 /* AuthVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301E5F1FE25A9100A98CB7 /* AuthVC.m */; };
 		21301E641FE26C1700A98CB7 /* UIImage+Tint.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301E631FE26C1700A98CB7 /* UIImage+Tint.m */; };
 		21301E881FE2775D00A98CB7 /* MineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301E871FE2775D00A98CB7 /* MineVC.m */; };
@@ -308,6 +309,8 @@
 		212B1DCC1FF39EA700C61685 /* BaseAuthVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseAuthVC.m; sourceTree = "<group>"; };
 		212BB8231FECA46A00AFD519 /* QuestionTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuestionTableView.h; sourceTree = "<group>"; };
 		212BB8241FECA46A00AFD519 /* QuestionTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuestionTableView.m; sourceTree = "<group>"; };
+		212E4E471FFDF86B00830736 /* CreditReportEMContactCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreditReportEMContactCell.h; sourceTree = "<group>"; };
+		212E4E481FFDF86B00830736 /* CreditReportEMContactCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreditReportEMContactCell.m; sourceTree = "<group>"; };
 		21301E5E1FE25A9100A98CB7 /* AuthVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthVC.h; sourceTree = "<group>"; };
 		21301E5F1FE25A9100A98CB7 /* AuthVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuthVC.m; sourceTree = "<group>"; };
 		21301E621FE26C1700A98CB7 /* UIImage+Tint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Tint.h"; sourceTree = "<group>"; };
@@ -948,6 +951,8 @@
 				21AC65221FFA982C001C5024 /* CreditReportDetailCell.m */,
 				2162F8B51FFB5E8E008E5C1B /* CreditReportIdentifierCell.h */,
 				2162F8B61FFB5E8E008E5C1B /* CreditReportIdentifierCell.m */,
+				212E4E471FFDF86B00830736 /* CreditReportEMContactCell.h */,
+				212E4E481FFDF86B00830736 /* CreditReportEMContactCell.m */,
 				2162F8C01FFCDB06008E5C1B /* CreditReportZM6Cell.h */,
 				2162F8C11FFCDB06008E5C1B /* CreditReportZM6Cell.m */,
 			);
@@ -1935,6 +1940,7 @@
 				21158E491F1C502400A07266 /* BarButton.m in Sources */,
 				21F82CA31F17719D0019B176 /* TLAuthHelper.m in Sources */,
 				21AC597E1FDE823C00F19DE8 /* NSString+Date.m in Sources */,
+				212E4E491FFDF86B00830736 /* CreditReportEMContactCell.m in Sources */,
 				21AC59601FDE80A300F19DE8 /* UIButton+Custom.m in Sources */,
 				21AC58791FDE737200F19DE8 /* TLUserLoginVC.m in Sources */,
 				21FB30CA1F26E9EF0028ADEE /* HTMLStrVC.m in Sources */,

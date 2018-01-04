@@ -74,11 +74,8 @@
 #pragma mark - Events
 - (void)back {
     
-    //获取认证回调
-    if (self.respBlock) {
-        
-        self.respBlock(nil);
-    }
+    [self.navigationController popToRootViewControllerAnimated:YES];
+
 }
 
 #pragma mark - WKNavigationDelegate
@@ -114,7 +111,7 @@
             //返回NO,阻止页面继续跳转到不存在的url地址
             decisionHandler(WKNavigationActionPolicyCancel);
             
-            [self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popToRootViewControllerAnimated:YES];
             
             //获取认证回调
             if (self.respBlock) {

@@ -14,7 +14,6 @@
 //V
 #import "QuestionTableView.h"
 
-
 @interface AuthVC ()<RefreshDelegate>
 //
 @property (nonatomic, strong) QuestionTableView *tableView;

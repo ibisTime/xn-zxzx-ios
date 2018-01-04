@@ -64,7 +64,7 @@
             
         } else {
             
-            newObjs = _isCurrency == YES ? responseObject[@"data"][@"accountList"]: responseObject[@"data"];
+            newObjs = responseObject[@"data"];
         
         }
         

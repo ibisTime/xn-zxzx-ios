@@ -87,11 +87,16 @@
         
         [TLUser user].idNo = self.idCard.text;
         
-        if (self.success) {
+        [TLAlert alertWithSucces:@"芝麻认证成功"];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-            self.success();
-        }
-    
+            if (self.success) {
+                
+                self.success();
+            }
+        });
+        
     } else {
     
         [TLAlert alertWithError:@"认证失败, 请重新认证"];

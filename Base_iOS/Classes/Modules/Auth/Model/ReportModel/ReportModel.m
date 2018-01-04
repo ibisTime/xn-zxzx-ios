@@ -29,22 +29,6 @@ NSString *const kPTD8   = @"PTD8";
 
 @implementation ReportModel
 
-- (NSString *)getContactRelationWithKey:(NSString *)key {
-    
-    NSDictionary *dict = @{
-                           @"FATHER"         : @"父亲",
-                           @"MOTHER"         : @"母亲",
-                           @"SPOUSE"         : @"配偶",
-                           @"CHILD"          : @"子女",
-                           @"OTHER_RELATIVE" : @"其他亲属",
-                           @"FRIEND"         : @"朋友",
-                           @"COWORKER"       : @"同事",
-                           @"OTHERS"         : @"其他",
-                           };
-    
-    return dict[key];
-}
-
 - (NSMutableArray<PortModel *> *)bigArr {
     
     if (_bigArr != nil) {
@@ -321,6 +305,12 @@ NSString *const kPTD8   = @"PTD8";
     EmergencyContactDetail *contact1 = pYYS4Model.emergency_contact1_detail;
     //紧急联系人2
     EmergencyContactDetail *contact2 = pYYS4Model.emergency_contact2_detail;
+    //紧急联系人3
+    EmergencyContactDetail *contact3 = pYYS4Model.emergency_contact3_detail;
+    //紧急联系人4
+    EmergencyContactDetail *contact4 = pYYS4Model.emergency_contact4_detail;
+    //紧急联系人5
+    EmergencyContactDetail *contact5 = pYYS4Model.emergency_contact5_detail;
     
     if (pYYS4Model == nil) {
         
@@ -394,25 +384,45 @@ NSString *const kPTD8   = @"PTD8";
     //紧急联系人
     [arr addObject:[self addInfoModelWithTitle:@"紧急联系人信息" content:@"section"]];
     
+    BaseInfoModel *contactModel = [self getContactModelWithMobile:@"联系方式" relation:@"关系" contactArea:@"归属地"];
+    
+    [arr addObject:contactModel];
+    
     if (contact1) {
-        //关系
-        NSString *relation1 = [self getContactRelationWithKey:contact1.contact_relation];
         
-        [arr addObject:[self addInfoModelWithTitle:@"关系" content:relation1]];
-        //联系方式
-        [arr addObject:[self addInfoModelWithTitle:@"联系方式" content:contact1.contact_number]];
+        BaseInfoModel *contactModel1 = [self getContactModelWithMobile:contact1.contact_number relation:contact1.contact_relation contactArea:contact1.contact_area];
+
+        [arr addObject:contactModel1];
+        
     }
     
     if (contact2) {
         
-        //关系
-        NSString *relation2 = [self getContactRelationWithKey:contact2.contact_relation];
+        BaseInfoModel *contactModel2 = [self getContactModelWithMobile:contact2.contact_number relation:contact2.contact_relation contactArea:contact2.contact_area];
         
-        [arr addObject:[self addInfoModelWithTitle:@"关系" content:relation2]];
-        //联系方式
-        [arr addObject:[self addInfoModelWithTitle:@"联系方式" content:contact2.contact_number]];
+        [arr addObject:contactModel2];
     }
     
+    if (contact3) {
+        
+        BaseInfoModel *contactModel3 = [self getContactModelWithMobile:contact3.contact_number relation:contact3.contact_relation contactArea:contact3.contact_area];
+        
+        [arr addObject:contactModel3];
+    }
+    
+    if (contact4) {
+        
+        BaseInfoModel *contactModel4 = [self getContactModelWithMobile:contact4.contact_number relation:contact4.contact_relation contactArea:contact4.contact_area];
+        
+        [arr addObject:contactModel4];
+    }
+    
+    if (contact5) {
+        
+        BaseInfoModel *contactModel5 = [self getContactModelWithMobile:contact5.contact_number relation:contact5.contact_relation contactArea:contact5.contact_area];
+        
+        [arr addObject:contactModel5];
+    }
     
     return arr;
 }
@@ -451,7 +461,7 @@ NSString *const kPTD8   = @"PTD8";
         return arr;
     }
     
-    if ([pzm6Model.isMatched isEqualToString:@"0"]) {
+    if (![pzm6Model.isMatched boolValue]) {
         
         NSString *isMatched = @"未被行业关注";
         
@@ -474,6 +484,11 @@ NSString *const kPTD8   = @"PTD8";
     FoucsModel *foucsModel = [FoucsModel new];
     
     foucsModel.infoArray = [ZMInfoArray mj_objectArrayWithKeyValuesArray:json];
+    
+    if (pzm6Model.details == nil || pzm6Model.details.count == 0) {
+        
+        return arr;
+    }
     
     [pzm6Model.details enumerateObjectsUsingBlock:^(ZM6Detail * _Nonnull detail, NSUInteger idx, BOOL * _Nonnull stop) {
         
@@ -546,10 +561,11 @@ NSString *const kPTD8   = @"PTD8";
         
         return arr;
     }
+    
+    //欺诈评分
+    [arr addObject:[self addInfoModelWithTitle:@"欺诈评分" content:[NSString stringWithFormat:@"%ld", pzm7Model.score]]];
     //判断是否欺诈
-    if ([pzm7Model.hit isEqualToString:@"no"]) {
-        //欺诈评分
-        [arr addObject:[self addInfoModelWithTitle:@"欺诈评分" content:[NSString stringWithFormat:@"%ld", pzm7Model.score]]];
+    if (pzm7Model.verifyInfoList.count > 0) {
         
         [pzm7Model.verifyInfoList enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             
@@ -558,14 +574,6 @@ NSString *const kPTD8   = @"PTD8";
 
         return arr;
     }
-    //IP
-    [arr addObject:[self addInfoModelWithTitle:@"IP" content:pzm7Model.ip]];
-    //MAC
-    [arr addObject:[self addInfoModelWithTitle:@"MAC" content:pzm7Model.mac]];
-    //WIFIMAC
-    [arr addObject:[self addInfoModelWithTitle:@"WIFIMAC" content:pzm7Model.wifiMac]];
-    //IMEI
-    [arr addObject:[self addInfoModelWithTitle:@"IMEI" content:pzm7Model.imei]];
 
     return arr;
 }
@@ -583,8 +591,25 @@ NSString *const kPTD8   = @"PTD8";
         
         return arr;
     }
+
+    //风险指数
+    NSString *riskScore = [NSString stringWithFormat:@"%ld", ptd8Model.final_score];
     
+    [arr addObject:[self addInfoModelWithTitle:@"风险指数" content:riskScore]];
+    //检查风险
     
+    [arr addObject:[self addInfoModelWithTitle:ptd8Model.final_decision content:@"无"]];
+    //异常记录
+    NSString *exceptReport = [NSString stringWithFormat:@"共发现%ld条异常信息, 详情请查看web端", ptd8Model.risk_items.count];
+    
+    [arr addObject:[self addInfoModelWithTitle:exceptReport content:@"无"]];
+
+    [ptd8Model.risk_items enumerateObjectsUsingBlock:^(RiskItems * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        //异常记录信息
+        NSString *report = [NSString stringWithFormat:@"%ld. %@", idx+1, obj.item_name];
+        
+        [arr addObject:[self addInfoModelWithTitle:report content:@"无"]];
+    }];
     
     return arr;
 }
@@ -613,6 +638,19 @@ NSString *const kPTD8   = @"PTD8";
     }];
     
     return value;
+}
+
+//获取联系人model
+- (BaseInfoModel *)getContactModelWithMobile:(NSString *)mobile relation:(NSString *)relation contactArea:(NSString *)contactArea {
+    
+    
+    NSString *title = [NSString stringWithFormat:@"%@|%@|%@", mobile, relation, contactArea];
+    
+    BaseInfoModel *contactModel = [self addInfoModelWithTitle:title content:@"无"];
+    
+    contactModel.isEMContact = YES;
+    
+    return contactModel;
 }
 
 @end

@@ -53,7 +53,7 @@
         
         _imagePicker = [[TLImagePicker alloc] initWithVC:self];
         
-        _imagePicker.imageType = ImageTypeCamera;
+        _imagePicker.imageType = ImageTypeAll;
         _imagePicker.clipHeight = (200/345.0)*kScreenWidth;
         _imagePicker.allowsEditing = NO;
         

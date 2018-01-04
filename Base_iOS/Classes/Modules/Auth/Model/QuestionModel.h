@@ -300,6 +300,8 @@
 @property (nonatomic, copy) NSString *contact_number;
 //与用户的关系
 @property (nonatomic, copy) NSString *contact_relation;
+//归属地
+@property (nonatomic, copy) NSString *contact_area;
 
 @end
 
@@ -311,7 +313,7 @@
 
 @interface PZM6Model : NSObject
 //是否被关注
-@property (nonatomic, copy) NSString *isMatched;
+@property (nonatomic, strong) NSNumber *isMatched;
 //违纪记录
 @property (nonatomic, strong) NSArray<ZM6Detail *> *details;
 
@@ -356,14 +358,6 @@
 @property (nonatomic, strong) NSArray<NSString *> *verifyInfoList;
 
 @property (nonatomic, copy) NSString *hit;
-//IP
-@property (nonatomic, copy) NSString *ip;
-//MAC
-@property (nonatomic, copy) NSString *mac;
-//WIFIMAC
-@property (nonatomic, copy) NSString *wifiMac;
-//IMEI
-@property (nonatomic, copy) NSString *imei;
 
 @end
 

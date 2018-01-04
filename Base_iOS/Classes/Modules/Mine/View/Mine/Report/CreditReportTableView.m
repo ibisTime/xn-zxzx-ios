@@ -11,6 +11,8 @@
 #import "CreditRepostCell.h"
 #import "CreditReportDetailCell.h"
 #import "CreditReportIdentifierCell.h"
+#import "CreditReportEMContactCell.h"
+
 #import "CreditReportZM6Cell.h"
 
 #import "TLUIHeader.h"
@@ -30,19 +32,23 @@ static NSString *idCell = @"CreditReportIdentifierCell";
 
 static NSString *zm6Cell = @"CreditReportZM6Cell";
 
+static NSString *emContactCell = @"CreditReportEMContactCell";
+
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     
     if (self = [super initWithFrame:frame style:style]) {
         
         self.dataSource = self;
         self.delegate = self;
-        
+        //一级cell
         [self registerClass:[CreditRepostCell class] forCellReuseIdentifier:identifierCell];
-        
+        //二级cell
         [self registerClass:[CreditReportDetailCell class] forCellReuseIdentifier:detailCell];
-
+        //身份证cell
         [self registerClass:[CreditReportIdentifierCell class] forCellReuseIdentifier:idCell];
-        
+        //紧急联系人cell
+        [self registerClass:[CreditReportEMContactCell class] forCellReuseIdentifier:emContactCell];
+        //行业关注清单cell
         [self registerClass:[CreditReportZM6Cell class] forCellReuseIdentifier:zm6Cell];
     }
     
@@ -85,6 +91,8 @@ static NSString *zm6Cell = @"CreditReportZM6Cell";
         return cell;
     }
     
+    BaseInfoModel *infoModel = portModel.dataArr[indexPath.row - 1];
+
     if (portModel.isIDAuth) {
         
         NSArray *imgArr = @[@"身份证正面照", @"身份证反面照", @"持证自拍"];
@@ -95,8 +103,19 @@ static NSString *zm6Cell = @"CreditReportZM6Cell";
         
         cell.photo = imgArr[indexPath.row - 1];
         
-        cell.infoModel = portModel.dataArr[indexPath.row - 1];
+        cell.infoModel = infoModel;
 
+        return cell;
+    }
+    
+    if (infoModel.isEMContact) {
+        
+        CreditReportEMContactCell *cell = [tableView dequeueReusableCellWithIdentifier:emContactCell forIndexPath:indexPath];
+        
+        cell.infoModel = infoModel;
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         return cell;
     }
     
@@ -104,7 +123,7 @@ static NSString *zm6Cell = @"CreditReportZM6Cell";
         
         CreditReportZM6Cell *cell = [tableView dequeueReusableCellWithIdentifier:zm6Cell forIndexPath:indexPath];
         
-        cell.infoModel = portModel.dataArr[indexPath.row - 1];
+        cell.infoModel = infoModel;
 
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
@@ -115,7 +134,7 @@ static NSString *zm6Cell = @"CreditReportZM6Cell";
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.infoModel = portModel.dataArr[indexPath.row - 1];
+    cell.infoModel = infoModel;
     
     return cell;
 }

@@ -54,6 +54,8 @@
     [self addNotification];
     //
     [self changeInfo];
+    //版本号
+    [self initVersionView];
 }
 
 - (void)initGroup {
@@ -165,6 +167,25 @@
     }
     
     return _imagePicker;
+}
+
+- (void)initVersionView {
+    //版本号
+    UILabel *versionLbl = [UILabel labelWithBackgroundColor:kClearColor textColor:kTextColor font:15.0];
+    
+    NSDictionary *infoDictionary = [NSBundle mainBundle].infoDictionary;
+    
+    NSString *version = infoDictionary[@"CFBundleShortVersionString"];
+    
+    versionLbl.text = [NSString stringWithFormat:@"V %@", version];
+    
+    [self.view addSubview:versionLbl];
+    [versionLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerX.equalTo(@0);
+        make.bottom.equalTo(@(-20));
+        
+    }];
 }
 
 #pragma mark - Notification

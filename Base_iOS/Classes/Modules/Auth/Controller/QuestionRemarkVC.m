@@ -117,14 +117,11 @@
 
         BaseInfoAuthVC *authVC = [BaseInfoAuthVC new];
 
-        [self.navigationController pushViewController:authVC animated:YES];
+        [weakSelf.navigationController pushViewController:authVC animated:YES];
     };
 
     [self.navigationController pushViewController:authVC animated:YES];
     
-//    BaseInfoAuthVC *authVC = [BaseInfoAuthVC new];
-//
-//    [self.navigationController pushViewController:authVC animated:YES];
 }
 
 #pragma mark - Data

@@ -91,6 +91,10 @@
     
     _PYYS4 = PYYS4;
     
+    if ([_PYYS4 containsString:@"travel_tr"]) {
+        
+        NSLog(@"YYS数据\n%@", _PYYS4);
+    }
     self.pYYS4Model = (PYYS4Model *)[self convertModelFromJsonWithModel:@"PYYS4Model" json:_PYYS4];
 
 }
@@ -120,7 +124,11 @@
     
     self.pZM6Model.isMatched = jsonObject[@"isMatched"];
     
-    self.pZM6Model.details = [ZM6Detail mj_objectArrayWithKeyValuesArray:jsonObject[@"detail"]];
+    if (jsonObject[@"detail"] != nil) {
+        
+        self.pZM6Model.details = [ZM6Detail mj_objectArrayWithKeyValuesArray:jsonObject[@"detail"]];
+
+    }
 
 }
 /**
@@ -145,11 +153,16 @@
     //2.NSData->NSDictionary
     NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
     
-    self.pTD8Model = (PTD8Model *)[self convertModelFromJsonWithModel:@"PTD8Model" json:jsonObject[@"toData"]];
+    self.pTD8Model = (PTD8Model *)[self convertModelFromJsonWithModel:@"PTD8Model" json:jsonObject[@"tdData"]];
     
 }
 //将json转为model
 - (BaseModel *)convertModelFromJsonWithModel:(NSString *)model json:(NSString *)json {
+    
+    if (json == nil) {
+        
+        return nil;
+    }
     
 //    NSString *str = [json stringByReplacingOccurrencesOfString:@"1" withString:@"6"];
 //    NSLog(@"%@", str);
@@ -159,11 +172,21 @@
     //2.NSData->NSDictionary
     NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
     
+    if (jsonObject == nil) {
+        
+        return nil;
+    }
     return [NSClassFromString(model) mj_objectWithKeyValues:jsonObject];
+
 }
 
 //将json转为model数组
 - (NSArray *)convertModelArrayFromJsonWithModel:(NSString *)model json:(NSString *)json {
+    
+    if (json == nil) {
+        
+        return nil;
+    }
     
     //1.NSString->NSData
     NSData *data = [json dataUsingEncoding:NSUTF8StringEncoding];
@@ -171,6 +194,10 @@
     //2.NSData->NSDictionary
     NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
     
+    if (jsonObject == nil) {
+        
+        return nil;
+    }
     return [NSClassFromString(model) mj_objectArrayWithKeyValuesArray:jsonObject];
     
 }
@@ -232,6 +259,26 @@
 
 @implementation EmergencyContactDetail
 
+- (NSString *)contact_relation {
+    
+    NSDictionary *dict = @{
+                           @"FATHER"         : @"父亲",
+                           @"MOTHER"         : @"母亲",
+                           @"SPOUSE"         : @"配偶",
+                           @"CHILD"          : @"子女",
+                           @"OTHER_RELATIVE" : @"其他亲属",
+                           @"FRIEND"         : @"朋友",
+                           @"COWORKER"       : @"同事",
+                           @"OTHERS"         : @"其他",
+                           };
+    
+    return dict[_contact_relation];
+}
+
+- (NSString *)contact_area {
+    
+    return _contact_area == nil || _contact_area.length == 0 ? @"无": _contact_area;
+}
 @end
 
 @implementation PZM5Model
@@ -329,8 +376,21 @@
 
 @implementation PTD8Model
 
-+ (NSDictionary *)objectClassInArray{
++ (NSDictionary *)objectClassInArray {
+    
     return @{@"risk_items" : [RiskItems class]};
+}
+
+- (NSString *)final_decision {
+    
+    NSDictionary *dict = @{
+                                @"Accept": @"申请用户未检出高危风险，建议通过",
+                                @"Review": @"申请用户存在较大风险，建议进行人工审核",
+                                @"Reject": @"申请用户检测出高危风险，建议拒绝",
+                                };
+    
+    return dict[_final_decision];
+    
 }
     
 @end

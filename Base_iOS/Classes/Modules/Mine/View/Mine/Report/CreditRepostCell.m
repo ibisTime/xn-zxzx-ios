@@ -87,6 +87,15 @@
     _port = port;
     
     self.titleLbl.text = port.authName;
+    
+    if (port.isFold) {
+        
+        self.arrowIV.transform = CGAffineTransformMakeRotation(M_PI_2);
+        
+    } else {
+        
+        self.arrowIV.transform = CGAffineTransformIdentity;
+    }
 }
 
 @end
