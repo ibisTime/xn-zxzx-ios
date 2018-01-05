@@ -9,8 +9,10 @@
 #import "ZMOPScoreVC.h"
 
 #import "TLTextField.h"
+#import "NavigationController.h"
 
 #import "NSString+Check.h"
+#import "UIColor+Extension.h"
 
 #import <ZMCreditSDK/ALCreditService.h>
 #import "ZMScoreModel.h"
@@ -25,6 +27,8 @@
 @property (nonatomic, strong) TLTextField *idCard;
 //报告单
 @property (nonatomic, strong) QuestionModel *reportModel;
+//是否授权
+@property (nonatomic, assign) BOOL isAuth;
 
 @end
 
@@ -37,12 +41,42 @@
     self.title = @"芝麻信用评分";
     
     [self initSubviews];
+    //查看报告单
+    [self queryReportDetail];
 
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    NavigationController *navi = (NavigationController *)self.navigationController;
+    
+    navi.isHidden = NO;
+    
+    self.navigationController.navigationBar.translucent = NO;
+    
+    [self.navigationController.navigationBar setBackgroundImage:[kAppCustomMainColor convertToImage] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    
+    [super viewDidDisappear:animated];
+    
+    self.navigationController.navigationBar.translucent = YES;
+    
+    if (!_isAuth) {
+        
+        [self.navigationController.navigationBar setBackgroundImage:[kBlackColor convertToImage] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    }
 }
 
 #pragma mark - Init
 - (void)initSubviews {
     
+    _isAuth = YES;
+
     CGFloat leftMargin = 15;
     
     self.realName = [[TLTextField alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 50) leftTitle:@"姓名" titleWidth:105 placeholder:@"请输入姓名"];
@@ -93,7 +127,6 @@
     
     TLNetworking *http = [TLNetworking new];
     
-    http.isShowMsg = NO;
     http.showView = self.view;
     
     http.code = @"805258";
@@ -102,45 +135,46 @@
     
     [http postWithSuccess:^(id responseObject) {
         
-        if ([responseObject[@"errorCode"] isEqual:@"0"]) {
+        ZMScoreModel *scoreModel = [ZMScoreModel mj_objectWithKeyValues:responseObject[@"data"]];
+        
+        //是否授权
+        if (scoreModel.authorized) {
             
-            ZMScoreModel *scoreModel = [ZMScoreModel mj_objectWithKeyValues:responseObject[@"data"]];
+            _isAuth = YES;
             
-            //是否授权
-            if (scoreModel.authorized) {
+            [TLAlert alertWithSucces:@"芝麻信用认证成功"];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
-                [TLAlert alertWithSucces:@"芝麻信用认证成功"];
+                [self pushViewController];
                 
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    
-                    [self pushViewController];
-                    
-                });
-                
-            } else {
-                
-                NSString *appId = scoreModel.appId;
-                
-                NSString *sign = scoreModel.signature;
-                
-                NSString *params = scoreModel.param;
-                
-                if (appId && sign && params) {
-                    
-                    [[ALCreditService sharedService] queryUserAuthReq:appId sign:sign params:params extParams:nil selector:@selector(result:) target:self];
-                    
-                } else {
-                    
-                    [TLAlert alertWithInfo:@"appId或sign或param为空"];
-                }
-                
-                return ;
-                
-            }
+            });
             
         } else {
             
-            [TLAlert alertWithInfo:responseObject[@"errorInfo"]];
+            _isAuth = NO;
+            
+            NSString *appId = scoreModel.appId;
+            
+            NSString *sign = scoreModel.signature;
+            
+            NSString *params = scoreModel.param;
+            
+            if (appId && sign && params) {
+                
+                NavigationController *navi = (NavigationController *)self.navigationController;
+                
+                navi.isHidden = YES;
+                
+                [[ALCreditService sharedService] queryUserAuthReq:appId sign:sign params:params extParams:nil selector:@selector(result:) target:self];
+                
+            } else {
+                
+                [TLAlert alertWithInfo:@"appId或sign或param为空"];
+            }
+            
+            return ;
+            
         }
         
     } failure:^(NSError *error) {
@@ -152,11 +186,9 @@
     
     NSLog(@"result %@", dic);
     
-    if (dic[@"authResult"]) {
+    if ([dic[@"authResult"] valid]) {
         
         TLNetworking *http = [TLNetworking new];
-        
-        http.isShowMsg = NO;
         
         http.code = @"805258";
         http.parameters[@"isH5"] = @"0";
@@ -164,6 +196,8 @@
         
         [http postWithSuccess:^(id responseObject) {
             
+            _isAuth = YES;
+
             [TLAlert alertWithSucces:@"芝麻信用认证成功"];
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -175,35 +209,14 @@
             
         }];
         
-    } else {
-        
-        [TLAlert alertWithError:@"授权失败"];
     }
-    
-}
-
-#pragma mark - Setting
-
-- (void)setReportModel:(QuestionModel *)reportModel {
-    
-    _reportModel = reportModel;
-    
-    F2Model *f2Model = reportModel.f2Model;
-    
-    STRING_NIL_NULL(f2Model.realName);
-
-    self.realName.text = f2Model.realName;
-    
-    STRING_NIL_NULL(f2Model.idNo);
-
-    self.idCard.text = f2Model.idNo;
 }
 
 #pragma mark - Data
 /**
  查询报告单详情
  */
-- (void)queryQuestionDetail {
+- (void)queryReportDetail {
     
     TLNetworking *http = [TLNetworking new];
     
@@ -214,6 +227,16 @@
     [http postWithSuccess:^(id responseObject) {
         
         self.reportModel = [QuestionModel mj_objectWithKeyValues:responseObject[@"data"]];
+        
+        F2Model *f2Model = self.reportModel.f2Model;
+        
+        STRING_NIL_NULL(f2Model.realName);
+        
+        self.realName.text = f2Model.realName;
+        
+        STRING_NIL_NULL(f2Model.idNo);
+        
+        self.idCard.text = f2Model.idNo;
         
     } failure:^(NSError *error) {
         

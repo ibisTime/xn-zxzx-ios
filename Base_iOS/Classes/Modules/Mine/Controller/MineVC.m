@@ -62,7 +62,7 @@
     //
     [self changeInfo];
     //版本号
-    [self initVersionView];
+//    [self initVersionView];
     //服务信息
     [self initServiceInfo];
     
@@ -105,9 +105,16 @@
         [weakSelf.navigationController pushViewController:settingVC animated:YES];
     };
     
+    //版本号
+    
+    NSDictionary *infoDictionary = [NSBundle mainBundle].infoDictionary;
+    
+    NSString *version = [NSString stringWithFormat:@"当前版本:v%@", infoDictionary[@"CFBundleShortVersionString"]];
+    
     //关于我们
     MineModel *abountUs = [MineModel new];
     abountUs.text = @"关于我们";
+    abountUs.rightText = version;
     abountUs.imgName = @"关于我们";
     abountUs.action = ^{
         
@@ -197,7 +204,8 @@
     [self.view addSubview:serviceView];
     [serviceView mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.bottom.equalTo(self.versionLbl.mas_top).offset(-15);
+//        make.bottom.equalTo(self.versionLbl.mas_top).offset(-15);
+        make.bottom.equalTo(@(-15));
         make.height.equalTo(@(serviceH));
         make.left.equalTo(@0);
         make.width.equalTo(@(kScreenWidth));
@@ -253,7 +261,7 @@
     [self.headerView.userPhoto sd_setImageWithURL:[NSURL URLWithString:[[TLUser user].photo convertImageUrl]] placeholderImage:USER_PLACEHOLDER_SMALL];
     
     self.headerView.nameLbl.text = [TLUser user].mobile;
-    
+
 }
 
 - (void)loginOut {

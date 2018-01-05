@@ -62,7 +62,7 @@
     
     //账号
     AccountTf *phoneTf = [[AccountTf alloc] initWithFrame:CGRectMake(0, 0, w, h)];
-    phoneTf.leftIconView.image = [UIImage imageNamed:@"手机"];
+    phoneTf.leftIconView.image = [UIImage imageNamed:@"用户名"];
     phoneTf.placeHolder = @"请输入手机号码";
     [bgView addSubview:phoneTf];
     self.phoneTf = phoneTf;

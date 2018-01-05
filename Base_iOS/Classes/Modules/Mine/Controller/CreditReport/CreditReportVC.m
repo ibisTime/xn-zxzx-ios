@@ -113,6 +113,7 @@
     
     TLNetworking *http = [TLNetworking new];
     
+    http.showView = self.view;
     http.code = @"805331";
     http.parameters[@"reportCode"] = [TLUser user].tempReportCode;
     

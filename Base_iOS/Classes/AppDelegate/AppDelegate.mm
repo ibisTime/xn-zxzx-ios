@@ -9,9 +9,10 @@
 #import "AppDelegate.h"
 
 #import "IQKeyboardManager.h"
-//#import "WXApi.h"
 
 #import "AppConfig.h"
+
+#import <ZMCreditSDK/ALCreditService.h>
 
 #import "NavigationController.h"
 #import "TabbarViewController.h"
@@ -37,8 +38,8 @@
     //键盘
     [self configIQKeyboard];
     
-    //配置地图
-//    [self configMapKit];
+    //配置芝麻信用
+    [self configZMOP];
     
     //配置极光
 //    [self configJPushWithOptions:launchOptions];
@@ -79,6 +80,11 @@
     //配置环境
     [AppConfig config].runEnv = RunEnvTest;
     
+}
+
+- (void)configZMOP {
+    
+    [[ALCreditService sharedService] resgisterApp];
 }
 
 - (void)configIQKeyboard {

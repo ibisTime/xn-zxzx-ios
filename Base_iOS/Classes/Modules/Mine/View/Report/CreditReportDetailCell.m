@@ -1,12 +1,12 @@
 //
-//  CreditReportZM6Cell.m
+//  CreditReportDetailCell.m
 //  Base_iOS
 //
-//  Created by 蔡卓越 on 2018/1/3.
+//  Created by 蔡卓越 on 2018/1/2.
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
 
-#import "CreditReportZM6Cell.h"
+#import "CreditReportDetailCell.h"
 
 #import "TLUIHeader.h"
 #import "AppColorMacro.h"
@@ -14,8 +14,7 @@
 #import "NSString+CGSize.h"
 #import "UILabel+Extension.h"
 
-@interface CreditReportZM6Cell()
-
+@interface CreditReportDetailCell()
 //title
 @property (nonatomic, strong) UILabel *titleLbl;
 //content
@@ -23,7 +22,7 @@
 
 @end
 
-@implementation CreditReportZM6Cell
+@implementation CreditReportDetailCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     
@@ -84,15 +83,12 @@
     
     _infoModel = infoModel;
     
-    [self.titleLbl labelWithTextString:infoModel.title lineSpace:4];
+    self.titleLbl.text = infoModel.title;
     
     self.contentLbl.text = [infoModel.content isEqualToString:@"section"] ? @"": infoModel.content;
+    self.contentLbl.textColor = [infoModel.content isEqualToString:@"暂无"] ? kTextColor2: kTextColor;
     
     self.backgroundColor = [infoModel.content isEqualToString:@"section"] ? kBackgroundColor: kWhiteColor;
-    
-//    [self layoutSubviews];
-//
-//    infoModel.cellHeight = self.titleLbl.yy > 30 ? self.titleLbl.yy + 15: 45;
     
 }
 

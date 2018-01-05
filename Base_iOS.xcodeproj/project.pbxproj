@@ -959,19 +959,6 @@
 			path = Report;
 			sourceTree = "<group>";
 		};
-		21290BA51FF5D85E00CB74A7 /* Mine */ = {
-			isa = PBXGroup;
-			children = (
-				21301E921FE2777D00A98CB7 /* MineCell.h */,
-				21301E901FE2777D00A98CB7 /* MineCell.m */,
-				21301E8F1FE2777D00A98CB7 /* MineTableView.h */,
-				21301E911FE2777D00A98CB7 /* MineTableView.m */,
-				21301EAB1FE3698A00A98CB7 /* MineHeaderView.h */,
-				21301EAC1FE3698A00A98CB7 /* MineHeaderView.m */,
-			);
-			path = Mine;
-			sourceTree = "<group>";
-		};
 		21290BAC1FF6221300CB74A7 /* ReportModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1139,6 +1126,7 @@
 			isa = PBXGroup;
 			children = (
 				21301EAE1FE3699300A98CB7 /* Mine */,
+				21290BA11FF5D82700CB74A7 /* Report */,
 				21301E971FE277BD00A98CB7 /* Setting */,
 			);
 			path = View;
@@ -1198,8 +1186,12 @@
 		21301EAE1FE3699300A98CB7 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
-				21290BA51FF5D85E00CB74A7 /* Mine */,
-				21290BA11FF5D82700CB74A7 /* Report */,
+				21301E921FE2777D00A98CB7 /* MineCell.h */,
+				21301E901FE2777D00A98CB7 /* MineCell.m */,
+				21301E8F1FE2777D00A98CB7 /* MineTableView.h */,
+				21301E911FE2777D00A98CB7 /* MineTableView.m */,
+				21301EAB1FE3698A00A98CB7 /* MineHeaderView.h */,
+				21301EAC1FE3698A00A98CB7 /* MineHeaderView.m */,
 			);
 			path = Mine;
 			sourceTree = "<group>";

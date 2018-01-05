@@ -13,6 +13,7 @@
 @property (nonatomic,copy) NSString *imgName;
 @property (nonatomic,copy) NSString *text;
 @property (nonatomic, copy) NSString *rightText;
+@property (nonatomic, assign) BOOL isSpecial;
 
 @property (nonatomic,strong) void(^action)();
 

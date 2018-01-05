@@ -11,6 +11,8 @@
 #import "TLUIHeader.h"
 #import "AppColorMacro.h"
 
+#import "UILabel+Extension.h"
+
 @interface MineCell ()
 
 @property (nonatomic, strong) UIImageView *iconImageView;
@@ -66,10 +68,10 @@
     [self.contentView addSubview:self.rightLabel];
     [self.rightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.width.mas_lessThanOrEqualTo(200);
-        make.height.mas_equalTo(15.0);
-        make.right.mas_equalTo(-15);
-        make.centerY.mas_equalTo(0);
+        make.width.lessThanOrEqualTo(@200);
+        make.height.equalTo(@15.0);
+        make.right.equalTo(self.accessoryImageView.mas_left).offset(-15);
+        make.centerY.equalTo(@0);
         
     }];
     
@@ -78,10 +80,9 @@
     
     [self.contentView addSubview:self.titleLbl];
     [self.titleLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.iconImageView.mas_right).offset(10);
         
+        make.left.equalTo(self.iconImageView.mas_right).offset(10);
         make.centerY.equalTo(self.contentView.mas_centerY);
-        make.right.lessThanOrEqualTo(self.accessoryImageView.mas_left);
     }];
     
     //
@@ -101,7 +102,7 @@
     self.iconImageView.image = [UIImage imageNamed:mineModel.imgName];
     
     self.titleLbl.text = mineModel.text;
-    
+
     self.rightLabel.text = mineModel.rightText;
     
 }

@@ -131,6 +131,8 @@
         //详细地址
         self.address = [NSString stringWithFormat:@"%@%@", road,building];
         
+        NSLog(@"定位执行了一次又一次");
+        
         [self locationAuth];
     }];
     
@@ -411,98 +413,95 @@
     
     BaseWeakSelf;
     
-    
-    
     //芝麻认证
-    if ([self checkAuthNeedWithPort:kF2] && self.reportModel.F2 == nil) {
-        
+    if ([self checkAuthNeedWithPort:kF2] && ![self.reportModel.F2 valid]) {
+
         QuestionRemarkVC *remarkVC = [QuestionRemarkVC new];
-        
+
         [self.navigationController pushViewController:remarkVC animated:YES];
-        
+
         return ;
     }
     //基本信息认证
-    if ([self checkAuthNeedWithPort:kF3] && self.reportModel.F3 == nil) {
-        
+    if ([self checkAuthNeedWithPort:kF3] && ![self.reportModel.F3 valid]) {
+
         BaseInfoAuthVC *baseInfoAuthVC = [BaseInfoAuthVC new];
-        
+
         [self.navigationController pushViewController:baseInfoAuthVC animated:YES];
-        
+
         return ;
     }
-   
+
     //身份证认证
-    if ([self checkAuthNeedWithPort:kPID1] && self.reportModel.PID1 == nil) {
-        
+    if ([self checkAuthNeedWithPort:kPID1] && ![self.reportModel.PID1 valid]) {
+
         IdAuthVC *idAuthVC = [IdAuthVC new];
-        
+
         [self.navigationController pushViewController:idAuthVC animated:YES];
-        
+
         return ;
     }
-    
+
     //定位认证
-    if ([self checkAuthNeedWithPort:kPDW2] && self.reportModel.PDW2 == nil) {
-        
+    if ([self checkAuthNeedWithPort:kPDW2] && ![self.reportModel.PDW2 valid]) {
+
         [TLAlert alertWithTitle:@"提示" msg:@"是否进行定位认证?" confirmMsg:@"确认" cancleMsg:@"取消" cancle:^(UIAlertAction *action) {
-            
+
         } confirm:^(UIAlertAction *action) {
-            
+
             if (![TLAuthHelper isEnableLocation]) {
-                
+
                 // 请求定位授权
                 [weakSelf.sysLocationManager requestWhenInUseAuthorization];
-                
+
                 [TLAlert alertWithTitle:@"提示" msg:@"为了更好的为您服务,请在设置中打开定位服务" confirmMsg:@"设置" cancleMsg:@"取消" cancle:^(UIAlertAction *action) {
-                    
+
                 } confirm:^(UIAlertAction *action) {
-                    
+
                     [TLAuthHelper openSetting];
-                    
+
                 }];
-                
+
                 return;
-                
+
             }
-            
+
             [TLProgressHUD show];
-            
+
             [weakSelf.sysLocationManager startUpdatingLocation];
-            
+
         }];
-        
+
         return ;
     }
-    
+
     //通讯录认证
-    if ([self checkAuthNeedWithPort:kPTXL3] && self.reportModel.PTXL3 == nil) {
-        
+    if ([self checkAuthNeedWithPort:kPTXL3] && ![self.reportModel.PTXL3 valid]) {
+
         ContactAuthVC *contactAuthVC = [ContactAuthVC new];
-        
+
         [self.navigationController pushViewController:contactAuthVC animated:YES];
-        
+
         return ;
     }
     //运营商认证
-    
-    if ([self checkAuthNeedWithPort:kPYYS4] && self.reportModel.PYYS4 == nil) {
-        
+
+    if ([self checkAuthNeedWithPort:kPYYS4] && ![self.reportModel.PYYS4 valid]) {
+
         TongDunVC *yysAuthVC = [TongDunVC new];
-        
+
         yysAuthVC.respBlock = ^(NSString *taskId) {
-            
+
             [weakSelf authRespWithTaskId:taskId];
         };
-        
+
         [self.navigationController pushViewController:yysAuthVC animated:YES];
-        
+
         return ;
     }
-    
 
     //芝麻信用评分
-    if ([self checkAuthNeedWithPort:kPZM5] && self.reportModel.PZM5 == nil) {
+    if ([self checkAuthNeedWithPort:kPZM5] && ![self.reportModel.PZM5 valid]) {
         
         ZMOPScoreVC *zmOPScoreVC = [ZMOPScoreVC new];
         
@@ -511,7 +510,7 @@
         return ;
     }
     //行业关注名单
-    if ([self checkAuthNeedWithPort:kPZM6] && self.reportModel.PZM6 == nil) {
+    if ([self checkAuthNeedWithPort:kPZM6] && ![self.reportModel.PZM6 valid]) {
         
         ZMFoucsNameVC *foucsNameVC = [ZMFoucsNameVC new];
         
@@ -520,7 +519,7 @@
         return ;
     }
     //欺诈认证
-    if ([self checkAuthNeedWithPort:kPZM7] && self.reportModel.PZM7 == nil) {
+    if ([self checkAuthNeedWithPort:kPZM7] && ![self.reportModel.PZM7 valid]) {
         
         [TLAlert alertWithTitle:@"提示" msg:@"是否进行欺诈信息认证?" confirmMsg:@"确认" cancleMsg:@"取消" cancle:^(UIAlertAction *action) {
             

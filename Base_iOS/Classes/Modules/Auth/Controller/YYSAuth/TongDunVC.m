@@ -99,7 +99,7 @@
         //判断host
         if ([host isEqualToString:@"www.baidu.com"]) {
             
-            NSArray *arr = [url.absoluteString componentsSeparatedByString:@"task_id"];
+            NSArray *arr = [url.absoluteString componentsSeparatedByString:@"task_id="];
             
             NSString *taskId = @"";
             
