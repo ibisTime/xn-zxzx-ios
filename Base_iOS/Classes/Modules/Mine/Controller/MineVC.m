@@ -25,6 +25,7 @@
 #import "TLUploadManager.h"
 #import <UIImageView+WebCache.h>
 #import "NSString+Extension.h"
+#import "TLProgressHUD.h"
 
 @interface MineVC ()<MineHeaderSeletedDelegate>
 
@@ -36,6 +37,12 @@
 @property (nonatomic, strong) MineHeaderView *headerView;
 
 @property (nonatomic, strong) TLImagePicker *imagePicker;
+//服务电话
+@property (nonatomic, strong) UILabel *mobileLbl;
+//服务时间
+@property (nonatomic, strong) UILabel *serviceTimeLbl;
+//版本号
+@property (nonatomic, strong) UILabel *versionLbl;
 
 @end
 
@@ -56,6 +63,15 @@
     [self changeInfo];
     //版本号
     [self initVersionView];
+    //服务信息
+    [self initServiceInfo];
+    
+    if ([TLUser user].userId) {
+        //获取服务时间
+        [self requestServiceTime];
+        //获取服务电话
+        [self requestServiceMobile];
+    }
 }
 
 - (void)initGroup {
@@ -147,10 +163,13 @@
         
         _imagePicker.pickFinish = ^(UIImage *photo, NSDictionary *info){
             
-            UIImage *image = info[@"UIImagePickerControllerOriginalImage"];
+            UIImage *image = info == nil ? photo: info[@"UIImagePickerControllerOriginalImage"];
+            
             NSData *imgData = UIImageJPEGRepresentation(image, 0.1);
             
             //进行上传
+            [TLProgressHUD show];
+            
             TLUploadManager *manager = [TLUploadManager manager];
             
             manager.imgData = imgData;
@@ -168,6 +187,32 @@
     
     return _imagePicker;
 }
+//服务信息
+- (void)initServiceInfo {
+    
+    CGFloat serviceH = 60;
+    
+    UIView *serviceView = [[UIView alloc] init];
+    
+    [self.view addSubview:serviceView];
+    [serviceView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.bottom.equalTo(self.versionLbl.mas_top).offset(-15);
+        make.height.equalTo(@(serviceH));
+        make.left.equalTo(@0);
+        make.width.equalTo(@(kScreenWidth));
+        
+    }];
+    
+    self.mobileLbl = [UILabel labelWithFrame:CGRectMake(0, 0, kScreenWidth, 16) textAligment:NSTextAlignmentCenter backgroundColor:kClearColor font:Font(15) textColor:kTextColor];
+    
+    [serviceView addSubview:self.mobileLbl];
+    
+    self.serviceTimeLbl = [UILabel labelWithFrame:CGRectMake(0, self.mobileLbl.yy + 10, kScreenWidth, 12) textAligment:NSTextAlignmentCenter backgroundColor:kClearColor font:Font(15) textColor:kTextColor];
+    
+    [serviceView addSubview:self.serviceTimeLbl];
+    
+}
 
 - (void)initVersionView {
     //版本号
@@ -184,8 +229,11 @@
         
         make.centerX.equalTo(@0);
         make.bottom.equalTo(@(-20));
+        make.height.equalTo(@20);
         
     }];
+    
+    self.versionLbl = versionLbl;
 }
 
 #pragma mark - Notification
@@ -220,21 +268,57 @@
     
     TLNetworking *http = [TLNetworking new];
     
-    http.showView = self.view;
+//    http.showView = self.view;
     http.code = USER_CHANGE_USER_PHOTO;
     http.parameters[@"userId"] = [TLUser user].userId;
     http.parameters[@"photo"] = key;
     http.parameters[@"token"] = [TLUser user].token;
     [http postWithSuccess:^(id responseObject) {
         
+        [TLProgressHUD dismiss];
+        
         [TLAlert alertWithSucces:@"修改头像成功"];
         
         [TLUser user].photo = key;
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:kUserInfoChange object:nil];
+        //替换头像
+        [self.headerView.userPhoto sd_setImageWithURL:[NSURL URLWithString:[key convertImageUrl]] placeholderImage:USER_PLACEHOLDER_SMALL];
         
     } failure:^(NSError *error) {
         
+        
+    }];
+}
+
+- (void)requestServiceTime {
+    
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = USER_CKEY_CVALUE;
+    
+    http.parameters[@"ckey"] = @"time";
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        self.serviceTimeLbl.text = [NSString stringWithFormat:@"服务时间: %@", responseObject[@"data"][@"cvalue"]];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+- (void)requestServiceMobile {
+    
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = USER_CKEY_CVALUE;
+    
+    http.parameters[@"ckey"] = @"telephone";
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        self.mobileLbl.text = [NSString stringWithFormat:@"服务电话: %@", responseObject[@"data"][@"cvalue"]];
+
+    } failure:^(NSError *error) {
         
     }];
 }

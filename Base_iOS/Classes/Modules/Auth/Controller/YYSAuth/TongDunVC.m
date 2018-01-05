@@ -111,8 +111,6 @@
             //返回NO,阻止页面继续跳转到不存在的url地址
             decisionHandler(WKNavigationActionPolicyCancel);
             
-            [self.navigationController popToRootViewControllerAnimated:YES];
-            
             //获取认证回调
             if (self.respBlock) {
                 

@@ -155,9 +155,8 @@
                 }]];
                 NSString *token = responseObject[@"data"][@"uploadToken"];
                 
-                //                UIImage *image = info[@"UIImagePickerControllerOriginalImage"];
-                UIImage *image = photo;
-                
+                UIImage *image = info == nil ? photo: info[@"UIImagePickerControllerOriginalImage"];
+
                 NSData *imgData = UIImageJPEGRepresentation(image, 0.4);
                 
                 [uploadManager putData:imgData key:[TLUploadManager imageNameByImage:image] token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {

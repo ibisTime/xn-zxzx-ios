@@ -14,14 +14,17 @@
 
 #import <ZMCreditSDK/ALCreditService.h>
 #import "ZMScoreModel.h"
+#import "QuestionModel.h"
 
 #import "AppMacro.h"
 
 @interface ZMOPScoreVC ()
-
-@property (nonatomic, strong) TLTextField *realName;    //真实姓名
-
-@property (nonatomic, strong) TLTextField *idCard;      //身份证
+//真实姓名
+@property (nonatomic, strong) TLTextField *realName;
+//身份证
+@property (nonatomic, strong) TLTextField *idCard;
+//报告单
+@property (nonatomic, strong) QuestionModel *reportModel;
 
 @end
 
@@ -44,10 +47,6 @@
     
     self.realName = [[TLTextField alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 50) leftTitle:@"姓名" titleWidth:105 placeholder:@"请输入姓名"];
     
-    STRING_NIL_NULL([TLUser user].realName);
-    
-    self.realName.text = [TLUser user].realName;
-    
     self.realName.returnKeyType = UIReturnKeyNext;
     
     [self.realName addTarget:self action:@selector(next:) forControlEvents:UIControlEventEditingDidEndOnExit];
@@ -55,10 +54,6 @@
     [self.view addSubview:self.realName];
     
     self.idCard = [[TLTextField alloc] initWithFrame:CGRectMake(0, self.realName.yy, kScreenWidth, 50) leftTitle:@"身份证号码" titleWidth:105 placeholder:@"请输入身份证号码"];
-    
-    STRING_NIL_NULL([TLUser user].idNo);
-    
-    self.idCard.text = [TLUser user].idNo;
     
     [self.view addSubview:self.idCard];
     
@@ -185,6 +180,45 @@
         [TLAlert alertWithError:@"授权失败"];
     }
     
+}
+
+#pragma mark - Setting
+
+- (void)setReportModel:(QuestionModel *)reportModel {
+    
+    _reportModel = reportModel;
+    
+    F2Model *f2Model = reportModel.f2Model;
+    
+    STRING_NIL_NULL(f2Model.realName);
+
+    self.realName.text = f2Model.realName;
+    
+    STRING_NIL_NULL(f2Model.idNo);
+
+    self.idCard.text = f2Model.idNo;
+}
+
+#pragma mark - Data
+/**
+ 查询报告单详情
+ */
+- (void)queryQuestionDetail {
+    
+    TLNetworking *http = [TLNetworking new];
+    
+    http.code = @"805334";
+    http.showView = self.view;
+    http.parameters[@"reportCode"] = [TLUser user].tempReportCode;
+    
+    [http postWithSuccess:^(id responseObject) {
+        
+        self.reportModel = [QuestionModel mj_objectWithKeyValues:responseObject[@"data"]];
+        
+    } failure:^(NSError *error) {
+        
+        
+    }];
 }
 
 - (void)next:(UITextField *)sender {

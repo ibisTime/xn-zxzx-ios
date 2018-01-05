@@ -10,6 +10,7 @@
 
 //M
 #import "QuestionModel.h"
+#import "ReportModel.h"
 //C
 #import "QuestionRemarkVC.h"
 #import "ZMAuthVC.h"
@@ -26,6 +27,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "AppMacro.h"
 #import "UIBarButtonItem+convience.h"
+#import "NSString+Check.h"
 
 @interface BaseAuthVC ()<CLLocationManagerDelegate>
 
@@ -205,7 +207,6 @@
     TLNetworking *http = [TLNetworking new];
     
     http.code = @"805334";
-    http.showView = self.view;
     http.parameters[@"reportCode"] = [TLUser user].tempReportCode;
     
     [http postWithSuccess:^(id responseObject) {
@@ -214,6 +215,8 @@
         
         //运营商是否已认证(0:未认证  1:等待中  2:成功  3:失败)
         if ([questionModel.PYYS4Status isEqualToString:@"2"]) {
+            
+            [TLProgressHUD dismiss];
             
             [TLAlert alertWithSucces:@"运营商认证成功"];
             
@@ -354,7 +357,7 @@
     }];
 }
 /**
- 查询报关单详情
+ 查询报告单详情
  */
 - (void)queryQuestionDetail {
     
@@ -385,13 +388,33 @@
     [self queryInvestDetail];
 
 }
+//判断认证是否需要
+- (BOOL)checkAuthNeedWithPort:(NSString *)port {
+    
+    NSString *portStr = @"";
+    
+    NSArray *portList = [self.reportModel.portList componentsSeparatedByString:@","];
+
+    for (NSString *obj in portList) {
+        
+        if ([port isEqualToString:obj]) {
+            
+            portStr = port;
+        }
+    }
+    
+    return [portStr valid];
+}
+
 //跳到下个界面
 - (void)vcShouldPush {
     
     BaseWeakSelf;
     
+    
+    
     //芝麻认证
-    if ([self.investModel.F2 isEqualToString:@"Y"] && self.reportModel.F2 == nil) {
+    if ([self checkAuthNeedWithPort:kF2] && self.reportModel.F2 == nil) {
         
         QuestionRemarkVC *remarkVC = [QuestionRemarkVC new];
         
@@ -400,7 +423,7 @@
         return ;
     }
     //基本信息认证
-    if ([self.investModel.F3 isEqualToString:@"Y"] && self.reportModel.F3 == nil) {
+    if ([self checkAuthNeedWithPort:kF3] && self.reportModel.F3 == nil) {
         
         BaseInfoAuthVC *baseInfoAuthVC = [BaseInfoAuthVC new];
         
@@ -410,7 +433,7 @@
     }
    
     //身份证认证
-    if ([self.investModel.PID1 isEqualToString:@"Y"] && self.reportModel.PID1 == nil) {
+    if ([self checkAuthNeedWithPort:kPID1] && self.reportModel.PID1 == nil) {
         
         IdAuthVC *idAuthVC = [IdAuthVC new];
         
@@ -420,7 +443,7 @@
     }
     
     //定位认证
-    if ([self.investModel.PDW2 isEqualToString:@"Y"] && self.reportModel.PDW2 == nil) {
+    if ([self checkAuthNeedWithPort:kPDW2] && self.reportModel.PDW2 == nil) {
         
         [TLAlert alertWithTitle:@"提示" msg:@"是否进行定位认证?" confirmMsg:@"确认" cancleMsg:@"取消" cancle:^(UIAlertAction *action) {
             
@@ -453,7 +476,7 @@
     }
     
     //通讯录认证
-    if ([self.investModel.PTXL3 isEqualToString:@"Y"] && self.reportModel.PTXL3 == nil) {
+    if ([self checkAuthNeedWithPort:kPTXL3] && self.reportModel.PTXL3 == nil) {
         
         ContactAuthVC *contactAuthVC = [ContactAuthVC new];
         
@@ -463,7 +486,7 @@
     }
     //运营商认证
     
-    if ([self.investModel.PYYS4 isEqualToString:@"Y"] && self.reportModel.PYYS4 == nil) {
+    if ([self checkAuthNeedWithPort:kPYYS4] && self.reportModel.PYYS4 == nil) {
         
         TongDunVC *yysAuthVC = [TongDunVC new];
         
@@ -479,7 +502,7 @@
     
 
     //芝麻信用评分
-    if ([self.investModel.PZM5 isEqualToString:@"Y"] && self.reportModel.PZM5 == nil) {
+    if ([self checkAuthNeedWithPort:kPZM5] && self.reportModel.PZM5 == nil) {
         
         ZMOPScoreVC *zmOPScoreVC = [ZMOPScoreVC new];
         
@@ -488,7 +511,7 @@
         return ;
     }
     //行业关注名单
-    if ([self.investModel.PZM6 isEqualToString:@"Y"] && self.reportModel.PZM6 == nil) {
+    if ([self checkAuthNeedWithPort:kPZM6] && self.reportModel.PZM6 == nil) {
         
         ZMFoucsNameVC *foucsNameVC = [ZMFoucsNameVC new];
         
@@ -497,7 +520,7 @@
         return ;
     }
     //欺诈认证
-    if ([self.investModel.PZM7 isEqualToString:@"Y"] && self.reportModel.PZM7 == nil) {
+    if ([self checkAuthNeedWithPort:kPZM7] && self.reportModel.PZM7 == nil) {
         
         [TLAlert alertWithTitle:@"提示" msg:@"是否进行欺诈信息认证?" confirmMsg:@"确认" cancleMsg:@"取消" cancle:^(UIAlertAction *action) {
             
@@ -509,7 +532,7 @@
         return ;
     }
     //同盾认证
-    if ([self.investModel.PTD8 isEqualToString:@"Y"] && self.reportModel.PTD8 == nil) {
+    if (kPTD8 && self.reportModel.PTD8 == nil) {
         
         [TLAlert alertWithTitle:@"提示" msg:@"是否进行同盾认证?" confirmMsg:@"确认" cancleMsg:@"取消" cancle:^(UIAlertAction *action) {
             

@@ -93,7 +93,7 @@
 
     TLNetworking *getUploadToken = [TLNetworking new];
     
-    getUploadToken.showView = showView;
+//    getUploadToken.showView = showView;
     getUploadToken.code = IMG_UPLOAD_CODE;
     getUploadToken.parameters[@"token"] = [TLUser user].token;
     [getUploadToken postWithSuccess:^(id responseObject) {
@@ -105,6 +105,10 @@
         }];
         
         QNUploadManager *manager = [[QNUploadManager alloc] initWithConfiguration:config];
+        
+        NSString *qnKey = [TLUploadManager imageNameByImage:self.image];
+        
+        NSLog(@"qnKey = %@, image = %@", qnKey, self.image);
         
         [manager putData:self.imgData key:[TLUploadManager imageNameByImage:self.image] token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
             

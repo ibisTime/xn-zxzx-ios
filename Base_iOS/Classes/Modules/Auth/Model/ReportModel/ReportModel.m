@@ -141,11 +141,11 @@ NSString *const kPTD8   = @"PTD8";
     [arr addObject:[self addInfoModelWithTitle:@"用户信息" content:@"section"]];
 
     //姓名
-    NSString *realName = [NSString stringWithFormat:@"%@ (已认证)", f2Model.realName];
+    NSString *realName = [f2Model.realName valid] ? [NSString stringWithFormat:@"%@ (已认证)", f2Model.realName]: @"暂无";
     
     [arr addObject:[self addInfoModelWithTitle:@"姓名" content:realName]];
     //身份证号
-    NSString *idNo = [NSString stringWithFormat:@"%@ (已认证)", f2Model.idNo];
+    NSString *idNo = [f2Model.idNo valid] ? [NSString stringWithFormat:@"%@ (已认证)", f2Model.idNo]: @"暂无";
 
     [arr addObject:[self addInfoModelWithTitle:@"身份证号" content:idNo]];
     //手机号

@@ -38,19 +38,11 @@
 #pragma mark - Init
 - (void)initSubviews {
     
-    BOOL isRealNameExist = [[TLUser user].realName valid];
-
     CGFloat leftMargin = 15;
     
     self.realName = [[TLTextField alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 50) leftTitle:@"真实姓名" titleWidth:105 placeholder:@"请输入姓名"];
     
     self.realName.returnKeyType = UIReturnKeyNext;
-    
-    self.realName.enabled = !isRealNameExist;
-
-    STRING_NIL_NULL([TLUser user].realName);
-    
-    self.realName.text = [TLUser user].realName;
     
     [self.realName addTarget:self action:@selector(next:) forControlEvents:UIControlEventEditingDidEndOnExit];
     
@@ -58,18 +50,12 @@
     
     self.idCard = [[TLTextField alloc] initWithFrame:CGRectMake(0, self.realName.yy + 1, kScreenWidth, 50) leftTitle:@"身份证号" titleWidth:105 placeholder:@"请输入身份证号码"];
     
-    STRING_NIL_NULL([TLUser user].idNo);
-    
-    self.idCard.text = [TLUser user].idNo;
-    
     [self.view addSubview:self.idCard];
     
     UIButton *confirmBtn = [UIButton buttonWithTitle:@"下一步" titleColor:kWhiteColor backgroundColor:kAppCustomMainColor titleFont:15.0 cornerRadius:45/2.0];
     
     confirmBtn.frame = CGRectMake(leftMargin, self.idCard.yy + 40, kScreenWidth - 2*leftMargin, 45);
     
-//    confirmBtn.enabled = !isRealNameExist;
-
     [confirmBtn addTarget:self action:@selector(confirmIDCard:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:confirmBtn];
