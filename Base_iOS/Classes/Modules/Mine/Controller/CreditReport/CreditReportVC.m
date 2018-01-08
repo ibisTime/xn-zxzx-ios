@@ -114,7 +114,7 @@
     TLNetworking *http = [TLNetworking new];
     
     http.showView = self.view;
-    http.code = @"805331";
+    http.code = @"805332";
     http.parameters[@"reportCode"] = [TLUser user].tempReportCode;
     
     [http postWithSuccess:^(id responseObject) {
