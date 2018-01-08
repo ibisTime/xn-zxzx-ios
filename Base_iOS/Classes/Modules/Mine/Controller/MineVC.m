@@ -18,6 +18,7 @@
 
 //C
 #import "CreditReportVC.h"
+#import "PedestrianReportVC.h"
 #import "SettingVC.h"
 #import "HTMLStrVC.h"
 
@@ -93,6 +94,18 @@
         
     };
 
+    //人行征信报告
+//    MineModel *pedestrianReport = [MineModel new];
+//
+//    pedestrianReport.text = @"人行征信报告";
+//    pedestrianReport.imgName = @"";
+//    pedestrianReport.action = ^{
+//
+//        PedestrianReportVC *reportVC = [PedestrianReportVC new];
+//
+//        [weakSelf.navigationController pushViewController:reportVC animated:YES];
+//    };
+    
     //个人设置
     MineModel *setting = [MineModel new];
     
@@ -106,7 +119,6 @@
     };
     
     //版本号
-    
     NSDictionary *infoDictionary = [NSBundle mainBundle].infoDictionary;
     
     NSString *version = [NSString stringWithFormat:@"当前版本:v%@", infoDictionary[@"CFBundleShortVersionString"]];

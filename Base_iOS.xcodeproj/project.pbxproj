@@ -92,6 +92,7 @@
 		21301EAA1FE27B0500A98CB7 /* CreditReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301EA91FE27B0500A98CB7 /* CreditReportVC.m */; };
 		21301EAD1FE3698A00A98CB7 /* MineHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301EAC1FE3698A00A98CB7 /* MineHeaderView.m */; };
 		21301EF01FE3D18A00A98CB7 /* UIViewController+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301EEE1FE3D18A00A98CB7 /* UIViewController+Extension.m */; };
+		21348AF22003079500368FFE /* PedestrianReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21348AF12003079500368FFE /* PedestrianReportVC.m */; };
 		2162F8B71FFB5E8E008E5C1B /* CreditReportIdentifierCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2162F8B61FFB5E8E008E5C1B /* CreditReportIdentifierCell.m */; };
 		2162F8B91FFCAFAE008E5C1B /* local_focus_on.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2162F8B81FFCAFAD008E5C1B /* local_focus_on.txt */; };
 		2162F8BF1FFCB01E008E5C1B /* FoucsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2162F8BE1FFCB01E008E5C1B /* FoucsModel.m */; };
@@ -341,6 +342,8 @@
 		21301EAC1FE3698A00A98CB7 /* MineHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineHeaderView.m; sourceTree = "<group>"; };
 		21301EEE1FE3D18A00A98CB7 /* UIViewController+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Extension.m"; sourceTree = "<group>"; };
 		21301EEF1FE3D18A00A98CB7 /* UIViewController+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Extension.h"; sourceTree = "<group>"; };
+		21348AF02003079500368FFE /* PedestrianReportVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PedestrianReportVC.h; sourceTree = "<group>"; };
+		21348AF12003079500368FFE /* PedestrianReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PedestrianReportVC.m; sourceTree = "<group>"; };
 		2162F8B51FFB5E8E008E5C1B /* CreditReportIdentifierCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreditReportIdentifierCell.h; sourceTree = "<group>"; };
 		2162F8B61FFB5E8E008E5C1B /* CreditReportIdentifierCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreditReportIdentifierCell.m; sourceTree = "<group>"; };
 		2162F8B81FFCAFAD008E5C1B /* local_focus_on.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = local_focus_on.txt; sourceTree = "<group>"; };
@@ -1137,6 +1140,7 @@
 			children = (
 				21301E861FE2775D00A98CB7 /* MineVC.h */,
 				21301E871FE2775D00A98CB7 /* MineVC.m */,
+				21348AEF2003076900368FFE /* PedestrianReport */,
 				21301E951FE2779500A98CB7 /* CreditReport */,
 				21301E961FE277AD00A98CB7 /* Setting */,
 			);
@@ -1203,6 +1207,15 @@
 				21301EEE1FE3D18A00A98CB7 /* UIViewController+Extension.m */,
 			);
 			path = UIViewController;
+			sourceTree = "<group>";
+		};
+		21348AEF2003076900368FFE /* PedestrianReport */ = {
+			isa = PBXGroup;
+			children = (
+				21348AF02003079500368FFE /* PedestrianReportVC.h */,
+				21348AF12003079500368FFE /* PedestrianReportVC.m */,
+			);
+			path = PedestrianReport;
 			sourceTree = "<group>";
 		};
 		21AC58FE1FDE798A00F19DE8 /* Header */ = {
@@ -1907,6 +1920,7 @@
 				21AC59731FDE820600F19DE8 /* NSDictionary+Extension.m in Sources */,
 				21158E431F1C4F4D00A07266 /* CustomTabBar.m in Sources */,
 				21301EA01FE2789900A98CB7 /* SettingGroup.m in Sources */,
+				21348AF22003079500368FFE /* PedestrianReportVC.m in Sources */,
 				21F82C9C1F17719D0019B176 /* BaseViewController.m in Sources */,
 				21FB30CB1F26E9EF0028ADEE /* UINavigationController+MethodSwizzling.m in Sources */,
 				212B1DC61FF2813C00C61685 /* EmergencyContactView.m in Sources */,
