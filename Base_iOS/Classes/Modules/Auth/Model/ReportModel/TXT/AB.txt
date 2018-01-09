@@ -1,0 +1,26 @@
+ {
+        "bizCode": "AB",
+        "bizName": "公检法",
+        "type": {
+            "name": "风险类型编码",
+            "typeCodeInfo": [
+                {
+                    "code": "AB001",
+                    "value": " 被执行人",
+                    "codeList": {
+                        "name": "被执行人类型",
+                        "codeList": [
+                            {
+                                "code": "AB001001",
+                                "value": "失信被执行人（亦称“老赖”）"
+                            },
+                            {
+                                "code": "AB001002",
+                                "value": "被执行人"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }

@@ -10,19 +10,7 @@
 
 @implementation FoucsModel
 
-+ (NSDictionary *)objectClassInArray {
-    
-    return @{@"infoArray" : [ZMInfoArray class]};
-}
 @end
-
-
-
-
-@implementation ZMInfoArray
-
-@end
-
 
 @implementation ZMType
 
@@ -33,11 +21,9 @@
 
 @end
 
-
 @implementation ZMTypeCodeInfo
 
 @end
-
 
 @implementation ZMCodeList
 
@@ -47,7 +33,6 @@
 }
 
 @end
-
 
 @implementation ZMCodeInfo
 

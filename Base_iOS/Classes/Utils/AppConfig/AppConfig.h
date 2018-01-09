@@ -27,19 +27,15 @@ FOUNDATION_EXPORT void TLLog(NSString *format, ...);
 
 //url请求地址
 @property (nonatomic, strong) NSString *addr;
+//人行中心请求地址
+@property (nonatomic, copy) NSString *pedestAddr;
+//cookie
+@property (nonatomic, copy) NSString *cookie;
+
 //@property (nonatomic,copy) NSString *aliPayKey;
 @property (nonatomic, copy) NSString *qiniuDomain;
 @property (nonatomic,strong) NSString *shareBaseUrl;
 
-////腾讯云
-//@property (nonatomic, copy) NSString *chatAppId;
-//@property (nonatomic, copy) NSString *chatAccountType;
-//推送
-@property (nonatomic,copy) NSString *pushKey;
-//微信
-@property (nonatomic, copy) NSString *wxKey;
-//支付宝
-@property (nonatomic, copy) NSString *aliMapKey;
 //七牛云
 @property (nonatomic, copy) NSString *qiNiuKey;
 

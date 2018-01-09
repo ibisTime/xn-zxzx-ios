@@ -48,20 +48,23 @@ void TLLog(NSString *format, ...) {
             
             self.qiniuDomain = @"http://ormcdjjs0.bkt.clouddn.com";
             self.addr = @"http://139.196.162.23:4101";
-
+            self.pedestAddr = @"https://ipcrs.pbccrc.org.cn/";
+            
         }break;
             
         case RunEnvDev: {
 
             self.qiniuDomain = @"http://ormcdjjs0.bkt.clouddn.com";
             self.addr = @"http://121.43.101.148:4101";
-            
+            self.pedestAddr = @"https://ipcrs.pbccrc.org.cn/";
+
         }break;
             
         case RunEnvTest: {
             
             self.qiniuDomain = @"http://ormcdjjs0.bkt.clouddn.com";
             self.addr = @"http://47.96.161.183:4101";
+            self.pedestAddr = @"https://ipcrs.pbccrc.org.cn/";
 
         }break;
             
@@ -72,11 +75,6 @@ void TLLog(NSString *format, ...) {
 - (NSString *)getUrl {
 
     return [self.addr stringByAppendingString:@"/forward-service/api"];
-}
-
-- (NSString *)wxKey {
-    
-    return @"wx8cb7c18fa507f630";
 }
 
 @end

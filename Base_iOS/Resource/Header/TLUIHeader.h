@@ -23,6 +23,8 @@
 #define FONT(x)    [UIFont systemFontOfSize:x]
 
 #define BaseWeakSelf  __weak typeof(self) weakSelf = self;
+//拼接人行URL
+#define kAppendUrl(x)    [[AppConfig config].pedestAddr stringByAppendingString:x]
 //刷新广告列表
 #define kAdvertiseListRefresh @"kAdvertiseListRefresh"
 //信任

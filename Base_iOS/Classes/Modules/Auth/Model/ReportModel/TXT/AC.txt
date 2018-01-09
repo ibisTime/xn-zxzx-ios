@@ -1,0 +1,97 @@
+{
+        "bizCode": "AC",
+        "bizName": "支付行业",
+        "type": {
+            "name": "风险类型编码",
+            "typeCodeInfo": [
+                {
+                    "code": "AC001",
+                    "value": " 盗卡者/盗卡者同伙",
+                    "codeList": {
+                        "name": "盗卡者风险类型",
+                        "codeList": [
+                            {
+                                "code": "AC001001",
+                                "value": "盗卡者/盗卡者同伙"
+                            }
+
+                        ]
+                    }
+                },
+   {
+                    "code": "AC002",
+                    "value": " 欺诈者/欺诈同伙",
+                    "codeList": {
+                        "name": "欺诈者风险类型",
+                        "codeList": [
+                            {
+                                "code": "AC002001",
+                                "value": "欺诈者/欺诈同伙"
+                            }
+
+                        ]
+                    }
+                }
+,
+   {
+                    "code": "AC003",
+                    "value": "盗用操作/盗用者同伙 ",
+                    "codeList": {
+                        "name": "盗用者风险类型",
+                        "codeList": [
+                            {
+                                "code": "AC003001",
+                                "value": "盗用操作/盗用者同伙"
+                            }
+
+                        ]
+                    }
+                }
+,
+   {
+                    "code": "AC004",
+                    "value": "  盗用支出/盗用者同伙",
+                    "codeList": {
+                        "name": " 盗用支出者风险类型",
+                        "codeList": [
+                            {
+                                "code": "AC004001",
+                                "value": " 盗用支出/盗用者同伙"
+                            }
+
+                        ]
+                    }
+                }
+,
+   {
+                    "code": "AC005",
+                    "value": "  骗赔",
+                    "codeList": {
+                        "name": " 骗赔风险类型",
+                        "codeList": [
+                            {
+                                "code": "AC005001",
+                                "value": "骗赔"
+                            }
+
+                        ]
+                    }
+                }
+,
+   {
+                    "code": "AC007",
+                    "value": "案件库黑名单",
+                    "codeList": {
+                        "name": "案件库风险",
+                        "codeList": [
+                            {
+                                "code": "AC007001",
+                                "value": "营销作弊名单"
+                            }
+
+                        ]
+                    }
+                }
+            ]
+        }
+    }

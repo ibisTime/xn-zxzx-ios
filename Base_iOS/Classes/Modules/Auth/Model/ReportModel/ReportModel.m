@@ -470,21 +470,6 @@ NSString *const kPTD8   = @"PTD8";
         return arr;
     }
     
-    NSError *error;
-    
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"local_focus_on" ofType:@"txt"];
-    
-    NSString *json = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
-    
-    if (error) {
-        
-        return arr;
-    }
-    
-    FoucsModel *foucsModel = [FoucsModel new];
-    
-    foucsModel.infoArray = [ZMInfoArray mj_objectArrayWithKeyValuesArray:json];
-    
     if (pzm6Model.details == nil || pzm6Model.details.count == 0) {
         
         return arr;
@@ -499,38 +484,41 @@ NSString *const kPTD8   = @"PTD8";
         //风险内容
         __block NSString *riskTitle;
         __block NSString *riskContent;
-        //额外信息
-//        __block NSString *extendInfo;
+        //FoucsModel
+        NSError *error;
+        
+        NSString *filePath = [[NSBundle mainBundle] pathForResource:detail.bizCode ofType:@"txt"];
+        
+        NSString *json = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
+        
+        FoucsModel *foucsModel = [FoucsModel mj_objectWithKeyValues:json];
+        
         //匹配bizCode
-        [foucsModel.infoArray enumerateObjectsUsingBlock:^(ZMInfoArray * _Nonnull infoArray, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([detail.bizCode isEqualToString:foucsModel.bizCode]) {
             
-            if ([detail.bizCode isEqualToString:infoArray.bizCode]) {
+            tradeType = foucsModel.bizName;
+        }
+        
+        ZMType *zmType = foucsModel.type;
+        //遍历风险类型
+        [zmType.typeCodeInfo enumerateObjectsUsingBlock:^(ZMTypeCodeInfo * _Nonnull typeCodeInfo, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if ([detail.type isEqualToString:typeCodeInfo.code]) {
                 
-                tradeType = infoArray.bizName;
+                riskType = typeCodeInfo.value;
             }
+            //遍历风险内容
+            ZMCodeList *zmCodeList = typeCodeInfo.codeList;
             
-            ZMType *zmType = infoArray.type;
-            //遍历风险类型
-            [zmType.typeCodeInfo enumerateObjectsUsingBlock:^(ZMTypeCodeInfo * _Nonnull typeCodeInfo, NSUInteger idx, BOOL * _Nonnull stop) {
+            riskTitle = zmCodeList.name;
+            
+            [zmCodeList.codeList enumerateObjectsUsingBlock:^(ZMCodeInfo * _Nonnull codeInfo, NSUInteger idx, BOOL * _Nonnull stop) {
                 
-                if ([detail.type isEqualToString:typeCodeInfo.code]) {
+                if ([detail.code isEqualToString:codeInfo.code]) {
                     
-                    riskType = typeCodeInfo.value;
+                    riskContent = codeInfo.value;
                 }
-                //遍历风险内容
-                ZMCodeList *zmCodeList = typeCodeInfo.codeList;
-                
-                riskTitle = zmCodeList.name;
-
-                [zmCodeList.codeList enumerateObjectsUsingBlock:^(ZMCodeInfo * _Nonnull codeInfo, NSUInteger idx, BOOL * _Nonnull stop) {
-                    
-                    if ([detail.code isEqualToString:codeInfo.code]) {
-                        
-                        riskContent = codeInfo.value;
-                    }
-                }];
             }];
-            
         }];
     
         NSMutableString *content = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"%@(%@)\n%@: %@", tradeType, riskType, riskTitle, riskContent]];

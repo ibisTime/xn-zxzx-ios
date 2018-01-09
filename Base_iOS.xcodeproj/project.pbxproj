@@ -102,6 +102,17 @@
 		216AB7F01F189F22006C26A1 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 216AB7EF1F189F22006C26A1 /* libsqlite3.tbd */; };
 		216AB7F21F189F30006C26A1 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 216AB7F11F189F30006C26A1 /* libc++.tbd */; };
 		216AB7F41F189F39006C26A1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 216AB7F31F189F39006C26A1 /* libz.tbd */; };
+		21845FC1200353680039090F /* AB.txt in Resources */ = {isa = PBXBuildFile; fileRef = 21845FB7200353660039090F /* AB.txt */; };
+		21845FC2200353680039090F /* AA.txt in Resources */ = {isa = PBXBuildFile; fileRef = 21845FB8200353660039090F /* AA.txt */; };
+		21845FC3200353680039090F /* AC.txt in Resources */ = {isa = PBXBuildFile; fileRef = 21845FB9200353670039090F /* AC.txt */; };
+		21845FC4200353680039090F /* AF.txt in Resources */ = {isa = PBXBuildFile; fileRef = 21845FBA200353670039090F /* AF.txt */; };
+		21845FC5200353680039090F /* AG.txt in Resources */ = {isa = PBXBuildFile; fileRef = 21845FBB200353670039090F /* AG.txt */; };
+		21845FC6200353680039090F /* AH.txt in Resources */ = {isa = PBXBuildFile; fileRef = 21845FBC200353670039090F /* AH.txt */; };
+		21845FC7200353680039090F /* AD.txt in Resources */ = {isa = PBXBuildFile; fileRef = 21845FBD200353680039090F /* AD.txt */; };
+		21845FC8200353680039090F /* AE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 21845FBE200353680039090F /* AE.txt */; };
+		21845FC9200353680039090F /* AI.txt in Resources */ = {isa = PBXBuildFile; fileRef = 21845FBF200353680039090F /* AI.txt */; };
+		21845FCA200353680039090F /* AK.txt in Resources */ = {isa = PBXBuildFile; fileRef = 21845FC0200353680039090F /* AK.txt */; };
+		21845FCE20035E4F0039090F /* ZYNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 21845FCD20035E4F0039090F /* ZYNetworking.m */; };
 		21AC58721FDE734F00F19DE8 /* TLAccountBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC58701FDE734D00F19DE8 /* TLAccountBaseVC.m */; };
 		21AC58791FDE737200F19DE8 /* TLUserLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC58741FDE736C00F19DE8 /* TLUserLoginVC.m */; };
 		21AC587B1FDE737200F19DE8 /* TLUserForgetPwdVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC58771FDE737000F19DE8 /* TLUserForgetPwdVC.m */; };
@@ -356,6 +367,18 @@
 		216AB7EF1F189F22006C26A1 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		216AB7F11F189F30006C26A1 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		216AB7F31F189F39006C26A1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		21845FB7200353660039090F /* AB.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AB.txt; sourceTree = "<group>"; };
+		21845FB8200353660039090F /* AA.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AA.txt; sourceTree = "<group>"; };
+		21845FB9200353670039090F /* AC.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AC.txt; sourceTree = "<group>"; };
+		21845FBA200353670039090F /* AF.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AF.txt; sourceTree = "<group>"; };
+		21845FBB200353670039090F /* AG.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AG.txt; sourceTree = "<group>"; };
+		21845FBC200353670039090F /* AH.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AH.txt; sourceTree = "<group>"; };
+		21845FBD200353680039090F /* AD.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AD.txt; sourceTree = "<group>"; };
+		21845FBE200353680039090F /* AE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AE.txt; sourceTree = "<group>"; };
+		21845FBF200353680039090F /* AI.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AI.txt; sourceTree = "<group>"; };
+		21845FC0200353680039090F /* AK.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AK.txt; sourceTree = "<group>"; };
+		21845FCC20035E4F0039090F /* ZYNetworking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYNetworking.h; sourceTree = "<group>"; };
+		21845FCD20035E4F0039090F /* ZYNetworking.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYNetworking.m; sourceTree = "<group>"; };
 		21AC586D1FDE72B800F19DE8 /* AppMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppMacro.h; sourceTree = "<group>"; };
 		21AC586E1FDE72B900F19DE8 /* APICodeMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APICodeMacro.h; sourceTree = "<group>"; };
 		21AC586F1FDE72BA00F19DE8 /* AppColorMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppColorMacro.h; sourceTree = "<group>"; };
@@ -969,7 +992,7 @@
 				21290BAE1FF6222D00CB74A7 /* ReportModel.m */,
 				2162F8BD1FFCB01E008E5C1B /* FoucsModel.h */,
 				2162F8BE1FFCB01E008E5C1B /* FoucsModel.m */,
-				2162F8B81FFCAFAD008E5C1B /* local_focus_on.txt */,
+				21845FB6200353460039090F /* TXT */,
 			);
 			path = ReportModel;
 			sourceTree = "<group>";
@@ -1218,6 +1241,24 @@
 			path = PedestrianReport;
 			sourceTree = "<group>";
 		};
+		21845FB6200353460039090F /* TXT */ = {
+			isa = PBXGroup;
+			children = (
+				21845FB8200353660039090F /* AA.txt */,
+				21845FB7200353660039090F /* AB.txt */,
+				21845FB9200353670039090F /* AC.txt */,
+				21845FBD200353680039090F /* AD.txt */,
+				21845FBE200353680039090F /* AE.txt */,
+				21845FBA200353670039090F /* AF.txt */,
+				21845FBB200353670039090F /* AG.txt */,
+				21845FBC200353670039090F /* AH.txt */,
+				21845FBF200353680039090F /* AI.txt */,
+				21845FC0200353680039090F /* AK.txt */,
+				2162F8B81FFCAFAD008E5C1B /* local_focus_on.txt */,
+			);
+			path = TXT;
+			sourceTree = "<group>";
+		};
 		21AC58FE1FDE798A00F19DE8 /* Header */ = {
 			isa = PBXGroup;
 			children = (
@@ -1345,12 +1386,14 @@
 		21AC59321FDE7A1B00F19DE8 /* NetworkingTool */ = {
 			isa = PBXGroup;
 			children = (
-				21AC59331FDE7A1B00F19DE8 /* TLNetworking.m */,
 				21AC59361FDE7A1B00F19DE8 /* TLNetworking.h */,
+				21AC59331FDE7A1B00F19DE8 /* TLNetworking.m */,
 				21AC59341FDE7A1B00F19DE8 /* TLPageDataHelper.h */,
 				21AC59371FDE7A1B00F19DE8 /* TLPageDataHelper.m */,
 				21AC59351FDE7A1B00F19DE8 /* TLUploadManager.h */,
 				21AC59381FDE7A1B00F19DE8 /* TLUploadManager.m */,
+				21845FCC20035E4F0039090F /* ZYNetworking.h */,
+				21845FCD20035E4F0039090F /* ZYNetworking.m */,
 			);
 			path = NetworkingTool;
 			sourceTree = "<group>";
@@ -1709,14 +1752,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21845FC7200353680039090F /* AD.txt in Resources */,
+				21845FC5200353680039090F /* AG.txt in Resources */,
+				21845FC6200353680039090F /* AH.txt in Resources */,
+				21845FC3200353680039090F /* AC.txt in Resources */,
+				21845FC2200353680039090F /* AA.txt in Resources */,
 				21F82D201F17719D0019B176 /* Main.storyboard in Resources */,
 				21F82D1C1F17719D0019B176 /* Assets.xcassets in Resources */,
 				21290B8B1FF4E29B00CB74A7 /* Poseidon.bundle in Resources */,
+				21845FCA200353680039090F /* AK.txt in Resources */,
 				21F82D1E1F17719D0019B176 /* LaunchScreen.storyboard in Resources */,
 				212B1DB91FF25A5F00C61685 /* addressJSON.txt in Resources */,
+				21845FC8200353680039090F /* AE.txt in Resources */,
+				21845FC9200353680039090F /* AI.txt in Resources */,
+				21845FC4200353680039090F /* AF.txt in Resources */,
 				21290B8E1FF4E29B00CB74A7 /* H5Service.bundle in Resources */,
 				2162F8B91FFCAFAE008E5C1B /* local_focus_on.txt in Resources */,
 				21F82D1D1F17719D0019B176 /* Info.plist in Resources */,
+				21845FC1200353680039090F /* AB.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1898,6 +1951,7 @@
 				21AC59851FDE828500F19DE8 /* NSObject+Extension.m in Sources */,
 				21AC58991FDE74AF00F19DE8 /* TLBaseVC.m in Sources */,
 				21AC59471FDE7A1B00F19DE8 /* TLAlert.m in Sources */,
+				21845FCE20035E4F0039090F /* ZYNetworking.m in Sources */,
 				21AC59661FDE80FB00F19DE8 /* UIColor+Extension.m in Sources */,
 				21158E461F1C4F9E00A07266 /* TabBarModel.m in Sources */,
 				21AC59671FDE80FB00F19DE8 /* UIColor+theme.m in Sources */,

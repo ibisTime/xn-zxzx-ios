@@ -8,6 +8,7 @@
 
 #import "TLPageDataHelper.h"
 #import "TLNetworking.h"
+#import "ZYNetworking.h"
 #import "MJExtension.h"
 
 @interface TLPageDataHelper()
@@ -65,7 +66,6 @@
         } else {
             
             newObjs = responseObject[@"data"];
-        
         }
         
         NSMutableArray *objs = [_className mj_objectArrayWithKeyValuesArray:newObjs];
@@ -84,7 +84,6 @@
         } else {
             
             self.objs = objs;
-            
         }
         
         //防止刚进入没刷新，就上拉
@@ -112,7 +111,6 @@
                     stillHave = YES;
                     refresh(self.objs,YES);
                 }
-                
             }
             
         } else {
@@ -136,35 +134,26 @@
         }
         
         if (!stillHave && self.tableView) {
+            
             [self.tableView endRefreshingWithNoMoreData_tl];
         }
-        
         
     } failure:^(NSError *error) {
         
         if (self.tableView) {
+            
             [self.tableView endRefreshHeader];
         }
         
         if (failure) {
+            
             failure(error);
         }
-        
     }];
     
 }
 
-//pageNO = 1;
-//pageSize = 20;
-//start = 0;
-//totalCount = 1;
-//totalPage = 1;
-
 - (void)loadMore:(void(^)(NSMutableArray *objs,BOOL stillHave))loadMore failure:(void(^)(NSError *error))failure{
-    
-    //    if (!self.refreshed) {
-    //        return;
-    //    }
     
     TLNetworking *http = [TLNetworking new];
     http.code = self.code;

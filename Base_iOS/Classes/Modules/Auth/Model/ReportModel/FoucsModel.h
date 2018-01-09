@@ -8,15 +8,10 @@
 
 #import "BaseModel.h"
 
-@class ZMInfoArray,ZMType,ZMTypeCodeInfo,ZMCodeList,ZMCodeInfo;
+@class ZMType,ZMTypeCodeInfo,ZMCodeList,ZMCodeInfo;
 
-@interface FoucsModel : BaseModel
-
-@property (nonatomic, strong) NSArray <ZMInfoArray *> *infoArray;
-
-@end
 //行业类型
-@interface ZMInfoArray : NSObject
+@interface FoucsModel : BaseModel
 
 @property (nonatomic, copy) NSString *bizCode;
 
@@ -25,6 +20,7 @@
 @property (nonatomic, strong) ZMType *type;
 
 @end
+
 //风险类型
 @interface ZMType : NSObject
 

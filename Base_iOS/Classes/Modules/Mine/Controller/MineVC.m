@@ -94,17 +94,17 @@
         
     };
 
-    //人行征信报告
-//    MineModel *pedestrianReport = [MineModel new];
-//
-//    pedestrianReport.text = @"人行征信报告";
-//    pedestrianReport.imgName = @"";
-//    pedestrianReport.action = ^{
-//
-//        PedestrianReportVC *reportVC = [PedestrianReportVC new];
-//
-//        [weakSelf.navigationController pushViewController:reportVC animated:YES];
-//    };
+    //我的人行报告
+    MineModel *pedestrianReport = [MineModel new];
+
+    pedestrianReport.text = @"我的人行报告";
+    pedestrianReport.imgName = @"我的资信报告";
+    pedestrianReport.action = ^{
+
+        PedestrianReportVC *reportVC = [PedestrianReportVC new];
+
+        [weakSelf.navigationController pushViewController:reportVC animated:YES];
+    };
     
     //个人设置
     MineModel *setting = [MineModel new];
@@ -139,7 +139,7 @@
     
     self.group = [MineGroup new];
     
-    self.group.sections = @[@[creditReport, setting, abountUs]];
+    self.group.sections = @[@[creditReport, pedestrianReport, setting, abountUs]];
     
 }
 
