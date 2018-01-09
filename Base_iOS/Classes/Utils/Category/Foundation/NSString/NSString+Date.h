@@ -44,6 +44,9 @@
 //根据时间获取指定的时间
 + (NSString *)stringWithTimeStr:(NSString *)timeStampStr format:(NSString *)format;
 
+//获取时间戳
++ (NSString *)getTimeStamp;
+
 //时间转换  Jan 5, 2017 12:00:00 AM -> 2016-02-02
 - (NSString *)convertToDetailDate; //带有时分秒
 

@@ -6,8 +6,8 @@
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "TLAccountBaseVC.h"
 
-@interface PedestrianReportVC : BaseViewController
+@interface PedestrianReportVC : TLAccountBaseVC
 
 @end

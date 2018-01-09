@@ -214,6 +214,17 @@
     return dataStr;
 }
 
+/**
+ 获取时间戳
+ */
+
++ (NSString *)getTimeStamp {
+    
+    NSTimeInterval seconds = [[NSDate date] timeIntervalSince1970]*1000;
+    
+    return [NSString stringWithFormat:@"%.0lf", seconds];
+}
+
 - (NSString *)convertToTimelineDate {
     
     //后期改为类似于微信的那种做法

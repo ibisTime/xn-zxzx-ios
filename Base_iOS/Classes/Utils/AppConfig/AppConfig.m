@@ -7,6 +7,7 @@
 //
 
 #import "AppConfig.h"
+#import "UserDefaultsUtil.h"
 
 void TLLog(NSString *format, ...) {
     
@@ -73,8 +74,19 @@ void TLLog(NSString *format, ...) {
 }
 
 - (NSString *)getUrl {
-
+    
     return [self.addr stringByAppendingString:@"/forward-service/api"];
+}
+
+#pragma mark - 读写Cookie
++ (void)setUserDefaultCookie:(NSString*)cookie {
+    
+    [UserDefaultsUtil setUserDefaultCookie:cookie];
+}
+
++ (NSString*)getUsetDefaultCookie {
+    
+    return [UserDefaultsUtil getUsetDefaultCookie];
 }
 
 @end

@@ -16,31 +16,38 @@
 #import "TLAlert.h"
 
 @implementation ZYNetworking
+//默认header：User-Agent、Connection、Content-Type
 
-/*
- //Content-Type
- [http setHeaderWithValue:@"application/x-www-form-urlencoded" headerField:@"Content-Type"];
- //User-Agent
- [http setHeaderWithValue:@"okhttp/3.8.1" headerField:@"User-Agent"];
- //Connection
- [http setHeaderWithValue:@"Keep-Alive" headerField:@"Connection"];
- */
-
+/*Cache-Control
+[http setHeaderWithValue:@"no-cache" headerField:@"Cache-Control"];
+//Accept-Encoding
+[http setHeaderWithValue:@"gzip, deflate, br" headerField:@"Accept-Encoding"];
+//Accept-Language
+[http setHeaderWithValue:@"zh-CN,zh;q=0.9,en;q=0.8" headerField:@"Accept-Language"];
+*/
 + (AFHTTPSessionManager *)HTTPSessionManager
 {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     manager.requestSerializer.timeoutInterval = 15.0;
-    
-    //Content-Type
-    [manager.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    //User-Agent
-    [manager.requestSerializer setValue:@"okhttp/3.8.1" forHTTPHeaderField:@"User-Agent"];
-    //Connection
-    [manager.requestSerializer setValue:@"Keep-Alive" forHTTPHeaderField:@"Connection"];
+    //Cache-Control
+    [manager.requestSerializer setValue:@"no-cache" forHTTPHeaderField:@"Cache-Control"];
+    //Accept-Encoding
+    [manager.requestSerializer setValue:@"gzip, deflate, br" forHTTPHeaderField:@"Accept-Encoding"];
+    //Accept-Language
+    [manager.requestSerializer setValue:@"zh-CN,zh;q=0.9,en;q=0.8" forHTTPHeaderField:@"Accept-Language"];
+    //Cookie
+    if ([AppConfig config].cookie) {
+        
+        [manager.requestSerializer setValue:[AppConfig config].cookie forHTTPHeaderField:@"Cookie"];
+    }
+    //
+//    [manager.requestSerializer setValue:@"image/gif, image/jpeg, image/pjpeg, application/x-ms-application, application/xaml+xml, application/x-ms-xbap, */*" forHTTPHeaderField:@"Accept"];
+//    //Referer
+//    [manager.requestSerializer setValue:@"https://ipcrs.pbccrc.org.cn/page/login/loginreg.jsp" forHTTPHeaderField:@"Referer"];
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/javascript",@"text/html",@"text/plain", nil];
+//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/javascript",@"text/html",@"text/plain", nil];
     
     return manager;
 }
@@ -228,15 +235,23 @@
 
 
 //#pragma mark - GET
-+ (NSURLSessionDataTask *)GET:(NSString *)URLString
-                   parameters:(NSDictionary *)parameters
+- (NSURLSessionDataTask *)GET:(NSString *)URLString
                       success:(void (^)(NSString *msg,id data))success
-                  abnormality:(void (^)())abnormality
                       failure:(void (^)(NSError *error))failure;
 {
-    AFHTTPSessionManager *manager = [self HTTPSessionManager];
     
-    return [manager GET:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:URLString]];
+
+    [HttpLogger logDebugInfoWithRequest:request apiName:@"" requestParams:self.parameters httpMethod:@"GET"];
+
+    return [_manager GET:URLString parameters:self.parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        [HttpLogger logDebugInfoWithResponse:task.response apiName:nil resposeString:responseObject request:task.originalRequest error:nil];
+        
+        NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+        //设置cookie
+        NSString *cookie = response.allHeaderFields[@"Set-Cookie"];
+        [AppConfig setUserDefaultCookie:cookie];
         
         if (success) {
             
@@ -256,9 +271,7 @@
 //设置请求headers
 - (void)setHeaderWithValue:(NSString *)value headerField:(NSString *)headerField {
     
-    AFHTTPSessionManager *manager = [[self class] HTTPSessionManager];
-
-    [manager.requestSerializer setValue:value forHTTPHeaderField:headerField];
+    [_manager.requestSerializer setValue:value forHTTPHeaderField:headerField];
 }
 
 @end

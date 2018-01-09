@@ -13,7 +13,7 @@
 
 + (AFHTTPSessionManager *)HTTPSessionManager;
 
-@property (nonatomic,strong, readonly) AFHTTPSessionManager *manager;
+@property (nonatomic,strong) AFHTTPSessionManager *manager;
 @property (nonatomic,strong)  NSMutableDictionary *parameters;
 
 @property (nonatomic,copy) NSString *code; //接口编号
@@ -32,10 +32,8 @@
                        failure: (void (^)(NSError *error))failure;
 
 
-+ (NSURLSessionDataTask *)GET:(NSString *)URLString
-                   parameters:(NSDictionary *)parameters
+- (NSURLSessionDataTask *)GET:(NSString *)URLString
                       success:(void (^)(NSString *msg,id data))success
-                  abnormality:(void (^)())abnormality
                       failure:(void (^)(NSError *error))failure;
 
 //设置请求headers

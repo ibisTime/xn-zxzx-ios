@@ -31,7 +31,6 @@ FOUNDATION_EXPORT void TLLog(NSString *format, ...);
 @property (nonatomic, copy) NSString *pedestAddr;
 //cookie
 @property (nonatomic, copy) NSString *cookie;
-
 //@property (nonatomic,copy) NSString *aliPayKey;
 @property (nonatomic, copy) NSString *qiniuDomain;
 @property (nonatomic,strong) NSString *shareBaseUrl;
@@ -40,5 +39,9 @@ FOUNDATION_EXPORT void TLLog(NSString *format, ...);
 @property (nonatomic, copy) NSString *qiNiuKey;
 
 - (NSString *)getUrl;
+
+#pragma mark - 读写Cookie
++ (void)setUserDefaultCookie:(NSString*)cookie;
++ (NSString*)getUsetDefaultCookie;
 
 @end
