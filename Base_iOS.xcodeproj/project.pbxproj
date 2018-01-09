@@ -113,6 +113,7 @@
 		21845FC9200353680039090F /* AI.txt in Resources */ = {isa = PBXBuildFile; fileRef = 21845FBF200353680039090F /* AI.txt */; };
 		21845FCA200353680039090F /* AK.txt in Resources */ = {isa = PBXBuildFile; fileRef = 21845FC0200353680039090F /* AK.txt */; };
 		21845FCE20035E4F0039090F /* ZYNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 21845FCD20035E4F0039090F /* ZYNetworking.m */; };
+		219281CA2004F3ED00963D55 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 219281C92004F3EC00963D55 /* libiconv.tbd */; };
 		21AC58721FDE734F00F19DE8 /* TLAccountBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC58701FDE734D00F19DE8 /* TLAccountBaseVC.m */; };
 		21AC58791FDE737200F19DE8 /* TLUserLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC58741FDE736C00F19DE8 /* TLUserLoginVC.m */; };
 		21AC587B1FDE737200F19DE8 /* TLUserForgetPwdVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC58771FDE737000F19DE8 /* TLUserForgetPwdVC.m */; };
@@ -379,6 +380,7 @@
 		21845FC0200353680039090F /* AK.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AK.txt; sourceTree = "<group>"; };
 		21845FCC20035E4F0039090F /* ZYNetworking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYNetworking.h; sourceTree = "<group>"; };
 		21845FCD20035E4F0039090F /* ZYNetworking.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYNetworking.m; sourceTree = "<group>"; };
+		219281C92004F3EC00963D55 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		21AC586D1FDE72B800F19DE8 /* AppMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppMacro.h; sourceTree = "<group>"; };
 		21AC586E1FDE72B900F19DE8 /* APICodeMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APICodeMacro.h; sourceTree = "<group>"; };
 		21AC586F1FDE72BA00F19DE8 /* AppColorMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppColorMacro.h; sourceTree = "<group>"; };
@@ -544,6 +546,7 @@
 				21290B961FF4E8F300CB74A7 /* ZMDependUponSDK.framework in Frameworks */,
 				210FD1D11F6673D6001DA03D /* CoreGraphics.framework in Frameworks */,
 				210FD1CF1F6673CC001DA03D /* CoreText.framework in Frameworks */,
+				219281CA2004F3ED00963D55 /* libiconv.tbd in Frameworks */,
 				210FD1CD1F6673C4001DA03D /* QuartzCore.framework in Frameworks */,
 				210FD1CB1F6673BA001DA03D /* CoreTelephony.framework in Frameworks */,
 				210FD1C91F667376001DA03D /* SystemConfiguration.framework in Frameworks */,
@@ -1668,6 +1671,7 @@
 		6D1019D17ED73A7EE047960F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				219281C92004F3EC00963D55 /* libiconv.tbd */,
 				210FD1D21F6673E5001DA03D /* CFNetwork.framework */,
 				210FD1D01F6673D6001DA03D /* CoreGraphics.framework */,
 				210FD1CE1F6673CC001DA03D /* CoreText.framework */,

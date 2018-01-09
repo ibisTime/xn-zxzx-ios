@@ -24,28 +24,29 @@
 [http setHeaderWithValue:@"gzip, deflate, br" headerField:@"Accept-Encoding"];
 //Accept-Language
 [http setHeaderWithValue:@"zh-CN,zh;q=0.9,en;q=0.8" headerField:@"Accept-Language"];
+ //Accept
+ [http setHeaderWithValue:@"image/gif, image/jpeg, image/pjpeg, application/x-ms-application, application/xaml+xml, application/x-ms-xbap, *//*" headerField:@"Accept"];
+                                                                                                                                              //Accept-Language
+                                                                                                                                              [http setHeaderWithValue:@"zh-CN" headerField:@"Accept-Language"];
 */
 + (AFHTTPSessionManager *)HTTPSessionManager
 {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     manager.requestSerializer.timeoutInterval = 15.0;
+    //Accept
+    [manager.requestSerializer setValue:@"image/gif, image/jpeg, image/pjpeg, application/x-ms-application, application/xaml+xml, application/x-ms-xbap, */*" forHTTPHeaderField:@"Accept"];
+    //Accept-Language
+    [manager.requestSerializer setValue:@"zh-CN,zh;q=0.9,en;q=0.8" forHTTPHeaderField:@"Accept-Language"];
     //Cache-Control
     [manager.requestSerializer setValue:@"no-cache" forHTTPHeaderField:@"Cache-Control"];
     //Accept-Encoding
     [manager.requestSerializer setValue:@"gzip, deflate, br" forHTTPHeaderField:@"Accept-Encoding"];
-    //Accept-Language
-    [manager.requestSerializer setValue:@"zh-CN,zh;q=0.9,en;q=0.8" forHTTPHeaderField:@"Accept-Language"];
     //Cookie
     if ([AppConfig config].cookie) {
         
         [manager.requestSerializer setValue:[AppConfig config].cookie forHTTPHeaderField:@"Cookie"];
     }
-    //
-//    [manager.requestSerializer setValue:@"image/gif, image/jpeg, image/pjpeg, application/x-ms-application, application/xaml+xml, application/x-ms-xbap, */*" forHTTPHeaderField:@"Accept"];
-//    //Referer
-//    [manager.requestSerializer setValue:@"https://ipcrs.pbccrc.org.cn/page/login/loginreg.jsp" forHTTPHeaderField:@"Referer"];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/javascript",@"text/html",@"text/plain", nil];
     
@@ -96,14 +97,6 @@
         [TLProgressHUD show];
     }
     
-    if (self.parameters) {
-        
-        NSData *data = [NSJSONSerialization dataWithJSONObject:self.parameters options:NSJSONWritingPrettyPrinted error:nil];
-        self.parameters = [NSMutableDictionary dictionaryWithCapacity:2];
-        self.parameters[@"code"] = self.code;
-        self.parameters[@"json"] = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    }
-    
     if (!self.url || !self.url.length) {
         NSLog(@"url 不存在啊");
 
@@ -118,42 +111,16 @@
         
         [HttpLogger logDebugInfoWithResponse:task.response apiName:self.code resposeString:responseObject request:task.originalRequest error:nil];
         
-        //打印JSON字符串
-        [HttpLogger logJSONStringWithResponseObject:responseObject];
-        
         if(self.showView) {
             
             [TLProgressHUD dismiss];
         }
         
-        if([responseObject[@"errorCode"] isEqual:@"0"]){ //成功
+        if(success) {
             
-            if(success) {
-                
-                success(responseObject);
-            }
-            
-        } else {
-            
-            if (failure) {
-                
-                failure(nil);
-            }
-            
-            if ([responseObject[@"errorCode"] isEqual:@"4"]) {
-                //token错误  4
-                
-                [TLAlert alertWithTitle:nil message:@"为了您的账户安全，请重新登录" confirmAction:^{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kUserLoginOutNotification object:nil];
-                }];
-                return;
-            }
-            
-            if(self.isShowMsg) { //异常也是失败
-                
-                [TLAlert alertWithInfo:responseObject[@"errorInfo"]];
-            }
+            success(responseObject);
         }
+    
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
         if(self.showView) {
@@ -249,13 +216,15 @@
         [HttpLogger logDebugInfoWithResponse:task.response apiName:nil resposeString:responseObject request:task.originalRequest error:nil];
         
         NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+        
+        NSString *textEncoding = [response textEncodingName];
         //设置cookie
         NSString *cookie = response.allHeaderFields[@"Set-Cookie"];
         [AppConfig setUserDefaultCookie:cookie];
         
         if (success) {
             
-            success(@"",responseObject);
+            success(textEncoding,responseObject);
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
