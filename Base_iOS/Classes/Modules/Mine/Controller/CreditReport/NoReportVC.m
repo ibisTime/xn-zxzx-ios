@@ -28,7 +28,7 @@
     
     CGFloat iconW = kWidth(100);
     //图标
-    UIImageView *iconIV = [[UIImageView alloc] initWithImage:kImage(@"持证自拍")];
+    UIImageView *iconIV = [[UIImageView alloc] initWithImage:kImage(@"no_report")];
     
     iconIV.layer.cornerRadius = iconW/2.0;
     iconIV.clipsToBounds = YES;

@@ -119,10 +119,17 @@
             [TLProgressHUD dismiss];
         }
         
-        if(success) {
+        if (response.statusCode >= 200 && response.statusCode < 300) {
             
-            success(textEncoding, responseObject);
+            if(success) {
+                
+                success(textEncoding, responseObject);
+            }
+        } else {
+            
+            [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
         }
+        
     
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
@@ -224,19 +231,27 @@
             
             [TLProgressHUD dismiss];
         }
-        
+    
 //        [HttpLogger logDebugInfoWithResponse:task.response apiName:nil resposeString:responseObject request:task.originalRequest error:nil];
         
         NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-        //响应返回的编码格式
-        NSString *textEncoding = [response textEncodingName];
-        //设置cookie
-        NSString *cookie = response.allHeaderFields[@"Set-Cookie"];
-        [AppConfig setUserDefaultCookie:cookie];
         
-        if (success) {
+        if (response.statusCode >= 200 && response.statusCode < 300) {
             
-            success(textEncoding,responseObject);
+            //响应返回的编码格式
+            NSString *textEncoding = [response textEncodingName];
+            //设置cookie
+            NSString *cookie = response.allHeaderFields[@"Set-Cookie"];
+            [AppConfig setUserDefaultCookie:cookie];
+            
+            if (success) {
+                
+                success(textEncoding,responseObject);
+            }
+            
+        } else {
+            
+            [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {

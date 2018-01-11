@@ -451,11 +451,16 @@
 }
 
 + (NSString *)convertHtmlWithEncoding:(NSString *)encoding data:(id)data {
-
-    //获取编码格式
-    CFStringEncoding cfEncoding = CFStringConvertIANACharSetNameToEncoding((CFStringRef)
-                                                                           encoding);
-    NSStringEncoding textEncoding = CFStringConvertEncodingToNSStringEncoding(cfEncoding);
+    //如果encodingw==nil，就用UTF8代替
+    NSStringEncoding textEncoding = NSUTF8StringEncoding;
+    
+    if (encoding) {
+        
+        CFStringEncoding cfEncoding = CFStringConvertIANACharSetNameToEncoding((CFStringRef)
+                                                                               encoding);
+        textEncoding = CFStringConvertEncodingToNSStringEncoding(cfEncoding);
+    }
+    
     //将NSdata转成NSString
     NSString *htmlStr = [[NSString alloc] initWithData:data encoding:textEncoding];
     

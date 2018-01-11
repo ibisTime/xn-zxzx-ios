@@ -29,7 +29,9 @@
     
         self.font = [UIFont systemFontOfSize:14];
         self.clearButtonMode = UITextFieldViewModeWhileEditing;
-        
+        //关闭自动大写
+        self.autocapitalizationType = UITextAutocapitalizationTypeNone;
+
         self.backgroundColor = [UIColor whiteColor];
         
         //白色边界线

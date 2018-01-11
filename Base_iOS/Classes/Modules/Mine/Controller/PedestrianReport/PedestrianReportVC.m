@@ -20,6 +20,7 @@
 
 #import "NoReportVC.h"
 #import "PedestrianRegisterVC.h"
+#import "PedestrianCommitRegisterVC.h"
 
 @interface PedestrianReportVC ()
 //用户名
@@ -28,8 +29,6 @@
 @property (nonatomic,strong) AccountTf *pwdTF;
 //验证码
 @property (nonatomic, strong) AccountTf *verifyTF;
-//
-@property (nonatomic, copy) NSString *verifyCode;
 //验证码图片
 @property (nonatomic, strong) UIImageView *verifyIV;
 //
@@ -85,7 +84,6 @@
     AccountTf *nameTF = [[AccountTf alloc] initWithFrame:CGRectMake(0, 0, w, h)];
     nameTF.leftIconView.image = [UIImage imageNamed:@"用户名"];
     nameTF.placeHolder = @"请输入登录名";
-    nameTF.keyboardType = UIKeyboardTypeASCIICapable;
     [bgView addSubview:nameTF];
     self.nameTF = nameTF;
     
@@ -215,12 +213,12 @@
 
             if ([[element objectForKey:@"id"] isEqualToString:@"_error_field_"]) {
                 //过滤">|\n|\r|\t"符号
-                loginPrompt = [element.text regularExpressionWithPattern:@">|\n|\r|\t| "];
+                loginPrompt = [element.content regularExpressionWithPattern:@">|\n|\r|\t| "];
             }
             
             if ([[element objectForKey:@"id"] isEqualToString:@"_@MSG@_"]) {
                 //过滤">|\n|\r|\t"符号
-                verifyPrompt = [element.text regularExpressionWithPattern:@">|\n|\r|\t| "];
+                verifyPrompt = [element.content regularExpressionWithPattern:@">|\n|\r|\t| "];
             }
         }
         NSArray *titleArr = [hpple searchWithXPathQuery:@"//title"];
@@ -253,7 +251,7 @@
 
         if (![title valid]) {
             
-            [TLAlert alertWithInfo:@"系统错误, 请重新登录"];
+            [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
             //刷新验证码
             [self requestImgVerify];
         }
@@ -269,8 +267,11 @@
 - (void)goRegister {
     
     PedestrianRegisterVC *registerVC = [PedestrianRegisterVC new];
-    
+
     [self.navigationController pushViewController:registerVC animated:YES];
+//    PedestrianCommitRegisterVC *commitVC = [PedestrianCommitRegisterVC new];
+//
+//    [self.navigationController pushViewController:commitVC animated:YES];
 }
 
 - (void)changeVerify {
@@ -293,11 +294,11 @@
     //Referer
     [http setHeaderWithValue:@"https://ipcrs.pbccrc.org.cn/page/login/loginreg.jsp" headerField:@"Referer"];
     
-    [http GET:kAppendUrl(@"imgrc.do") success:^(NSString *msg, id data) {
+    [http GET:kAppendUrl(@"imgrc.do") success:^(NSString *encoding, id responseObject) {
         
         _isFirst = YES;
         
-        UIImage *image = [UIImage imageWithData:data];
+        UIImage *image = [UIImage imageWithData:responseObject];
         
         CGFloat y = (50 - image.size.height)/2.0;
         

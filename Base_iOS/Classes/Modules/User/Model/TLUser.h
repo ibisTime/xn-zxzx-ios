@@ -42,9 +42,6 @@
 //用户密码
 @property (nonatomic, strong) NSString *userPassward;
 
-//金额
-@property (nonatomic, copy) NSString *amount;
-
 //0 未设置交易密码 1已设置
 @property (nonatomic, copy) NSString *tradepwdFlag;
 //真实姓名
@@ -72,6 +69,8 @@
 @property (nonatomic, copy) NSString *tempReportCode;
 //未读消息数
 @property (nonatomic, assign) NSInteger unReadMsgCount;
+//一次性Token
+@property (nonatomic, copy) NSString *tempToken;
 
 //是否为需要登录，如果已登录，取出用户信息
 - (BOOL)isLogin;

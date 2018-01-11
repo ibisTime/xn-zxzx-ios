@@ -12,12 +12,14 @@
 #import "NSString+Date.h"
 #import "NSString+Check.h"
 #import "UIBarButtonItem+convience.h"
+#import "UIButton+EnLargeEdge.h"
 #import "TLProgressHUD.h"
 
 #import "AccountTf.h"
 #import <TFHpple.h>
 
 #import "WebVC.h"
+#import "PedestrianCommitRegisterVC.h"
 
 @interface PedestrianRegisterVC ()
 
@@ -38,6 +40,7 @@
 //
 @property (nonatomic, assign) BOOL isFirst;
 
+
 @end
 
 @implementation PedestrianRegisterVC
@@ -46,7 +49,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"填写身份信息";
-    
+    //注册初始化
+    [self getToken];
     //获取图片验证码
     [self requestImgVerify];
     //
@@ -82,7 +86,6 @@
     //姓名
     TLTextField *nameTF = [[TLTextField alloc] initWithFrame:CGRectMake(0, 0, w, h) leftTitle:@"姓名:" titleWidth:leftW placeholder:@"请输入登录名"];
     
-    nameTF.keyboardType = UIKeyboardTypeASCIICapable;
     [bgView addSubview:nameTF];
     self.nameTF = nameTF;
     
@@ -95,13 +98,16 @@
     
     //证件号码
     TLTextField *certNoTF = [[TLTextField alloc] initWithFrame:CGRectMake(0, certTypeTF.yy+lineHeight, w, h) leftTitle:@"证件号码:" titleWidth:leftW placeholder:@"请输入证件号码"];
-    
+    certNoTF.keyboardType = UIKeyboardTypeASCIICapable;
+
     [bgView addSubview:certNoTF];
     self.certNoTF = certNoTF;
     
     //验证码
     TLTextField *verifyTF = [[TLTextField alloc] initWithFrame:CGRectMake(0, certNoTF.yy+lineHeight, w-115, h) leftTitle:@"验证码:" titleWidth:leftW placeholder:@"请输入验证码"];
 
+    verifyTF.keyboardType = UIKeyboardTypeASCIICapable;
+    
     [bgView addSubview:verifyTF];
     self.verifyTF = verifyTF;
     
@@ -151,10 +157,12 @@
     
     [checkBtn addTarget:self action:@selector(clickSelect:) forControlEvents:UIControlEventTouchUpInside];
     
+    [checkBtn setEnlargeEdgeWithTop:0 right:100 bottom:0 left:10];
+    
     [self.view addSubview:checkBtn];
     [checkBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(bgView.mas_left).offset(5);
+        make.left.equalTo(bgView.mas_left).offset(15);
         make.top.equalTo(bgView.mas_bottom).offset(10);
     }];
     
@@ -235,87 +243,134 @@
     
     [self.view endEditing:YES];
     
-    //时间戳
-    NSString *timeStamp = [NSString getTimeStamp];
-    
     ZYNetworking *http = [ZYNetworking new];
     
     http.showView = self.view;
-    http.url = kAppendUrl(@"login.do");
-    http.parameters[@"method"] = @"login";
-    http.parameters[@"date"] = timeStamp;
-    http.parameters[@"loginname"] = self.nameTF.text;
-//    http.parameters[@"password"] = self.pwdTF.text;
+    http.url = kAppendUrl(@"userReg.do");
+    http.parameters[@"method"] = @"checkIdentity";
+    http.parameters[@"1"] = @"on";
+    http.parameters[@"org.apache.struts.taglib.html.TOKEN"] = [TLUser user].tempToken;
+    http.parameters[@"userInfoVO.name"] = self.nameTF.text;
+    http.parameters[@"userInfoVO.certType"] = @"0";
+    http.parameters[@"userInfoVO.certNo"] = self.certNoTF.text;
     http.parameters[@"_@IMGRC@_"] = self.verifyTF.text;
     
     //Referer
-    [http setHeaderWithValue:@"https://ipcrs.pbccrc.org.cn/login.do" headerField:@"Referer"];
+    [http setHeaderWithValue:@"https://ipcrs.pbccrc.org.cn/userReg.do?method=initReg" headerField:@"Referer"];
+    //Content-Type
+    [http setHeaderWithValue:@"application/x-www-form-urlencoded; charset=UTF-8" headerField:@"Content-Type"];
+    //Accept
+    [http setHeaderWithValue:@"text/html, application/xhtml+xml, application/xml, */*" headerField:@"Accept"];
+    //Upgrade-Insecure-Requests
+    [http setHeaderWithValue:@"1" headerField:@"Upgrade-Insecure-Requests"];
     
     [http postWithSuccess:^(NSString *encoding, id responseObject) {
         
-        NSString *htmlStr = [NSString convertHtmlWithEncoding:encoding data:responseObject];
-        
-        NSLog(@"htmlStr = %@", htmlStr);
-        
-        TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
-        //验证登录名是否正确
-        NSArray *spanArr = [hpple searchWithXPathQuery:@"//span"];
-        
-        NSString *loginPrompt = @"";
-        NSString *verifyPrompt = @"";
-        
-        for (TFHppleElement *element in spanArr) {
-            
-            if ([[element objectForKey:@"id"] isEqualToString:@"_error_field_"]) {
-                //过滤">|\n|\r|\t"符号
-                loginPrompt = [element.text regularExpressionWithPattern:@">|\n|\r|\t| "];
-            }
-            
-            if ([[element objectForKey:@"id"] isEqualToString:@"_@MSG@_"]) {
-                //过滤">|\n|\r|\t"符号
-                verifyPrompt = [element.text regularExpressionWithPattern:@">|\n|\r|\t| "];
-            }
-        }
-        NSArray *titleArr = [hpple searchWithXPathQuery:@"//title"];
-        NSString *title = @"";
-        
-        for (TFHppleElement *element in titleArr) {
-            
-            title = element.content;
-        }
-        
-        //先判断验证码再判断登录名和密码,每次点击登录失败就刷新验证码
-        
-        if ([verifyPrompt valid]) {
-            
-            [TLAlert alertWithInfo:verifyPrompt];
-            //刷新验证码
-            [self requestImgVerify];
-            
-            return ;
-        }
-        
-        if ([loginPrompt valid]) {
-            
-            [TLAlert alertWithInfo:loginPrompt];
-            //刷新验证码
-            [self requestImgVerify];
-            
-            return ;
-        }
-        
-        if (![title valid]) {
-            
-            [TLAlert alertWithInfo:@"系统错误, 请重新登录"];
-            //刷新验证码
-            [self requestImgVerify];
-        }
-        //请求欢迎界面
-//        [self requestWelcomePage];
+        [self registerFirstSetpWithEncoding:encoding responseObject:responseObject];
         
     } failure:^(NSError *error) {
         
     }];
+    
+}
+
+/**
+ 注册第一步
+ @param encoding 服务器返回的编码格式
+ @param responseObject 字节流数据
+ */
+- (void)registerFirstSetpWithEncoding:(NSString *)encoding responseObject:(id)responseObject {
+    
+    NSString *htmlStr = [NSString convertHtmlWithEncoding:encoding data:responseObject];
+    
+    NSLog(@"htmlStr = %@", htmlStr);
+    
+    TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
+    //验证登录名是否正确
+    NSArray *spanArr = [hpple searchWithXPathQuery:@"//span"];
+    
+    NSString *registerPrompt = @"";
+    NSString *verifyPrompt = @"";
+    
+    for (TFHppleElement *element in spanArr) {
+        
+        if ([[element objectForKey:@"id"] isEqualToString:@"_error_field_"]) {
+            //过滤">|\n|\r|\t"符号
+            registerPrompt = [element.content regularExpressionWithPattern:@">|\n|\r|\t| "];
+        }
+        
+        if ([[element objectForKey:@"id"] isEqualToString:@"_@MSG@_"]) {
+            //过滤">|\n|\r|\t"符号
+            verifyPrompt = [element.content regularExpressionWithPattern:@">|\n|\r|\t| "];
+        }
+    }
+    
+    //先判断验证码再判断姓名和证件号码,每次点击下一步失败就刷新验证码
+    
+    if ([verifyPrompt valid]) {
+        
+        [TLAlert alertWithInfo:verifyPrompt];
+        //刷新验证码
+        [self requestImgVerify];
+        //刷新Token
+        [self getTokenWithEncoding:encoding responseObject:responseObject];
+        
+        return ;
+    }
+    
+    if ([registerPrompt valid]) {
+        
+        [TLAlert alertWithInfo:registerPrompt];
+        //刷新验证码
+        [self requestImgVerify];
+        //刷新Token
+        [self getTokenWithEncoding:encoding responseObject:responseObject];
+
+        return ;
+    }
+    
+    NSArray *errorArr = [hpple searchWithXPathQuery:@"//div[@class='error']"];
+    
+    if (errorArr.count > 0) {
+        
+        [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
+        //刷新验证码
+        [self requestImgVerify];
+        //刷新Token
+        [self getTokenWithEncoding:encoding responseObject:responseObject];
+
+        return ;
+    }
+    
+    NSArray *titleArr = [hpple searchWithXPathQuery:@"//title"];
+    NSString *title = @"";
+    
+    for (TFHppleElement *element in titleArr) {
+        
+        title = element.content;
+    }
+    
+    if (![title valid]) {
+        
+        [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
+        //刷新验证码
+        [self requestImgVerify];
+        //刷新Token
+        [self getTokenWithEncoding:encoding responseObject:responseObject];
+
+        return ;
+    }
+    
+    [TLAlert alertWithSucces:@"身份信息填写成功"];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //获取Token给第二步用
+        [self getTokenWithEncoding:encoding responseObject:responseObject];
+
+        PedestrianCommitRegisterVC *commitVC = [PedestrianCommitRegisterVC new];
+        
+        [self.navigationController pushViewController:commitVC animated:YES];
+    });
     
 }
 
@@ -342,6 +397,58 @@
 }
 
 #pragma mark - Data
+- (void)getToken {
+    
+    ZYNetworking *http = [ZYNetworking new];
+    
+    http.parameters[@"method"] = @"initReg";
+    
+    //Referer
+    [http setHeaderWithValue:@"https://ipcrs.pbccrc.org.cn/top1.do" headerField:@"Referer"];
+    //Accept
+    [http setHeaderWithValue:@"text/html, application/xhtml+xml, application/xml, */*" headerField:@"Accept"];
+    //Upgrade-Insecure-Requests
+    [http setHeaderWithValue:@"1" headerField:@"Upgrade-Insecure-Requests"];
+    
+    [http GET:kAppendUrl(@"userReg.do") success:^(NSString *encoding, id responseObject) {
+        
+        [self getTokenWithEncoding:encoding responseObject:responseObject];
+        
+    } failure:^(NSError *error) {
+        
+        
+    }];
+}
+
+/**
+ 注册初始化
+ @param encoding 服务器返回的编码格式
+ @param responseObject 字节流数据
+ */
+- (void)getTokenWithEncoding:(NSString *)encoding responseObject:(id)responseObject {
+    
+    NSString *htmlStr = [NSString convertHtmlWithEncoding:encoding data:responseObject];
+    
+    NSLog(@"htmlStr = %@", htmlStr);
+    
+    TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
+    //验证登录名是否正确
+    NSArray *dataArr = [hpple searchWithXPathQuery:@"//input[@name='org.apache.struts.taglib.html.TOKEN']"];
+    //获取注册流程需要用到的Token
+    if (dataArr > 0) {
+        
+        TFHppleElement *element = dataArr[0];
+        
+        NSDictionary *attributes = element.attributes;
+        
+        [TLUser user].tempToken = attributes[@"value"];
+        
+    } else {
+        
+        [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
+    }
+}
+
 - (void)requestImgVerify {
     //时间戳
     NSString *timeStamp = [NSString getTimeStamp];
@@ -352,15 +459,17 @@
         
         http.showView = self.view;
     }
-    http.parameters[@"a"] = timeStamp;
+    NSString *url = [NSString stringWithFormat:@"%@?%@", kAppendUrl(@"imgrc.do"), timeStamp];
     //Referer
-    [http setHeaderWithValue:@"https://ipcrs.pbccrc.org.cn/page/login/loginreg.jsp" headerField:@"Referer"];
+    [http setHeaderWithValue:@"https://ipcrs.pbccrc.org.cn/userReg.do?method=initReg" headerField:@"Referer"];
+    //Accept
+    [http setHeaderWithValue:@"*/*" headerField:@"Accept"];
     
-    [http GET:kAppendUrl(@"imgrc.do") success:^(NSString *msg, id data) {
+    [http GET:url success:^(NSString *encoding, id responseObject) {
         
         _isFirst = YES;
         
-        UIImage *image = [UIImage imageWithData:data];
+        UIImage *image = [UIImage imageWithData:responseObject];
         
         CGFloat y = (50 - image.size.height)/2.0;
         

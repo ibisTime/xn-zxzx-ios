@@ -42,6 +42,8 @@
         self.placeholder = placeholder;
         //    [tf addAction];
         self.font = [UIFont systemFontOfSize:15];
+        //关闭自动大写
+        self.autocapitalizationType = UITextAutocapitalizationTypeNone;
 
     }
     return self;
