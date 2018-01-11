@@ -11,5 +11,7 @@
 @interface WebVC : TLBaseVC
 
 @property (nonatomic,copy) NSString *url;
+//title
+@property (nonatomic, copy) NSString *titleStr;
 
 @end

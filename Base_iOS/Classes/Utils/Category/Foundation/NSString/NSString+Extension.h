@@ -66,5 +66,7 @@
 
 //获取IP
 + (NSString *)getIPAddress:(BOOL)preferIPv4;
+//将html格式转成NSString
++ (NSString *)convertHtmlWithEncoding:(NSString *)encoding data:(id)data;
 
 @end

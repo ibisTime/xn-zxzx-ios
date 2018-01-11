@@ -50,4 +50,11 @@
 //判断字符串是否为空
 - (NSString *)vaildString;
 
+/**
+ 过滤特殊字符
+ @param pattern 需要过滤的特殊字符
+ @param regularString 需要过滤的字符串
+ @return 返回过滤好的字符串
+ */
+- (NSString *)regularExpressionWithPattern:(NSString *)pattern;
 @end

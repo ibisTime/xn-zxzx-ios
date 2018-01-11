@@ -32,7 +32,13 @@
     
 }
 
-
+#pragma mark - Setting
+- (void)setTitleStr:(NSString *)titleStr {
+    
+    _titleStr = titleStr;
+    self.title = titleStr;
+}
+#pragma mark - WebView
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation {
     
     [TLProgressHUD dismiss];
@@ -49,6 +55,11 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     
     [TLProgressHUD dismiss];
+    
+    if (self.titleStr) {
+        
+        return ;
+    }
     
     [webView evaluateJavaScript:@"document.title" completionHandler:^(id _Nullable string, NSError * _Nullable error) {
         

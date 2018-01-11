@@ -284,5 +284,25 @@
     
     return self;
 }
+/**
+ 过滤特殊字符
+ @param pattern 需要过滤的特殊字符
+ @param regularString 需要过滤的字符串
+ @return 返回过滤好的字符串
+ */
+- (NSString *)regularExpressionWithPattern:(NSString *)pattern {
+    
+    NSString *string = [NSString stringWithFormat:@"%@", self];
+    //如果需要过滤的字符串过多，就用|拼接
+    NSArray *regularArr = [pattern componentsSeparatedByString:@"|"];
+    
+    for (NSString *specialChar in regularArr) {
+        
+        string = [string stringByReplacingOccurrencesOfString:
+                       specialChar withString:@""];
+    }
+    
+    return string;
+}
 
 @end

@@ -1,13 +1,12 @@
 //
-//  PedestrianReportVC.m
+//  PedestrianRegisterVC.m
 //  Base_iOS
 //
-//  Created by 蔡卓越 on 2018/1/8.
+//  Created by 蔡卓越 on 2018/1/10.
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
 
-#import "PedestrianReportVC.h"
-
+#import "PedestrianRegisterVC.h"
 #import "CoinHeader.h"
 #import "AppConfig.h"
 #import "NSString+Date.h"
@@ -18,53 +17,52 @@
 #import "AccountTf.h"
 #import <TFHpple.h>
 
-#import "NoReportVC.h"
-#import "PedestrianRegisterVC.h"
+#import "WebVC.h"
 
-@interface PedestrianReportVC ()
+@interface PedestrianRegisterVC ()
+
 //用户名
-@property (nonatomic,strong) AccountTf *nameTF;
-//密码
-@property (nonatomic,strong) AccountTf *pwdTF;
+@property (nonatomic,strong) TLTextField *nameTF;
+//证件类型
+@property (nonatomic,strong) TLTextField *certTypeTF;
+//证件号码
+@property (nonatomic, strong) TLTextField *certNoTF;
 //验证码
-@property (nonatomic, strong) AccountTf *verifyTF;
+@property (nonatomic, strong) TLTextField *verifyTF;
 //
 @property (nonatomic, copy) NSString *verifyCode;
 //验证码图片
 @property (nonatomic, strong) UIImageView *verifyIV;
+//同意按钮
+@property (nonatomic, strong) UIButton *checkBtn;
 //
 @property (nonatomic, assign) BOOL isFirst;
 
 @end
 
-@implementation PedestrianReportVC
+@implementation PedestrianRegisterVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    self.title = @"中国人民银行征信中心登录";
-    
-    [AppConfig config].cookie = nil;
+    self.title = @"填写身份信息";
     
     //获取图片验证码
     [self requestImgVerify];
-    //登录、注册
+    //
     [self initSubviews];
-    
 }
 
 #pragma mark - Init
 - (void)initSubviews {
     
     self.view.backgroundColor = kBackgroundColor;
-    //注册
-    
-    [UIBarButtonItem addRightItemWithTitle:@"注册" titleColor:kWhiteColor frame:CGRectMake(0, 0, 40, 44) vc:self action:@selector(goRegister)];
     
     CGFloat w = kScreenWidth;
     CGFloat h = ACCOUNT_HEIGHT;
-    NSInteger count = 3;
+    CGFloat leftW = 90;
+    
+    NSInteger count = 4;
     CGFloat lineHeight = 0.5;
     //背景
     UIView *bgView = [[UIView alloc] init];
@@ -81,34 +79,38 @@
         
     }];
     
-    //账号
-    AccountTf *nameTF = [[AccountTf alloc] initWithFrame:CGRectMake(0, 0, w, h)];
-    nameTF.leftIconView.image = [UIImage imageNamed:@"用户名"];
-    nameTF.placeHolder = @"请输入登录名";
+    //姓名
+    TLTextField *nameTF = [[TLTextField alloc] initWithFrame:CGRectMake(0, 0, w, h) leftTitle:@"姓名:" titleWidth:leftW placeholder:@"请输入登录名"];
+    
     nameTF.keyboardType = UIKeyboardTypeASCIICapable;
     [bgView addSubview:nameTF];
     self.nameTF = nameTF;
     
-    //密码
-    AccountTf *pwdTF = [[AccountTf alloc] initWithFrame:CGRectMake(0, nameTF.yy+lineHeight, w, h)];
-    pwdTF.secureTextEntry = YES;
-    pwdTF.leftIconView.image = [UIImage imageNamed:@"密码"];
-    pwdTF.placeHolder = @"请输入密码";
-    [bgView addSubview:pwdTF];
-    self.pwdTF = pwdTF;
+    //证件类型
+    TLTextField *certTypeTF = [[TLTextField alloc] initWithFrame:CGRectMake(0, nameTF.yy+lineHeight, w, h) leftTitle:@"证件类型:" titleWidth:leftW placeholder:@""];
+    
+    certTypeTF.text = @"身份证";
+    [bgView addSubview:certTypeTF];
+    self.certTypeTF = certTypeTF;
+    
+    //证件号码
+    TLTextField *certNoTF = [[TLTextField alloc] initWithFrame:CGRectMake(0, certTypeTF.yy+lineHeight, w, h) leftTitle:@"证件号码:" titleWidth:leftW placeholder:@"请输入证件号码"];
+    
+    [bgView addSubview:certNoTF];
+    self.certNoTF = certNoTF;
+    
     //验证码
-    AccountTf *verifyTF = [[AccountTf alloc] initWithFrame:CGRectMake(0, pwdTF.yy+lineHeight, w-115, h)];
-    verifyTF.leftIconView.image = [UIImage imageNamed:@"验证码"];
-    verifyTF.placeHolder = @"请输入验证码";
+    TLTextField *verifyTF = [[TLTextField alloc] initWithFrame:CGRectMake(0, certNoTF.yy+lineHeight, w-115, h) leftTitle:@"验证码:" titleWidth:leftW placeholder:@"请输入验证码"];
+
     [bgView addSubview:verifyTF];
     self.verifyTF = verifyTF;
     
-    UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(verifyTF.xx, pwdTF.yy+lineHeight, 100+15, h)];
-
+    UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(verifyTF.xx, certNoTF.yy+lineHeight, 100+15, h)];
+    
     [bgView addSubview:rightView];
-
+    
     _verifyIV = [[UIImageView alloc] init];
-
+    
     [rightView addSubview:_verifyIV];
     
     for (int i = 0; i < count; i++) {
@@ -142,9 +144,54 @@
         
     }];
     
-    //登录
-    UIButton *loginBtn = [UIButton buttonWithTitle:@"登录" titleColor:kWhiteColor backgroundColor:kAppCustomMainColor titleFont:17.0 cornerRadius:5];
-    [loginBtn addTarget:self action:@selector(goLogin) forControlEvents:UIControlEventTouchUpInside];
+    //选择按钮
+    UIButton *checkBtn = [UIButton buttonWithImageName:@"不打勾" selectedImageName:@"打勾"];
+    
+    checkBtn.selected = YES;
+    
+    [checkBtn addTarget:self action:@selector(clickSelect:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:checkBtn];
+    [checkBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(bgView.mas_left).offset(5);
+        make.top.equalTo(bgView.mas_bottom).offset(10);
+    }];
+    
+    self.checkBtn = checkBtn;
+    
+    NSString *text = @"我已阅读并同意";
+    
+    //text
+    UILabel *textLbl = [UILabel labelWithBackgroundColor:kClearColor textColor:kTextColor font:12];
+    
+    textLbl.text = text;
+    
+    textLbl.userInteractionEnabled = YES;
+    
+    [self.view addSubview:textLbl];
+    [textLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(checkBtn.mas_right).offset(5);
+        make.centerY.equalTo(checkBtn.mas_centerY);
+        
+    }];
+    
+    UIButton *protocolBtn = [UIButton buttonWithTitle:@"《服务协议》" titleColor:kAppCustomMainColor backgroundColor:kClearColor titleFont:12.0];
+    
+    [protocolBtn addTarget:self action:@selector(readProtocal) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:protocolBtn];
+    [protocolBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(textLbl.mas_right);
+        make.centerY.equalTo(checkBtn.mas_centerY);
+        
+    }];
+    
+    //下一步
+    UIButton *loginBtn = [UIButton buttonWithTitle:@"下一步" titleColor:kWhiteColor backgroundColor:kAppCustomMainColor titleFont:17.0 cornerRadius:5];
+    [loginBtn addTarget:self action:@selector(nextSetp) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:loginBtn];
     [loginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -158,18 +205,18 @@
 }
 
 #pragma mark - Events
-- (void)goLogin {
+- (void)nextSetp {
     
     if (![self.nameTF.text valid]) {
         
-        [TLAlert alertWithInfo:@"请输入用户名"];
+        [TLAlert alertWithInfo:@"请输入姓名"];
         
         return;
     }
     
-    if (![self.pwdTF.text valid]) {
+    if (![self.certNoTF.text valid]) {
         
-        [TLAlert alertWithInfo:@"请输入密码"];
+        [TLAlert alertWithInfo:@"请输入证件号码"];
         return;
     }
     
@@ -180,8 +227,14 @@
         return;
     }
     
+    if (!self.checkBtn.selected) {
+        
+        [TLAlert alertWithInfo:@"请同意《服务协议》"];
+        return ;
+    }
+    
     [self.view endEditing:YES];
-
+    
     //时间戳
     NSString *timeStamp = [NSString getTimeStamp];
     
@@ -192,14 +245,14 @@
     http.parameters[@"method"] = @"login";
     http.parameters[@"date"] = timeStamp;
     http.parameters[@"loginname"] = self.nameTF.text;
-    http.parameters[@"password"] = self.pwdTF.text;
+//    http.parameters[@"password"] = self.pwdTF.text;
     http.parameters[@"_@IMGRC@_"] = self.verifyTF.text;
     
     //Referer
     [http setHeaderWithValue:@"https://ipcrs.pbccrc.org.cn/login.do" headerField:@"Referer"];
-
+    
     [http postWithSuccess:^(NSString *encoding, id responseObject) {
-
+        
         NSString *htmlStr = [NSString convertHtmlWithEncoding:encoding data:responseObject];
         
         NSLog(@"htmlStr = %@", htmlStr);
@@ -212,7 +265,7 @@
         NSString *verifyPrompt = @"";
         
         for (TFHppleElement *element in spanArr) {
-
+            
             if ([[element objectForKey:@"id"] isEqualToString:@"_error_field_"]) {
                 //过滤">|\n|\r|\t"符号
                 loginPrompt = [element.text regularExpressionWithPattern:@">|\n|\r|\t| "];
@@ -225,7 +278,7 @@
         }
         NSArray *titleArr = [hpple searchWithXPathQuery:@"//title"];
         NSString *title = @"";
-
+        
         for (TFHppleElement *element in titleArr) {
             
             title = element.content;
@@ -250,7 +303,7 @@
             
             return ;
         }
-
+        
         if (![title valid]) {
             
             [TLAlert alertWithInfo:@"系统错误, 请重新登录"];
@@ -258,24 +311,34 @@
             [self requestImgVerify];
         }
         //请求欢迎界面
-        [self requestWelcomePage];
+//        [self requestWelcomePage];
         
     } failure:^(NSError *error) {
-
+        
     }];
     
-}
-
-- (void)goRegister {
-    
-    PedestrianRegisterVC *registerVC = [PedestrianRegisterVC new];
-    
-    [self.navigationController pushViewController:registerVC animated:YES];
 }
 
 - (void)changeVerify {
     
     [self requestImgVerify];
+}
+
+- (void)clickSelect:(UIButton *)sender {
+    
+    sender.selected = !sender.selected;
+    
+}
+
+- (void)readProtocal {
+    
+    
+    WebVC *webVC = [WebVC new];
+    
+    webVC.url = @"https://ipcrs.pbccrc.org.cn/html/servearticle.html";
+    webVC.titleStr = @"服务协议";
+    
+    [self.navigationController pushViewController:webVC animated:YES];
 }
 
 #pragma mark - Data
@@ -303,126 +366,6 @@
         
         _verifyIV.image = image;
         _verifyIV.frame = CGRectMake(0, y, image.size.width, image.size.height);
-        
-    } failure:^(NSError *error) {
-        
-        
-    }];
-}
-//请求欢迎界面
-- (void)requestWelcomePage {
-    
-    ZYNetworking *http = [ZYNetworking new];
-    
-    //Accept
-    [http setHeaderWithValue:@"text/html, application/xhtml+xml, application/xml, */*" headerField:@"Accept"];
-    //Cache-Control
-    [http setHeaderWithValue:@"max-age=0" headerField:@"Cache-Control"];
-    //Accept-Language
-    [http setHeaderWithValue:@"zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2" headerField:@"Accept-Language"];
-    //Referer
-    [http setHeaderWithValue:@"https://ipcrs.pbccrc.org.cn/login.do" headerField:@"Referer"];
-    //Upgrade-Insecure-Requests
-    [http setHeaderWithValue:@"1" headerField:@"Upgrade-Insecure-Requests"];
-    
-    [http GET:kAppendUrl(@"welcome.do") success:^(NSString *encoding, id responseObject) {
-        
-        NSString *htmlStr = [NSString convertHtmlWithEncoding:encoding data:responseObject];
-        
-        NSLog(@"htmlStr = %@", htmlStr);
-        
-        TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
-        //验证登录名是否正确
-        NSArray *dataArr = [hpple searchWithXPathQuery:@"//p"];
-        
-        NSString *str1 = @"";
-        NSString *str2 = @"";
-        
-        for (TFHppleElement *element in dataArr) {
-            
-            if ([element.content containsString:@"欢迎登录个人信用信息服务平台"]) {
-                
-                str1 = element.content;
-            }
-            
-            if ([element.content containsString:@"上次访问时间"]) {
-                
-                str2 = element.content;
-            }
-        }
-        //如果返回的html含有欢迎登录个人信用信息服务平台或者上次访问时间，说明登录成功
-        if ([str1 containsString:@"欢迎登录个人信用信息服务平台"] || [str2 containsString:@"上次访问时间"]) {
-            
-            [TLAlert alertWithSucces:@"登录成功"];
-            //查看报告
-            [self requestReport];
-        }
-        
-    } failure:^(NSError *error) {
-        
-        
-    }];
-}
-/**
- 查看报告
- */
-- (void)requestReport {
-    
-    ZYNetworking *http = [ZYNetworking new];
-    
-    http.showView = self.view;
-    http.parameters[@"method"] = @"queryReport";
-    //Accept
-    [http setHeaderWithValue:@"text/html, application/xhtml+xml, application/xml, */*" headerField:@"Accept"];
-    //Accept-Language
-    [http setHeaderWithValue:@"zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2" headerField:@"Accept-Language"];
-    //Referer
-    [http setHeaderWithValue:@"https://ipcrs.pbccrc.org.cn/menu.do" headerField:@"Referer"];
-    //Upgrade-Insecure-Requests
-    [http setHeaderWithValue:@"1" headerField:@"Upgrade-Insecure-Requests"];
-    
-    [http GET:kAppendUrl(@"reportAction.do") success:^(NSString *encoding, id responseObject) {
-        
-        [TLProgressHUD dismiss];
-        
-        NSString *htmlStr = [NSString convertHtmlWithEncoding:encoding data:responseObject];
-        
-        NSLog(@"htmlStr = %@", htmlStr);
-        
-        TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
-        //验证登录名是否正确
-        NSArray *dataArr = [hpple searchWithXPathQuery:@"//li"];
-        
-        NSString *disabledStr = @"";
-        
-        for (TFHppleElement *element in dataArr) {
-            
-            if ([element.content containsString:@"个人信用报告"]) {
-                
-                for (TFHppleElement *subElement in element.children) {
-                    
-                    if ([subElement.tagName isEqualToString:@"input"]) {
-                        
-                        //disabled
-                        NSDictionary *attributes = subElement.attributes;
-                        
-                        disabledStr = attributes[@"disabled"] ? attributes[@"disabled"]: @"";
-                    }
-                }
-            }
-        }
-        
-        //如果disabledStr不为空，说明用户没有报告
-        if ([disabledStr valid]) {
-            
-            NoReportVC *noReportVC = [NoReportVC new];
-            
-            [self.navigationController pushViewController:noReportVC animated:YES];
-            
-        } else {
-            
-            [TLAlert alertWithInfo:@"马上展示报告"];
-        }
         
     } failure:^(NSError *error) {
         

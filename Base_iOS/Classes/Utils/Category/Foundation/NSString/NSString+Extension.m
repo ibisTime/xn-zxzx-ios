@@ -450,5 +450,15 @@
     return [addresses count] ? addresses : nil;
 }
 
++ (NSString *)convertHtmlWithEncoding:(NSString *)encoding data:(id)data {
 
+    //获取编码格式
+    CFStringEncoding cfEncoding = CFStringConvertIANACharSetNameToEncoding((CFStringRef)
+                                                                           encoding);
+    NSStringEncoding textEncoding = CFStringConvertEncodingToNSStringEncoding(cfEncoding);
+    //将NSdata转成NSString
+    NSString *htmlStr = [[NSString alloc] initWithData:data encoding:textEncoding];
+    
+    return htmlStr;
+}
 @end

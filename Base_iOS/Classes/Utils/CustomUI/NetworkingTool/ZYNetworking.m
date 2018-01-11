@@ -88,8 +88,7 @@
     
 }
 
-- (NSURLSessionDataTask *)postWithSuccess:(void (^)(id))success failure:(void (^)(NSError *))failure
-{
+- (NSURLSessionDataTask *)postWithSuccess:(void (^)(NSString *encoding, id responseObject))success failure:(void (^)(NSError *))failure {
     //如果想要设置其它 请求头信息 直接设置 HTTPSessionManager 的 requestSerializer 就可以了，不用直接设置 NSURLRequest
     
     if(self.showView) {
@@ -109,7 +108,11 @@
     
     return [self.manager POST:self.url parameters:self.parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-        [HttpLogger logDebugInfoWithResponse:task.response apiName:self.code resposeString:responseObject request:task.originalRequest error:nil];
+//        [HttpLogger logDebugInfoWithResponse:task.response apiName:self.code resposeString:responseObject request:task.originalRequest error:nil];
+        
+        NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+        
+        NSString *textEncoding = [response textEncodingName];
         
         if(self.showView) {
             
@@ -118,7 +121,7 @@
         
         if(success) {
             
-            success(responseObject);
+            success(textEncoding, responseObject);
         }
     
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -183,7 +186,6 @@
                        failure:(void (^)(NSError * _Nullable  error))failure;
 {
     //先检查网络
-    
     AFHTTPSessionManager *manager = [self HTTPSessionManager];
     
     return [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -203,9 +205,14 @@
 
 //#pragma mark - GET
 - (NSURLSessionDataTask *)GET:(NSString *)URLString
-                      success:(void (^)(NSString *msg,id data))success
+                      success:(void (^)(NSString *encoding,id responseObject))success
                       failure:(void (^)(NSError *error))failure;
 {
+    
+    if(self.showView) {
+        
+        [TLProgressHUD show];
+    }
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:URLString]];
 
@@ -213,10 +220,15 @@
 
     return [_manager GET:URLString parameters:self.parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-        [HttpLogger logDebugInfoWithResponse:task.response apiName:nil resposeString:responseObject request:task.originalRequest error:nil];
+        if(self.showView) {
+            
+            [TLProgressHUD dismiss];
+        }
+        
+//        [HttpLogger logDebugInfoWithResponse:task.response apiName:nil resposeString:responseObject request:task.originalRequest error:nil];
         
         NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-        
+        //响应返回的编码格式
         NSString *textEncoding = [response textEncodingName];
         //设置cookie
         NSString *cookie = response.allHeaderFields[@"Set-Cookie"];
@@ -228,6 +240,16 @@
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        if(self.showView) {
+            
+            [TLProgressHUD dismiss];
+        }
+        
+        if (self.isShowMsg) {
+            
+            [TLAlert alertWithInfo:@"网络异常"];
+        }
         
         if (failure) {
             

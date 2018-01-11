@@ -92,6 +92,8 @@
 		21301EAA1FE27B0500A98CB7 /* CreditReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301EA91FE27B0500A98CB7 /* CreditReportVC.m */; };
 		21301EAD1FE3698A00A98CB7 /* MineHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301EAC1FE3698A00A98CB7 /* MineHeaderView.m */; };
 		21301EF01FE3D18A00A98CB7 /* UIViewController+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301EEE1FE3D18A00A98CB7 /* UIViewController+Extension.m */; };
+		2130AC0B20062D6300CB5E67 /* NoReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2130AC0A20062D6300CB5E67 /* NoReportVC.m */; };
+		2130AC0E20063E9000CB5E67 /* PedestrianRegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2130AC0D20063E9000CB5E67 /* PedestrianRegisterVC.m */; };
 		21348AF22003079500368FFE /* PedestrianReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21348AF12003079500368FFE /* PedestrianReportVC.m */; };
 		2162F8B71FFB5E8E008E5C1B /* CreditReportIdentifierCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2162F8B61FFB5E8E008E5C1B /* CreditReportIdentifierCell.m */; };
 		2162F8B91FFCAFAE008E5C1B /* local_focus_on.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2162F8B81FFCAFAD008E5C1B /* local_focus_on.txt */; };
@@ -354,6 +356,10 @@
 		21301EAC1FE3698A00A98CB7 /* MineHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineHeaderView.m; sourceTree = "<group>"; };
 		21301EEE1FE3D18A00A98CB7 /* UIViewController+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Extension.m"; sourceTree = "<group>"; };
 		21301EEF1FE3D18A00A98CB7 /* UIViewController+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Extension.h"; sourceTree = "<group>"; };
+		2130AC0920062D6300CB5E67 /* NoReportVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoReportVC.h; sourceTree = "<group>"; };
+		2130AC0A20062D6300CB5E67 /* NoReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoReportVC.m; sourceTree = "<group>"; };
+		2130AC0C20063E9000CB5E67 /* PedestrianRegisterVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PedestrianRegisterVC.h; sourceTree = "<group>"; };
+		2130AC0D20063E9000CB5E67 /* PedestrianRegisterVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PedestrianRegisterVC.m; sourceTree = "<group>"; };
 		21348AF02003079500368FFE /* PedestrianReportVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PedestrianReportVC.h; sourceTree = "<group>"; };
 		21348AF12003079500368FFE /* PedestrianReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PedestrianReportVC.m; sourceTree = "<group>"; };
 		2162F8B51FFB5E8E008E5C1B /* CreditReportIdentifierCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreditReportIdentifierCell.h; sourceTree = "<group>"; };
@@ -1178,6 +1184,8 @@
 			children = (
 				21301EA81FE27B0500A98CB7 /* CreditReportVC.h */,
 				21301EA91FE27B0500A98CB7 /* CreditReportVC.m */,
+				2130AC0920062D6300CB5E67 /* NoReportVC.h */,
+				2130AC0A20062D6300CB5E67 /* NoReportVC.m */,
 			);
 			path = CreditReport;
 			sourceTree = "<group>";
@@ -1240,6 +1248,8 @@
 			children = (
 				21348AF02003079500368FFE /* PedestrianReportVC.h */,
 				21348AF12003079500368FFE /* PedestrianReportVC.m */,
+				2130AC0C20063E9000CB5E67 /* PedestrianRegisterVC.h */,
+				2130AC0D20063E9000CB5E67 /* PedestrianRegisterVC.m */,
 			);
 			path = PedestrianReport;
 			sourceTree = "<group>";
@@ -1901,6 +1911,7 @@
 				212B1DCA1FF399DE00C61685 /* IdAuthVC.m in Sources */,
 				212B1DB31FF2444800C61685 /* BaseInfoView.m in Sources */,
 				21111BBB1F8B5F2C0021B3FE /* TLPhotoChooseItem.m in Sources */,
+				2130AC0E20063E9000CB5E67 /* PedestrianRegisterVC.m in Sources */,
 				21290B831FF4E21E00CB74A7 /* ZMOPScoreVC.m in Sources */,
 				21111BBC1F8B5F2C0021B3FE /* TLChooseResultManager.m in Sources */,
 				21290BAF1FF6222D00CB74A7 /* ReportModel.m in Sources */,
@@ -1974,6 +1985,7 @@
 				21F82C9D1F17719D0019B176 /* BaseWKWebViewController.m in Sources */,
 				21301EAD1FE3698A00A98CB7 /* MineHeaderView.m in Sources */,
 				21290B801FF4D82700CB74A7 /* ContactModel.m in Sources */,
+				2130AC0B20062D6300CB5E67 /* NoReportVC.m in Sources */,
 				21AC597F1FDE823C00F19DE8 /* NSString+Check.m in Sources */,
 				21AC59731FDE820600F19DE8 /* NSDictionary+Extension.m in Sources */,
 				21158E431F1C4F4D00A07266 /* CustomTabBar.m in Sources */,

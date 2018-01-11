@@ -23,7 +23,7 @@
 @property (nonatomic, copy) NSString *isShow;
 
 
-- (NSURLSessionDataTask *)postWithSuccess:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure;
+- (NSURLSessionDataTask *)postWithSuccess:(void (^)(NSString *encoding, id responseObject))success failure:(void (^)(NSError *error))failure;
 
 
 + (NSURLSessionDataTask *)POST:(NSString *)URLString
@@ -33,7 +33,7 @@
 
 
 - (NSURLSessionDataTask *)GET:(NSString *)URLString
-                      success:(void (^)(NSString *msg,id data))success
+                      success:(void (^)(NSString *encoding,id responseObject))success
                       failure:(void (^)(NSError *error))failure;
 
 //设置请求headers
