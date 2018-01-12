@@ -14,6 +14,8 @@
 #import "TLProgressHUD.h"
 #import "TLUser.h"
 #import "TLAlert.h"
+#import "NSString+Check.h"
+#import "NSString+Extension.h"
 
 @implementation ZYNetworking
 //默认header：User-Agent、Connection、Content-Type
@@ -42,11 +44,7 @@
     [manager.requestSerializer setValue:@"no-cache" forHTTPHeaderField:@"Cache-Control"];
     //Accept-Encoding
     [manager.requestSerializer setValue:@"gzip, deflate, br" forHTTPHeaderField:@"Accept-Encoding"];
-    //Cookie
-    if ([AppConfig config].cookie) {
-        
-        [manager.requestSerializer setValue:[AppConfig config].cookie forHTTPHeaderField:@"Cookie"];
-    }
+    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/javascript",@"text/html",@"text/plain", nil];
     

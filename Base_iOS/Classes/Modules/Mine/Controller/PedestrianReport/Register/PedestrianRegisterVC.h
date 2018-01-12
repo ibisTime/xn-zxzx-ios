@@ -6,8 +6,8 @@
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
 
-#import "TLAccountBaseVC.h"
+#import "PedestrianBaseVC.h"
 
-@interface PedestrianRegisterVC : TLAccountBaseVC
+@interface PedestrianRegisterVC : PedestrianBaseVC
 
 @end

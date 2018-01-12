@@ -12,7 +12,6 @@
 #import "AppConfig.h"
 #import "NSString+Date.h"
 #import "NSString+Check.h"
-#import "UIBarButtonItem+convience.h"
 #import "TLProgressHUD.h"
 
 #import "TLTextField.h"
@@ -34,6 +33,8 @@
 @property (nonatomic, strong) TLTextField *mobileTF;
 //动态码
 @property (nonatomic, strong) CaptchaView *captchaView;
+//tcid(获取验证码后服务器返回的)
+@property (nonatomic, copy) NSString *tcid;
 //
 @property (nonatomic, assign) BOOL isFirst;
 
@@ -103,6 +104,9 @@
     
     //短信动态码
     CaptchaView *captchaView = [[CaptchaView alloc] initWithFrame:CGRectMake(0, mobileTF.yy+lineHeight, w, h)];
+    
+    captchaView.captchaTf.leftLbl.text = @"短信动态码";
+    [captchaView.captchaBtn setTitle:@"获取动态码" forState:UIControlStateNormal];
     
     captchaView.captchaTf.keyboardType = UIKeyboardTypeASCIICapable;
     
@@ -190,6 +194,8 @@
     
     if ([result valid]) {
         
+        self.tcid = result;
+        
         [TLAlert alertWithSucces:@"动态码已发送,请注意查收"];
         
         [self.captchaView.captchaBtn begin];
@@ -261,6 +267,7 @@
     http.url = kAppendUrl(@"userReg.do");
     http.parameters[@"method"] = @"saveUser";
     http.parameters[@"counttime"] = @"1";
+    http.parameters[@"tcId"] = self.tcid;
     http.parameters[@"org.apache.struts.taglib.html.TOKEN"] = [TLUser user].tempToken;
     http.parameters[@"userInfoVO.loginName"] = self.nameTF.text;
     http.parameters[@"userInfoVO.password"] = self.pwdTF.text;

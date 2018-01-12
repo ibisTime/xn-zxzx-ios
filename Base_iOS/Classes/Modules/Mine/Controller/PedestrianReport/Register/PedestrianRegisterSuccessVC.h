@@ -6,8 +6,8 @@
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "PedestrianBaseVC.h"
 
-@interface PedestrianRegisterSuccessVC : BaseViewController
+@interface PedestrianRegisterSuccessVC : PedestrianBaseVC
 
 @end

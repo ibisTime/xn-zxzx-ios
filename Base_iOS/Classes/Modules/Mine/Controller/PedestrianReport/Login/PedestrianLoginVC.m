@@ -1,12 +1,12 @@
 //
-//  PedestrianReportVC.m
+//  PedestrianLoginVC.m
 //  Base_iOS
 //
 //  Created by 蔡卓越 on 2018/1/8.
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
 
-#import "PedestrianReportVC.h"
+#import "PedestrianLoginVC.h"
 
 #import "CoinHeader.h"
 #import "AppConfig.h"
@@ -19,10 +19,13 @@
 #import <TFHpple.h>
 
 #import "NoReportVC.h"
+#import "PedestrianVerifyVC.h"
+
 #import "PedestrianRegisterVC.h"
 #import "PedestrianCommitRegisterVC.h"
+#import "PedestrianRegisterSuccessVC.h"
 
-@interface PedestrianReportVC ()
+@interface PedestrianLoginVC ()
 //用户名
 @property (nonatomic,strong) AccountTf *nameTF;
 //密码
@@ -36,7 +39,7 @@
 
 @end
 
-@implementation PedestrianReportVC
+@implementation PedestrianLoginVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -44,7 +47,7 @@
     
     self.title = @"中国人民银行征信中心登录";
     
-    [AppConfig config].cookie = nil;
+    [AppConfig setUserDefaultCookie:@""];
     
     //获取图片验证码
     [self requestImgVerify];
@@ -158,6 +161,9 @@
 #pragma mark - Events
 - (void)goLogin {
     
+    self.nameTF.text = @"chenshan2819";
+    self.pwdTF.text = @"q1i1a1n1";
+    
     if (![self.nameTF.text valid]) {
         
         [TLAlert alertWithInfo:@"请输入用户名"];
@@ -195,7 +201,15 @@
     
     //Referer
     [http setHeaderWithValue:@"https://ipcrs.pbccrc.org.cn/login.do" headerField:@"Referer"];
-
+    //Cookie
+    if ([[AppConfig getUsetDefaultCookie] valid]) {
+        
+        [http setHeaderWithValue:[AppConfig getUsetDefaultCookie] headerField:@"Cookie"];
+        
+        NSLog(@"Cookie = %@", [AppConfig getUsetDefaultCookie]);
+        
+    }
+    
     [http postWithSuccess:^(NSString *encoding, id responseObject) {
 
         NSString *htmlStr = [NSString convertHtmlWithEncoding:encoding data:responseObject];
@@ -269,9 +283,6 @@
     PedestrianRegisterVC *registerVC = [PedestrianRegisterVC new];
 
     [self.navigationController pushViewController:registerVC animated:YES];
-//    PedestrianCommitRegisterVC *commitVC = [PedestrianCommitRegisterVC new];
-//
-//    [self.navigationController pushViewController:commitVC animated:YES];
 }
 
 - (void)changeVerify {
@@ -422,7 +433,9 @@
             
         } else {
             
-            [TLAlert alertWithInfo:@"马上展示报告"];
+            PedestrianVerifyVC *verifyVC = [PedestrianVerifyVC new];
+            
+            [self.navigationController pushViewController:verifyVC animated:YES];
         }
         
     } failure:^(NSError *error) {

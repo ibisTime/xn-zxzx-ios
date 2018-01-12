@@ -198,10 +198,10 @@
     }];
     
     //下一步
-    UIButton *loginBtn = [UIButton buttonWithTitle:@"下一步" titleColor:kWhiteColor backgroundColor:kAppCustomMainColor titleFont:17.0 cornerRadius:5];
-    [loginBtn addTarget:self action:@selector(nextSetp) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:loginBtn];
-    [loginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIButton *nextBtn = [UIButton buttonWithTitle:@"下一步" titleColor:kWhiteColor backgroundColor:kAppCustomMainColor titleFont:17.0 cornerRadius:5];
+    [nextBtn addTarget:self action:@selector(nextSetp) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:nextBtn];
+    [nextBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(@(15));
         make.height.equalTo(@(h - 5));

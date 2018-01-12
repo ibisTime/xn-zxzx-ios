@@ -12,8 +12,6 @@
 
 @interface BaseViewController : UIViewController <UIAlertViewDelegate>
 
-@property (nonatomic, strong) NSString *titleStr;
-
 @property (nonatomic, strong) UIView *placeholderView;
 
 @property (nonatomic, strong) UIScrollView *bgSV;

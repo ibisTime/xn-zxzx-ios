@@ -18,7 +18,7 @@
 
 //C
 #import "CreditReportVC.h"
-#import "PedestrianReportVC.h"
+#import "PedestrianLoginVC.h"
 #import "SettingVC.h"
 #import "HTMLStrVC.h"
 
@@ -101,7 +101,7 @@
     pedestrianReport.imgName = @"我的资信报告";
     pedestrianReport.action = ^{
 
-        PedestrianReportVC *reportVC = [PedestrianReportVC new];
+        PedestrianLoginVC *reportVC = [PedestrianLoginVC new];
 
         [weakSelf.navigationController pushViewController:reportVC animated:YES];
     };
