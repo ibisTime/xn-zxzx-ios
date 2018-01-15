@@ -137,7 +137,7 @@
 
 - (void)nextSetp {
     
-    self.captchaView.captchaTf.text = @"kte3ds";
+//    self.captchaView.captchaTf.text = @"kte3ds";
 
     if (![self.captchaView.captchaTf.text valid]) {
         

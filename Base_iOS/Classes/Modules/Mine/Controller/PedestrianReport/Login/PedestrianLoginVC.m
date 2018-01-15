@@ -160,8 +160,8 @@
 
 #pragma mark - Events
 - (void)goLogin {
-    
-    self.nameTF.text = @"chenshan2819";
+    //chenshan2819
+    self.nameTF.text = @"lixianjun_6666";
     self.pwdTF.text = @"q1i1a1n1";
     
     if (![self.nameTF.text valid]) {
@@ -201,81 +201,78 @@
     
     //Referer
     [http setHeaderWithValue:@"https://ipcrs.pbccrc.org.cn/login.do" headerField:@"Referer"];
-    //Cookie
-    if ([[AppConfig getUsetDefaultCookie] valid]) {
-        
-        [http setHeaderWithValue:[AppConfig getUsetDefaultCookie] headerField:@"Cookie"];
-        
-        NSLog(@"Cookie = %@", [AppConfig getUsetDefaultCookie]);
-        
-    }
     
     [http postWithSuccess:^(NSString *encoding, id responseObject) {
 
-        NSString *htmlStr = [NSString convertHtmlWithEncoding:encoding data:responseObject];
-        
-        NSLog(@"htmlStr = %@", htmlStr);
-        
-        TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
-        //验证登录名是否正确
-        NSArray *spanArr = [hpple searchWithXPathQuery:@"//span"];
-        
-        NSString *loginPrompt = @"";
-        NSString *verifyPrompt = @"";
-        
-        for (TFHppleElement *element in spanArr) {
-
-            if ([[element objectForKey:@"id"] isEqualToString:@"_error_field_"]) {
-                //过滤">|\n|\r|\t"符号
-                loginPrompt = [element.content regularExpressionWithPattern:@">|\n|\r|\t| "];
-            }
-            
-            if ([[element objectForKey:@"id"] isEqualToString:@"_@MSG@_"]) {
-                //过滤">|\n|\r|\t"符号
-                verifyPrompt = [element.content regularExpressionWithPattern:@">|\n|\r|\t| "];
-            }
-        }
-        NSArray *titleArr = [hpple searchWithXPathQuery:@"//title"];
-        NSString *title = @"";
-
-        for (TFHppleElement *element in titleArr) {
-            
-            title = element.content;
-        }
-        
-        //先判断验证码再判断登录名和密码,每次点击登录失败就刷新验证码
-        
-        if ([verifyPrompt valid]) {
-            
-            [TLAlert alertWithInfo:verifyPrompt];
-            //刷新验证码
-            [self requestImgVerify];
-            
-            return ;
-        }
-        
-        if ([loginPrompt valid]) {
-            
-            [TLAlert alertWithInfo:loginPrompt];
-            //刷新验证码
-            [self requestImgVerify];
-            
-            return ;
-        }
-
-        if (![title valid]) {
-            
-            [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
-            //刷新验证码
-            [self requestImgVerify];
-        }
-        //请求欢迎界面
-        [self requestWelcomePage];
+        [self loginWithEncoding:encoding responseObject:responseObject];
         
     } failure:^(NSError *error) {
 
     }];
     
+}
+
+- (void)loginWithEncoding:(NSString *)encoding responseObject:(id)responseObject {
+    
+    NSString *htmlStr = [NSString convertHtmlWithEncoding:encoding data:responseObject];
+    
+    NSLog(@"htmlStr = %@", htmlStr);
+    
+    TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
+    //验证登录名是否正确
+    NSArray *spanArr = [hpple searchWithXPathQuery:@"//span"];
+    
+    NSString *loginPrompt = @"";
+    NSString *verifyPrompt = @"";
+    
+    for (TFHppleElement *element in spanArr) {
+        
+        if ([[element objectForKey:@"id"] isEqualToString:@"_error_field_"]) {
+            //过滤">|\n|\r|\t"符号
+            loginPrompt = [element.content regularExpressionWithPattern:@">|\n|\r|\t| "];
+        }
+        
+        if ([[element objectForKey:@"id"] isEqualToString:@"_@MSG@_"]) {
+            //过滤">|\n|\r|\t"符号
+            verifyPrompt = [element.content regularExpressionWithPattern:@">|\n|\r|\t| "];
+        }
+    }
+    NSArray *titleArr = [hpple searchWithXPathQuery:@"//title"];
+    NSString *title = @"";
+    
+    for (TFHppleElement *element in titleArr) {
+        
+        title = element.content;
+    }
+    
+    //先判断验证码再判断登录名和密码,每次点击登录失败就刷新验证码
+    
+    if ([verifyPrompt valid]) {
+        
+        [TLAlert alertWithInfo:verifyPrompt];
+        //刷新验证码
+        [self requestImgVerify];
+        
+        return ;
+    }
+    
+    if ([loginPrompt valid]) {
+        
+        [TLAlert alertWithInfo:loginPrompt];
+        //刷新验证码
+        [self requestImgVerify];
+        
+        return ;
+    }
+    
+    if (![title valid]) {
+        
+        [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
+        //刷新验证码
+        [self requestImgVerify];
+    }
+    //请求欢迎界面
+    [self requestWelcomePage];
 }
 
 - (void)goRegister {
@@ -307,7 +304,17 @@
     
     [http GET:kAppendUrl(@"imgrc.do") success:^(NSString *encoding, id responseObject) {
         
-        _isFirst = YES;
+        [self getImgWithEncoding:encoding responseObject:responseObject];
+        
+    } failure:^(NSError *error) {
+        
+        
+    }];
+}
+
+- (void)getImgWithEncoding:(NSString *)encoding responseObject:(id)responseObject {
+    
+    if (_isFirst) {
         
         UIImage *image = [UIImage imageWithData:responseObject];
         
@@ -316,11 +323,14 @@
         _verifyIV.image = image;
         _verifyIV.frame = CGRectMake(0, y, image.size.width, image.size.height);
         
-    } failure:^(NSError *error) {
-        
-        
-    }];
+        return ;
+    }
+    
+    _isFirst = YES;
+    
+    [self requestImgVerify];
 }
+
 //请求欢迎界面
 - (void)requestWelcomePage {
     

@@ -27,10 +27,19 @@
 @property (nonatomic, strong) UIButton *okBtn;
 //
 @property (nonatomic, strong) PedestrianManager *manager;
+//first
+@property (nonatomic, assign) BOOL isFirst;
 
 @end
 
 @implementation NoReportVC
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    //申请报告信息，通过这个请求判断是否在认证
+    [self applyReportInfo];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,9 +47,6 @@
     self.title = @"人行报告";
     
     self.manager = [PedestrianManager new];
-
-    //申请报告信息，通过这个请求判断是否在认证
-    [self applyReportInfo];
 }
 
 #pragma mark - Init
@@ -82,28 +88,30 @@
     //按钮
     UIButton *okBtn = [UIButton buttonWithTitle:_manager.reportBtnTitle titleColor:kWhiteColor backgroundColor:kAppCustomMainColor titleFont:16.0 cornerRadius:5];
     
-    [self.okBtn bk_addEventHandler:^(id sender) {
-        
+    [okBtn bk_addEventHandler:^(id sender) {
+
         if ([self.manager.reportStatus isEqualToString:@"1"]) {
-            
+
             [self.navigationController popToRootViewControllerAnimated:YES];
         } else {
-            
+
             PedestrianQuestionVC *questionVC = [PedestrianQuestionVC new];
-            
+
             [self.navigationController pushViewController:questionVC animated:YES];
         }
-        
+
     } forControlEvents:UIControlEventTouchUpInside];
+    
+    okBtn.frame = CGRectMake(100, 300, 100, 40);
     
     [self.view addSubview:okBtn];
     [okBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
+
         make.top.equalTo(promptLbl.mas_bottom).offset(30);
         make.left.equalTo(@15);
         make.right.equalTo(@(-15));
         make.height.equalTo(@45);
-        
+
     }];
     
     self.okBtn = okBtn;
@@ -114,10 +122,13 @@
     
     ZYNetworking *http = [ZYNetworking new];
     
-    http.showView = self.view;
+    if (!_isFirst) {
+        
+        http.showView = self.view;
+    }
     http.parameters[@"method"] = @"applicationReport";
     //Accept
-    [http setHeaderWithValue:@"text/html,application/xhtml+xm…plication/xml;q=0.9,*/*;q=0.8" headerField:@"Accept"];
+    [http setHeaderWithValue:@"text/html,application/xhtml+xml,aplication/xml;q=0.9,*/*;q=0.8" headerField:@"Accept"];
     //Accept-Language
     [http setHeaderWithValue:@"zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2" headerField:@"Accept-Language"];
     //Referer
@@ -127,66 +138,110 @@
     
     [http GET:kAppendUrl(@"reportAction.do") success:^(NSString *encoding, id responseObject) {
         
-        [TLProgressHUD dismiss];
+        //获取Token
+        [self getTokenWithEncoding:encoding responseObject:responseObject];
         
-        NSString *htmlStr = [NSString convertHtmlWithEncoding:encoding data:responseObject];
-        
-        NSLog(@"htmlStr = %@", htmlStr);
-        
-        TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
-        //验证登录名是否正确
-        NSArray *dataArr = [hpple searchWithXPathQuery:@"//li"];
-        
-        NSString *disabledStr = @"";
-        NSString *resultStr = @"";
-        
-        for (TFHppleElement *element in dataArr) {
+        if (!_isFirst) {
             
-            if ([element.content containsString:@"个人信用报告"]) {
-                
-                for (TFHppleElement *subElement in element.children) {
-                    
-                    if ([subElement.tagName isEqualToString:@"input"]) {
-                        
-                        //disabled
-                        NSDictionary *attributes = subElement.attributes;
-                        
-                        disabledStr = attributes[@"disabled"] ? attributes[@"disabled"]: @"";
-                    }
-                    
-                    if ([subElement.tagName isEqualToString:@"font"]) {
-                        
-                        //result
-                        
-                        resultStr = subElement.text ? subElement.text: @"";
-                    }
-                }
-            }
+            //报告状态
+            [self applyReportWithEncoding:encoding responseObject:responseObject];
         }
-        
-        //如果disabledStr不为空，说明用户的报告在申请中
-        if ([disabledStr valid]) {
-            
-            _manager.reportStatus = @"1";
 
-        } else {
-            //若返回验证未通过代表申请失败，空代表未申请认证
-            if ([resultStr containsString:@"验证未通过"]) {
-                
-                _manager.reportStatus = @"2";
-                
-            } else {
-                
-                _manager.reportStatus = @"0";
-            }
-        }
-        
-        [self initSubviews];
+        _isFirst = YES;
 
     } failure:^(NSError *error) {
         
         
     }];
+}
+
+- (void)applyReportWithEncoding:(NSString *)encoding responseObject:(id)responseObject {
+    
+    [TLProgressHUD dismiss];
+    
+    NSString *htmlStr = [NSString convertHtmlWithEncoding:encoding data:responseObject];
+    
+    NSLog(@"htmlStr = %@", htmlStr);
+    
+    TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
+    //验证登录名是否正确
+    NSArray *dataArr = [hpple searchWithXPathQuery:@"//li"];
+    
+    NSString *disabledStr = @"";
+    NSString *resultStr = @"";
+    
+    for (TFHppleElement *element in dataArr) {
+        
+        if ([element.content containsString:@"个人信用报告"]) {
+            
+            for (TFHppleElement *subElement in element.children) {
+                
+                if ([subElement.tagName isEqualToString:@"input"]) {
+                    
+                    //disabled
+                    NSDictionary *attributes = subElement.attributes;
+                    
+                    disabledStr = attributes[@"disabled"] ? attributes[@"disabled"]: @"";
+                }
+                
+                if ([subElement.tagName isEqualToString:@"font"]) {
+                    
+                    //result
+                    
+                    resultStr = subElement.text ? subElement.text: @"";
+                }
+            }
+        }
+    }
+    
+    //如果disabledStr不为空，说明用户的报告在申请中
+    if ([disabledStr valid]) {
+        
+        _manager.reportStatus = @"1";
+        
+    } else {
+        //若返回验证未通过代表申请失败，空代表未申请认证
+        if ([resultStr containsString:@"验证未通过"]) {
+            
+            _manager.reportStatus = @"2";
+            
+        } else {
+            
+            _manager.reportStatus = @"0";
+        }
+    }
+    
+    [self initSubviews];
+    
+}
+
+/**
+ 获取Token
+ @param encoding 服务器返回的编码格式
+ @param responseObject 字节流数据
+ */
+- (void)getTokenWithEncoding:(NSString *)encoding responseObject:(id)responseObject {
+    
+    NSString *htmlStr = [NSString convertHtmlWithEncoding:encoding data:responseObject];
+    
+    NSLog(@"htmlStr = %@", htmlStr);
+    
+    TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
+    //验证登录名是否正确
+    NSArray *dataArr = [hpple searchWithXPathQuery:@"//input[@name='org.apache.struts.taglib.html.TOKEN']"];
+    //获取注册流程需要用到的Token
+    if (dataArr > 0) {
+        
+        TFHppleElement *element = dataArr[0];
+        
+        NSDictionary *attributes = element.attributes;
+        
+        [TLUser user].tempToken = attributes[@"value"];
+        
+    } else {
+        
+        [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

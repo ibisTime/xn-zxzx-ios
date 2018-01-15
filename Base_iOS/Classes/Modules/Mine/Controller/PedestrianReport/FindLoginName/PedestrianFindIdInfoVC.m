@@ -1,12 +1,12 @@
 //
-//  PedestrianRegisterVC.m
+//  PedestrianFindIdInfoVC.m
 //  Base_iOS
 //
-//  Created by 蔡卓越 on 2018/1/10.
+//  Created by 蔡卓越 on 2018/1/15.
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
 
-#import "PedestrianRegisterVC.h"
+#import "PedestrianFindIdInfoVC.h"
 #import "CoinHeader.h"
 #import "AppConfig.h"
 #import "NSString+Date.h"
@@ -18,10 +18,7 @@
 #import "AccountTf.h"
 #import <TFHpple.h>
 
-#import "WebVC.h"
-#import "PedestrianCommitRegisterVC.h"
-
-@interface PedestrianRegisterVC ()
+@interface PedestrianFindIdInfoVC ()
 
 //用户名
 @property (nonatomic,strong) TLTextField *nameTF;
@@ -40,16 +37,16 @@
 //
 @property (nonatomic, assign) BOOL isFirst;
 
-
 @end
 
-@implementation PedestrianRegisterVC
+@implementation PedestrianFindIdInfoVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"填写身份信息";
-    //注册初始化
+    self.title = @"找回登录名";
+    
+    //找回登录名初始化
     [self getToken];
     //获取图片验证码
     [self requestImgVerify];
@@ -99,13 +96,13 @@
     //证件号码
     TLTextField *certNoTF = [[TLTextField alloc] initWithFrame:CGRectMake(0, certTypeTF.yy+lineHeight, w, h) leftTitle:@"证件号码:" titleWidth:leftW placeholder:@"请输入证件号码"];
     certNoTF.keyboardType = UIKeyboardTypeASCIICapable;
-
+    
     [bgView addSubview:certNoTF];
     self.certNoTF = certNoTF;
     
     //验证码
     TLTextField *verifyTF = [[TLTextField alloc] initWithFrame:CGRectMake(0, certNoTF.yy+lineHeight, w-115, h) leftTitle:@"验证码:" titleWidth:leftW placeholder:@"请输入验证码"];
-
+    
     verifyTF.keyboardType = UIKeyboardTypeASCIICapable;
     
     [bgView addSubview:verifyTF];
@@ -150,53 +147,6 @@
         
     }];
     
-    //选择按钮
-    UIButton *checkBtn = [UIButton buttonWithImageName:@"不打勾" selectedImageName:@"打勾"];
-    
-    checkBtn.selected = YES;
-    
-    [checkBtn addTarget:self action:@selector(clickSelect:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [checkBtn setEnlargeEdgeWithTop:0 right:100 bottom:0 left:10];
-    
-    [self.view addSubview:checkBtn];
-    [checkBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(bgView.mas_left).offset(15);
-        make.top.equalTo(bgView.mas_bottom).offset(10);
-    }];
-    
-    self.checkBtn = checkBtn;
-    
-    NSString *text = @"我已阅读并同意";
-    
-    //text
-    UILabel *textLbl = [UILabel labelWithBackgroundColor:kClearColor textColor:kTextColor font:12];
-    
-    textLbl.text = text;
-    
-    textLbl.userInteractionEnabled = YES;
-    
-    [self.view addSubview:textLbl];
-    [textLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(checkBtn.mas_right).offset(5);
-        make.centerY.equalTo(checkBtn.mas_centerY);
-        
-    }];
-    
-    UIButton *protocolBtn = [UIButton buttonWithTitle:@"《服务协议》" titleColor:kAppCustomMainColor backgroundColor:kClearColor titleFont:12.0];
-    
-    [protocolBtn addTarget:self action:@selector(readProtocal) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.view addSubview:protocolBtn];
-    [protocolBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(textLbl.mas_right);
-        make.centerY.equalTo(checkBtn.mas_centerY);
-        
-    }];
-    
     //下一步
     UIButton *nextBtn = [UIButton buttonWithTitle:@"下一步" titleColor:kWhiteColor backgroundColor:kAppCustomMainColor titleFont:17.0 cornerRadius:5];
     [nextBtn addTarget:self action:@selector(nextSetp) forControlEvents:UIControlEventTouchUpInside];
@@ -235,38 +185,33 @@
         return;
     }
     
-    if (!self.checkBtn.selected) {
-        
-        [TLAlert alertWithInfo:@"请同意《服务协议》"];
-        return ;
-    }
-    
     [self.view endEditing:YES];
     
     ZYNetworking *http = [ZYNetworking new];
     
     http.showView = self.view;
-    http.url = kAppendUrl(@"userReg.do");
-    http.parameters[@"method"] = @"checkIdentity";
-    http.parameters[@"1"] = @"on";
+    http.url = kAppendUrl(@"findLoginName.do");
+    http.parameters[@"method"] = @"findLoginName";
     http.parameters[@"org.apache.struts.taglib.html.TOKEN"] = [TLUser user].tempToken;
-    http.parameters[@"userInfoVO.name"] = self.nameTF.text;
-    http.parameters[@"userInfoVO.certType"] = @"0";
-    http.parameters[@"userInfoVO.certNo"] = self.certNoTF.text;
+    http.parameters[@"name"] = self.nameTF.text;
+    http.parameters[@"certType"] = @"0";
+    http.parameters[@"certNo"] = self.certNoTF.text;
     http.parameters[@"_@IMGRC@_"] = self.verifyTF.text;
     
     //Referer
-    [http setHeaderWithValue:@"https://ipcrs.pbccrc.org.cn/userReg.do?method=initReg" headerField:@"Referer"];
+    [http setHeaderWithValue:@"https://ipcrs.pbccrc.org.cn/findLoginName.do?method=init" headerField:@"Referer"];
     //Content-Type
     [http setHeaderWithValue:@"application/x-www-form-urlencoded; charset=UTF-8" headerField:@"Content-Type"];
     //Accept
-    [http setHeaderWithValue:@"text/html, application/xhtml+xml, application/xml, */*" headerField:@"Accept"];
+    [http setHeaderWithValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" headerField:@"Accept"];
     //Upgrade-Insecure-Requests
     [http setHeaderWithValue:@"1" headerField:@"Upgrade-Insecure-Requests"];
+    //Accept-Language
+    [http setHeaderWithValue:@"zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2" headerField:@"Accept-Language"];
     
     [http postWithSuccess:^(NSString *encoding, id responseObject) {
         
-        [self registerFirstSetpWithEncoding:encoding responseObject:responseObject];
+        [self findLoginNameWithEncoding:encoding responseObject:responseObject];
         
     } failure:^(NSError *error) {
         
@@ -275,11 +220,11 @@
 }
 
 /**
- 注册第一步
+ 找回登录名
  @param encoding 服务器返回的编码格式
  @param responseObject 字节流数据
  */
-- (void)registerFirstSetpWithEncoding:(NSString *)encoding responseObject:(id)responseObject {
+- (void)findLoginNameWithEncoding:(NSString *)encoding responseObject:(id)responseObject {
     
     NSString *htmlStr = [NSString convertHtmlWithEncoding:encoding data:responseObject];
     
@@ -325,7 +270,7 @@
         [self requestImgVerify];
         //刷新Token
         [self getTokenWithEncoding:encoding responseObject:responseObject];
-
+        
         return ;
     }
     
@@ -338,7 +283,7 @@
         [self requestImgVerify];
         //刷新Token
         [self getTokenWithEncoding:encoding responseObject:responseObject];
-
+        
         return ;
     }
     
@@ -357,19 +302,15 @@
         [self requestImgVerify];
         //刷新Token
         [self getTokenWithEncoding:encoding responseObject:responseObject];
-
+        
         return ;
     }
     
-    [TLAlert alertWithSucces:@"身份信息填写成功"];
+    [TLAlert alertWithSucces:@"您的登录名已短信发送至平台预留的手机号码，请查收。"];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        //获取Token给第二步用
-        [self getTokenWithEncoding:encoding responseObject:responseObject];
-
-        PedestrianCommitRegisterVC *commitVC = [PedestrianCommitRegisterVC new];
         
-        [self.navigationController pushViewController:commitVC animated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
     });
     
 }
@@ -377,23 +318,6 @@
 - (void)changeVerify {
     
     [self requestImgVerify];
-}
-
-- (void)clickSelect:(UIButton *)sender {
-    
-    sender.selected = !sender.selected;
-    
-}
-
-- (void)readProtocal {
-    
-    
-    WebVC *webVC = [WebVC new];
-    
-    webVC.url = @"https://ipcrs.pbccrc.org.cn/html/servearticle.html";
-    webVC.titleStr = @"服务协议";
-    
-    [self.navigationController pushViewController:webVC animated:YES];
 }
 
 #pragma mark - Data
@@ -461,9 +385,11 @@
     }
     NSString *url = [NSString stringWithFormat:@"%@?%@", kAppendUrl(@"imgrc.do"), timeStamp];
     //Referer
-    [http setHeaderWithValue:@"https://ipcrs.pbccrc.org.cn/userReg.do?method=initReg" headerField:@"Referer"];
+    [http setHeaderWithValue:@"https://ipcrs.pbccrc.org.cn/findLoginName.do?method=init" headerField:@"Referer"];
     //Accept
     [http setHeaderWithValue:@"*/*" headerField:@"Accept"];
+    //Accept-Language
+    [http setHeaderWithValue:@"zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2" headerField:@"Accept-Language"];
     
     [http GET:url success:^(NSString *encoding, id responseObject) {
         
@@ -486,5 +412,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 @end

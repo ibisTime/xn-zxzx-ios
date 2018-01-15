@@ -9,5 +9,7 @@
 #import "PedestrianBaseVC.h"
 
 @interface PedestrianQuestionVC : PedestrianBaseVC
+//Token
+@property (nonatomic, copy) NSString *token;
 
 @end

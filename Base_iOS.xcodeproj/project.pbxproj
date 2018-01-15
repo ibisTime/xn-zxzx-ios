@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		210531DB200C8B4100F71227 /* PedestrianQuestionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 210531DA200C8B4100F71227 /* PedestrianQuestionModel.m */; };
+		210531E0200C96AD00F71227 /* PedestrianQuestionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 210531DF200C96AD00F71227 /* PedestrianQuestionTableView.m */; };
+		210531E3200C96FA00F71227 /* PedestrianQuestionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 210531E2200C96FA00F71227 /* PedestrianQuestionCell.m */; };
+		210531E8200CD64300F71227 /* PedestrianFindIdInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 210531E7200CD64300F71227 /* PedestrianFindIdInfoVC.m */; };
 		210FD1C91F667376001DA03D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 210FD1C81F667376001DA03D /* SystemConfiguration.framework */; };
 		210FD1CB1F6673BA001DA03D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 210FD1CA1F6673BA001DA03D /* CoreTelephony.framework */; };
 		210FD1CD1F6673C4001DA03D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 210FD1CC1F6673C4001DA03D /* QuartzCore.framework */; };
@@ -202,6 +206,14 @@
 /* Begin PBXFileReference section */
 		1877AACFBD19D996D3E628B4 /* libPods-Base_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Base_iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D92F7998FE0FF842471AF8F /* Pods-Base_iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Base_iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-Base_iOS/Pods-Base_iOS.release.xcconfig"; sourceTree = "<group>"; };
+		210531D9200C8B4100F71227 /* PedestrianQuestionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PedestrianQuestionModel.h; sourceTree = "<group>"; };
+		210531DA200C8B4100F71227 /* PedestrianQuestionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PedestrianQuestionModel.m; sourceTree = "<group>"; };
+		210531DE200C96AD00F71227 /* PedestrianQuestionTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PedestrianQuestionTableView.h; sourceTree = "<group>"; };
+		210531DF200C96AD00F71227 /* PedestrianQuestionTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PedestrianQuestionTableView.m; sourceTree = "<group>"; };
+		210531E1200C96FA00F71227 /* PedestrianQuestionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PedestrianQuestionCell.h; sourceTree = "<group>"; };
+		210531E2200C96FA00F71227 /* PedestrianQuestionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PedestrianQuestionCell.m; sourceTree = "<group>"; };
+		210531E6200CD64300F71227 /* PedestrianFindIdInfoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PedestrianFindIdInfoVC.h; sourceTree = "<group>"; };
+		210531E7200CD64300F71227 /* PedestrianFindIdInfoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PedestrianFindIdInfoVC.m; sourceTree = "<group>"; };
 		210FD1C81F667376001DA03D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		210FD1CA1F6673BA001DA03D /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		210FD1CC1F6673C4001DA03D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -595,6 +607,41 @@
 				1D92F7998FE0FF842471AF8F /* Pods-Base_iOS.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		210531DC200C968200F71227 /* PedestrianReport */ = {
+			isa = PBXGroup;
+			children = (
+				210531DD200C968D00F71227 /* Question */,
+			);
+			path = PedestrianReport;
+			sourceTree = "<group>";
+		};
+		210531DD200C968D00F71227 /* Question */ = {
+			isa = PBXGroup;
+			children = (
+				210531DE200C96AD00F71227 /* PedestrianQuestionTableView.h */,
+				210531DF200C96AD00F71227 /* PedestrianQuestionTableView.m */,
+				210531E1200C96FA00F71227 /* PedestrianQuestionCell.h */,
+				210531E2200C96FA00F71227 /* PedestrianQuestionCell.m */,
+			);
+			path = Question;
+			sourceTree = "<group>";
+		};
+		210531E4200CD5CC00F71227 /* FindLoginName */ = {
+			isa = PBXGroup;
+			children = (
+				210531E6200CD64300F71227 /* PedestrianFindIdInfoVC.h */,
+				210531E7200CD64300F71227 /* PedestrianFindIdInfoVC.m */,
+			);
+			path = FindLoginName;
+			sourceTree = "<group>";
+		};
+		210531E5200CD5D600F71227 /* FindPwd */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FindPwd;
 			sourceTree = "<group>";
 		};
 		21111AC61F8B5ECF0021B3FE /* PayTextField */ = {
@@ -1182,6 +1229,7 @@
 		21301E751FE276AD00A98CB7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				210531DC200C968200F71227 /* PedestrianReport */,
 				21301EAE1FE3699300A98CB7 /* Mine */,
 				21290BA11FF5D82700CB74A7 /* Report */,
 				21301E971FE277BD00A98CB7 /* Setting */,
@@ -1349,6 +1397,8 @@
 			children = (
 				2130AC2D2008889100CB5E67 /* PedestrianManager.h */,
 				2130AC2E2008889100CB5E67 /* PedestrianManager.m */,
+				210531D9200C8B4100F71227 /* PedestrianQuestionModel.h */,
+				210531DA200C8B4100F71227 /* PedestrianQuestionModel.m */,
 			);
 			path = PedestrianModel;
 			sourceTree = "<group>";
@@ -1356,6 +1406,8 @@
 		21348AEF2003076900368FFE /* PedestrianReport */ = {
 			isa = PBXGroup;
 			children = (
+				210531E5200CD5D600F71227 /* FindPwd */,
+				210531E4200CD5CC00F71227 /* FindLoginName */,
 				2130AC1B2008589400CB5E67 /* Base */,
 				2130AC1D200858B800CB5E67 /* Register */,
 				2130AC1C200858A700CB5E67 /* Login */,
@@ -2008,6 +2060,7 @@
 				21111BAF1F8B5F2C0021B3FE /* BannerCell.m in Sources */,
 				21290B751FF4C09000CB74A7 /* YYImageClipViewController.m in Sources */,
 				21AC59491FDE7A1B00F19DE8 /* TLCaptchaView.m in Sources */,
+				210531E3200C96FA00F71227 /* PedestrianQuestionCell.m in Sources */,
 				21290B7F1FF4D82700CB74A7 /* ContactManager.m in Sources */,
 				21AC594C1FDE7A1B00F19DE8 /* TLTextField.m in Sources */,
 				21111BB61F8B5F2C0021B3FE /* PasswordView.m in Sources */,
@@ -2037,6 +2090,7 @@
 				21AC593E1FDE7A1B00F19DE8 /* TopLabelUtil.m in Sources */,
 				21AC58AA1FDE75AA00F19DE8 /* HttpLogger.m in Sources */,
 				21AC58961FDE741A00F19DE8 /* AccountTf.m in Sources */,
+				210531E8200CD64300F71227 /* PedestrianFindIdInfoVC.m in Sources */,
 				2130AC2520085B4100CB5E67 /* PedestrianQuestionVC.m in Sources */,
 				21111BCB1F8B5F2C0021B3FE /* MovieAddComment.m in Sources */,
 				21AC59401FDE7A1B00F19DE8 /* SortBar.m in Sources */,
@@ -2091,6 +2145,7 @@
 				2121703D1F3842BC007C9855 /* ZHAddressChooseView.m in Sources */,
 				21F82C9B1F17719D0019B176 /* BaseModel.m in Sources */,
 				21301E931FE2777D00A98CB7 /* MineCell.m in Sources */,
+				210531E0200C96AD00F71227 /* PedestrianQuestionTableView.m in Sources */,
 				21F82CA01F17719D0019B176 /* BaseCollectionView.m in Sources */,
 				21290B9C1FF4F03F00CB74A7 /* ZMFoucsModel.m in Sources */,
 				21AC587B1FDE737200F19DE8 /* TLUserForgetPwdVC.m in Sources */,
@@ -2129,6 +2184,7 @@
 				21F82D1F1F17719D0019B176 /* main.m in Sources */,
 				21F82C9A1F17719D0019B176 /* AppDelegate.mm in Sources */,
 				21301E641FE26C1700A98CB7 /* UIImage+Tint.m in Sources */,
+				210531DB200C8B4100F71227 /* PedestrianQuestionModel.m in Sources */,
 				2121702A1F384216007C9855 /* ZHAddressChooseVC.m in Sources */,
 				21AC593C1FDE7A1B00F19DE8 /* TLTableView.m in Sources */,
 				21AC593F1FDE7A1B00F19DE8 /* SelectScrollView.m in Sources */,

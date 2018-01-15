@@ -99,26 +99,33 @@
 
         return nil;
     }
-
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.url]];
-    
-    [HttpLogger logDebugInfoWithRequest:request apiName:self.code requestParams:self.parameters httpMethod:@"POST"];
     
     return [self.manager POST:self.url parameters:self.parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
+        [HttpLogger logDebugInfoWithRequest:task.currentRequest apiName:self.code requestParams:self.parameters httpMethod:@"POST"];
+
 //        [HttpLogger logDebugInfoWithResponse:task.response apiName:self.code resposeString:responseObject request:task.originalRequest error:nil];
         
-        NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-        
-        NSString *textEncoding = [response textEncodingName];
-        
+        NSLog(@"Header = %@", task.currentRequest.allHTTPHeaderFields);
+
         if(self.showView) {
             
             [TLProgressHUD dismiss];
         }
         
+        NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+        
+        NSString *textEncoding = [response textEncodingName];
+        
         if (response.statusCode >= 200 && response.statusCode < 300) {
             
+            //设置cookie
+//            NSString *cookie = response.allHeaderFields[@"Set-Cookie"];
+//
+//            [AppConfig setUserDefaultCookie:cookie];
+            
+//            NSLog(@"Cookie = %@", cookie);
+
             if(success) {
                 
                 success(textEncoding, responseObject);
@@ -131,6 +138,8 @@
     
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
+        [HttpLogger logDebugInfoWithRequest:task.currentRequest apiName:self.code requestParams:self.parameters httpMethod:@"POST"];
+
         if(self.showView) {
             
             [TLProgressHUD dismiss];
@@ -178,7 +187,6 @@
             
             failure(error);
         }
-        
     }];
     
     
@@ -218,10 +226,6 @@
         
         [TLProgressHUD show];
     }
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:URLString]];
-
-    [HttpLogger logDebugInfoWithRequest:request apiName:@"" requestParams:self.parameters httpMethod:@"GET"];
 
     return [_manager GET:URLString parameters:self.parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
@@ -230,6 +234,10 @@
             [TLProgressHUD dismiss];
         }
     
+        [HttpLogger logDebugInfoWithRequest:task.currentRequest apiName:@"" requestParams:self.parameters httpMethod:@"GET"];
+
+        NSLog(@"Header = %@", task.currentRequest.allHTTPHeaderFields);
+
 //        [HttpLogger logDebugInfoWithResponse:task.response apiName:nil resposeString:responseObject request:task.originalRequest error:nil];
         
         NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
@@ -238,9 +246,6 @@
             
             //响应返回的编码格式
             NSString *textEncoding = [response textEncodingName];
-            //设置cookie
-            NSString *cookie = response.allHeaderFields[@"Set-Cookie"];
-            [AppConfig setUserDefaultCookie:cookie];
             
             if (success) {
                 
@@ -254,6 +259,8 @@
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
+        [HttpLogger logDebugInfoWithRequest:task.currentRequest apiName:@"" requestParams:self.parameters httpMethod:@"GET"];
+
         if(self.showView) {
             
             [TLProgressHUD dismiss];
