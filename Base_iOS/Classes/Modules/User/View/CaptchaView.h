@@ -16,5 +16,7 @@
 @property (nonatomic,strong) TLTextField *captchaTf;
 
 @property (nonatomic,strong) TLTimeButton *captchaBtn;
+//计时
+@property (nonatomic, assign) NSInteger totalTime;
 
 @end

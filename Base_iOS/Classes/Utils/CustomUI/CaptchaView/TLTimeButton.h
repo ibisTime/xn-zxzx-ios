@@ -11,6 +11,9 @@
 //倒计时按钮封装
 @interface TLTimeButton : UIButton
 
+//计时
+@property (nonatomic, assign) NSInteger totalTime;
+
 - (void)begin;
 
 - (instancetype)initWithFrame:(CGRect)frame totalTime:(NSInteger)total;

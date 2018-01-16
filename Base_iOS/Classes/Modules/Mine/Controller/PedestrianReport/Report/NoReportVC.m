@@ -230,7 +230,7 @@
     //验证登录名是否正确
     NSArray *dataArr = [hpple searchWithXPathQuery:@"//input[@name='org.apache.struts.taglib.html.TOKEN']"];
     //获取注册流程需要用到的Token
-    if (dataArr > 0) {
+    if (dataArr.count > 0) {
         
         TFHppleElement *element = dataArr[0];
         

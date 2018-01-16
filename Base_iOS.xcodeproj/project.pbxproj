@@ -10,7 +10,7 @@
 		210531DB200C8B4100F71227 /* PedestrianQuestionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 210531DA200C8B4100F71227 /* PedestrianQuestionModel.m */; };
 		210531E0200C96AD00F71227 /* PedestrianQuestionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 210531DF200C96AD00F71227 /* PedestrianQuestionTableView.m */; };
 		210531E3200C96FA00F71227 /* PedestrianQuestionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 210531E2200C96FA00F71227 /* PedestrianQuestionCell.m */; };
-		210531E8200CD64300F71227 /* PedestrianFindIdInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 210531E7200CD64300F71227 /* PedestrianFindIdInfoVC.m */; };
+		210531EB200CDBCC00F71227 /* PedestrianFindPwdVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 210531EA200CDBCC00F71227 /* PedestrianFindPwdVC.m */; };
 		210FD1C91F667376001DA03D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 210FD1C81F667376001DA03D /* SystemConfiguration.framework */; };
 		210FD1CB1F6673BA001DA03D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 210FD1CA1F6673BA001DA03D /* CoreTelephony.framework */; };
 		210FD1CD1F6673C4001DA03D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 210FD1CC1F6673C4001DA03D /* QuartzCore.framework */; };
@@ -128,6 +128,9 @@
 		21845FCA200353680039090F /* AK.txt in Resources */ = {isa = PBXBuildFile; fileRef = 21845FC0200353680039090F /* AK.txt */; };
 		21845FCE20035E4F0039090F /* ZYNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 21845FCD20035E4F0039090F /* ZYNetworking.m */; };
 		219281CA2004F3ED00963D55 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 219281C92004F3EC00963D55 /* libiconv.tbd */; };
+		21A03FBE200D929D00291560 /* PedestrianFindLoginNameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A03FBC200D925400291560 /* PedestrianFindLoginNameVC.m */; };
+		21A03FC1200DCDA800291560 /* PedestrianResetPwdVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A03FC0200DCDA800291560 /* PedestrianResetPwdVC.m */; };
+		21A03FC4200DDFE300291560 /* PedestrianFindPwdQuestionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A03FC3200DDFE300291560 /* PedestrianFindPwdQuestionVC.m */; };
 		21AC58721FDE734F00F19DE8 /* TLAccountBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC58701FDE734D00F19DE8 /* TLAccountBaseVC.m */; };
 		21AC58791FDE737200F19DE8 /* TLUserLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC58741FDE736C00F19DE8 /* TLUserLoginVC.m */; };
 		21AC587B1FDE737200F19DE8 /* TLUserForgetPwdVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21AC58771FDE737000F19DE8 /* TLUserForgetPwdVC.m */; };
@@ -212,8 +215,8 @@
 		210531DF200C96AD00F71227 /* PedestrianQuestionTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PedestrianQuestionTableView.m; sourceTree = "<group>"; };
 		210531E1200C96FA00F71227 /* PedestrianQuestionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PedestrianQuestionCell.h; sourceTree = "<group>"; };
 		210531E2200C96FA00F71227 /* PedestrianQuestionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PedestrianQuestionCell.m; sourceTree = "<group>"; };
-		210531E6200CD64300F71227 /* PedestrianFindIdInfoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PedestrianFindIdInfoVC.h; sourceTree = "<group>"; };
-		210531E7200CD64300F71227 /* PedestrianFindIdInfoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PedestrianFindIdInfoVC.m; sourceTree = "<group>"; };
+		210531E9200CDBCC00F71227 /* PedestrianFindPwdVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PedestrianFindPwdVC.h; sourceTree = "<group>"; };
+		210531EA200CDBCC00F71227 /* PedestrianFindPwdVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PedestrianFindPwdVC.m; sourceTree = "<group>"; };
 		210FD1C81F667376001DA03D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		210FD1CA1F6673BA001DA03D /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		210FD1CC1F6673C4001DA03D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -423,6 +426,12 @@
 		21845FCC20035E4F0039090F /* ZYNetworking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYNetworking.h; sourceTree = "<group>"; };
 		21845FCD20035E4F0039090F /* ZYNetworking.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYNetworking.m; sourceTree = "<group>"; };
 		219281C92004F3EC00963D55 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
+		21A03FBB200D925400291560 /* PedestrianFindLoginNameVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PedestrianFindLoginNameVC.h; sourceTree = "<group>"; };
+		21A03FBC200D925400291560 /* PedestrianFindLoginNameVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PedestrianFindLoginNameVC.m; sourceTree = "<group>"; };
+		21A03FBF200DCDA800291560 /* PedestrianResetPwdVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PedestrianResetPwdVC.h; sourceTree = "<group>"; };
+		21A03FC0200DCDA800291560 /* PedestrianResetPwdVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PedestrianResetPwdVC.m; sourceTree = "<group>"; };
+		21A03FC2200DDFE300291560 /* PedestrianFindPwdQuestionVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PedestrianFindPwdQuestionVC.h; sourceTree = "<group>"; };
+		21A03FC3200DDFE300291560 /* PedestrianFindPwdQuestionVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PedestrianFindPwdQuestionVC.m; sourceTree = "<group>"; };
 		21AC586D1FDE72B800F19DE8 /* AppMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppMacro.h; sourceTree = "<group>"; };
 		21AC586E1FDE72B900F19DE8 /* APICodeMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APICodeMacro.h; sourceTree = "<group>"; };
 		21AC586F1FDE72BA00F19DE8 /* AppColorMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppColorMacro.h; sourceTree = "<group>"; };
@@ -631,8 +640,8 @@
 		210531E4200CD5CC00F71227 /* FindLoginName */ = {
 			isa = PBXGroup;
 			children = (
-				210531E6200CD64300F71227 /* PedestrianFindIdInfoVC.h */,
-				210531E7200CD64300F71227 /* PedestrianFindIdInfoVC.m */,
+				21A03FBB200D925400291560 /* PedestrianFindLoginNameVC.h */,
+				21A03FBC200D925400291560 /* PedestrianFindLoginNameVC.m */,
 			);
 			path = FindLoginName;
 			sourceTree = "<group>";
@@ -640,6 +649,12 @@
 		210531E5200CD5D600F71227 /* FindPwd */ = {
 			isa = PBXGroup;
 			children = (
+				210531E9200CDBCC00F71227 /* PedestrianFindPwdVC.h */,
+				210531EA200CDBCC00F71227 /* PedestrianFindPwdVC.m */,
+				21A03FBF200DCDA800291560 /* PedestrianResetPwdVC.h */,
+				21A03FC0200DCDA800291560 /* PedestrianResetPwdVC.m */,
+				21A03FC2200DDFE300291560 /* PedestrianFindPwdQuestionVC.h */,
+				21A03FC3200DDFE300291560 /* PedestrianFindPwdQuestionVC.m */,
 			);
 			path = FindPwd;
 			sourceTree = "<group>";
@@ -2037,6 +2052,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21A03FBE200D929D00291560 /* PedestrianFindLoginNameVC.m in Sources */,
 				21290B721FF4892900CB74A7 /* IdentifierAuthView.m in Sources */,
 				21AC58AE1FDE75AA00F19DE8 /* HttpSign.m in Sources */,
 				21301E8D1FE2776B00A98CB7 /* MineGroup.m in Sources */,
@@ -2083,6 +2099,7 @@
 				2130AC1A2008584400CB5E67 /* PedestrianBaseVC.m in Sources */,
 				21290B831FF4E21E00CB74A7 /* ZMOPScoreVC.m in Sources */,
 				21111BBC1F8B5F2C0021B3FE /* TLChooseResultManager.m in Sources */,
+				21A03FC4200DDFE300291560 /* PedestrianFindPwdQuestionVC.m in Sources */,
 				21290BAF1FF6222D00CB74A7 /* ReportModel.m in Sources */,
 				21111BBD1F8B5F2C0021B3FE /* TLPhotoCell.m in Sources */,
 				21AC588F1FDE73FE00F19DE8 /* TLUserExt.m in Sources */,
@@ -2090,7 +2107,6 @@
 				21AC593E1FDE7A1B00F19DE8 /* TopLabelUtil.m in Sources */,
 				21AC58AA1FDE75AA00F19DE8 /* HttpLogger.m in Sources */,
 				21AC58961FDE741A00F19DE8 /* AccountTf.m in Sources */,
-				210531E8200CD64300F71227 /* PedestrianFindIdInfoVC.m in Sources */,
 				2130AC2520085B4100CB5E67 /* PedestrianQuestionVC.m in Sources */,
 				21111BCB1F8B5F2C0021B3FE /* MovieAddComment.m in Sources */,
 				21AC59401FDE7A1B00F19DE8 /* SortBar.m in Sources */,
@@ -2124,6 +2140,7 @@
 				21AC59411FDE7A1B00F19DE8 /* TLProgressHUD.m in Sources */,
 				21AC593D1FDE7A1B00F19DE8 /* TLTextView.m in Sources */,
 				21AC58721FDE734F00F19DE8 /* TLAccountBaseVC.m in Sources */,
+				21A03FC1200DCDA800291560 /* PedestrianResetPwdVC.m in Sources */,
 				21301E9B1FE2781300A98CB7 /* SettingVC.m in Sources */,
 				21111BEC1F8B5F2C0021B3FE /* Foundation+Log.m in Sources */,
 				21111BED1F8B5F2C0021B3FE /* NSArray+Custom.m in Sources */,
@@ -2160,6 +2177,7 @@
 				21290B801FF4D82700CB74A7 /* ContactModel.m in Sources */,
 				2130AC0B20062D6300CB5E67 /* NoReportVC.m in Sources */,
 				21AC597F1FDE823C00F19DE8 /* NSString+Check.m in Sources */,
+				210531EB200CDBCC00F71227 /* PedestrianFindPwdVC.m in Sources */,
 				21AC59731FDE820600F19DE8 /* NSDictionary+Extension.m in Sources */,
 				21158E431F1C4F4D00A07266 /* CustomTabBar.m in Sources */,
 				21301EA01FE2789900A98CB7 /* SettingGroup.m in Sources */,

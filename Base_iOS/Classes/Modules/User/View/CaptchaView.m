@@ -61,4 +61,11 @@
     
 }
 
+- (void)setTotalTime:(NSInteger)totalTime {
+    
+    _totalTime = totalTime;
+    
+    self.captchaBtn.totalTime = totalTime;
+}
+
 @end

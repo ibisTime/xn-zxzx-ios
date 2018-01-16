@@ -1,24 +1,20 @@
 //
-//  PedestrianFindIdInfoVC.m
+//  PedestrianFindLoginNameVC.m
 //  Base_iOS
 //
 //  Created by 蔡卓越 on 2018/1/15.
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
 
-#import "PedestrianFindIdInfoVC.h"
+#import "PedestrianFindLoginNameVC.h"
 #import "CoinHeader.h"
-#import "AppConfig.h"
 #import "NSString+Date.h"
 #import "NSString+Check.h"
-#import "UIBarButtonItem+convience.h"
 #import "UIButton+EnLargeEdge.h"
-#import "TLProgressHUD.h"
 
-#import "AccountTf.h"
 #import <TFHpple.h>
 
-@interface PedestrianFindIdInfoVC ()
+@interface PedestrianFindLoginNameVC ()
 
 //用户名
 @property (nonatomic,strong) TLTextField *nameTF;
@@ -28,8 +24,6 @@
 @property (nonatomic, strong) TLTextField *certNoTF;
 //验证码
 @property (nonatomic, strong) TLTextField *verifyTF;
-//
-@property (nonatomic, copy) NSString *verifyCode;
 //验证码图片
 @property (nonatomic, strong) UIImageView *verifyIV;
 //同意按钮
@@ -39,7 +33,7 @@
 
 @end
 
-@implementation PedestrianFindIdInfoVC
+@implementation PedestrianFindLoginNameVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -147,11 +141,11 @@
         
     }];
     
-    //下一步
-    UIButton *nextBtn = [UIButton buttonWithTitle:@"下一步" titleColor:kWhiteColor backgroundColor:kAppCustomMainColor titleFont:17.0 cornerRadius:5];
-    [nextBtn addTarget:self action:@selector(nextSetp) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:nextBtn];
-    [nextBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    //提交
+    UIButton *commitBtn = [UIButton buttonWithTitle:@"提交" titleColor:kWhiteColor backgroundColor:kAppCustomMainColor titleFont:17.0 cornerRadius:5];
+    [commitBtn addTarget:self action:@selector(findLoginName) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:commitBtn];
+    [commitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(@(15));
         make.height.equalTo(@(h - 5));
@@ -163,7 +157,11 @@
 }
 
 #pragma mark - Events
-- (void)nextSetp {
+
+/**
+ 找回登录名
+ */
+- (void)findLoginName {
     
     if (![self.nameTF.text valid]) {
         
@@ -254,22 +252,14 @@
     
     if ([verifyPrompt valid]) {
         
-        [TLAlert alertWithInfo:verifyPrompt];
-        //刷新验证码
-        [self requestImgVerify];
-        //刷新Token
-        [self getTokenWithEncoding:encoding responseObject:responseObject];
+        [self errorActionWithPrompt:verifyPrompt encoding:encoding responseObject:responseObject];
         
         return ;
     }
     
     if ([registerPrompt valid]) {
         
-        [TLAlert alertWithInfo:registerPrompt];
-        //刷新验证码
-        [self requestImgVerify];
-        //刷新Token
-        [self getTokenWithEncoding:encoding responseObject:responseObject];
+        [self errorActionWithPrompt:registerPrompt encoding:encoding responseObject:responseObject];
         
         return ;
     }
@@ -278,12 +268,8 @@
     
     if (errorArr.count > 0) {
         
-        [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
-        //刷新验证码
-        [self requestImgVerify];
-        //刷新Token
-        [self getTokenWithEncoding:encoding responseObject:responseObject];
-        
+        [self errorActionWithPrompt:@"系统繁忙, 请稍后再试" encoding:encoding responseObject:responseObject];
+
         return ;
     }
     
@@ -296,12 +282,8 @@
     }
     
     if (![title valid]) {
-        
-        [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
-        //刷新验证码
-        [self requestImgVerify];
-        //刷新Token
-        [self getTokenWithEncoding:encoding responseObject:responseObject];
+    
+        [self errorActionWithPrompt:@"系统繁忙, 请稍后再试" encoding:encoding responseObject:responseObject];
         
         return ;
     }
@@ -313,6 +295,18 @@
         [self.navigationController popViewControllerAnimated:YES];
     });
     
+}
+
+/**
+ 系统报错后的操作
+ */
+- (void)errorActionWithPrompt:(NSString *)prompt encoding:(NSString *)encoding responseObject:(id)responseObject {
+    
+    [TLAlert alertWithInfo:prompt];
+    //刷新验证码
+    [self requestImgVerify];
+    //刷新Token
+    [self getTokenWithEncoding:encoding responseObject:responseObject];
 }
 
 - (void)changeVerify {
@@ -359,7 +353,7 @@
     //验证登录名是否正确
     NSArray *dataArr = [hpple searchWithXPathQuery:@"//input[@name='org.apache.struts.taglib.html.TOKEN']"];
     //获取注册流程需要用到的Token
-    if (dataArr > 0) {
+    if (dataArr.count > 0) {
         
         TFHppleElement *element = dataArr[0];
         

@@ -13,6 +13,9 @@
 
 @interface PedestrianRegisterSuccessVC ()
 
+//进度
+@property (nonatomic, strong) UIView *progressView;
+
 @end
 
 @implementation PedestrianRegisterSuccessVC
@@ -21,11 +24,81 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"完成注册";
-    
+    //进度
+    [self initProgressView];
+    //
     [self initSubviews];
 }
 
 #pragma mark - Init
+
+- (void)initProgressView {
+    
+    self.progressView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 120)];
+    
+    [self.bgSV addSubview:self.progressView];
+    
+    NSArray *textArr = @[@"填写身\n份信息", @"补充用\n户信息", @"完成\n注册"];
+    
+    for (int i = 0; i < 3; i++) {
+        
+        CGFloat numW = 35;
+        CGFloat leftMargin = (i-1)*kScreenWidth/4.0;
+        //数字
+        UILabel *numLbl = [UILabel labelWithBackgroundColor:kAppCustomMainColor textColor:kWhiteColor font:20.0];
+        
+        numLbl.textAlignment = NSTextAlignmentCenter;
+        
+        numLbl.text = [NSString stringWithFormat:@"%d", i+1];
+        numLbl.layer.cornerRadius = numW/2.0;
+        numLbl.clipsToBounds = YES;
+        numLbl.layer.borderWidth = 3;
+        numLbl.layer.borderColor = kLineColor.CGColor;
+        
+        [self.progressView addSubview:numLbl];
+        [numLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.width.height.equalTo(@(numW));
+            make.top.equalTo(@20);
+            make.centerX.equalTo(@(leftMargin));
+            
+        }];
+        
+        //步骤
+        UILabel *textLbl = [UILabel labelWithBackgroundColor:kClearColor textColor:kAppCustomMainColor font:14.0];
+        
+        textLbl.textAlignment = NSTextAlignmentCenter;
+        textLbl.numberOfLines = 0;
+        textLbl.text = textArr[i];
+        
+        [self.progressView addSubview:textLbl];
+        [textLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.top.equalTo(numLbl.mas_bottom).offset(15);
+            make.centerX.equalTo(@(leftMargin));
+            
+        }];
+        
+        if (i < 2) {
+            
+            //line
+            UIView *line = [[UIView alloc] init];
+            
+            line.backgroundColor = kPlaceholderColor;
+            
+            [self.progressView addSubview:line];
+            [line mas_makeConstraints:^(MASConstraintMaker *make) {
+                
+                make.left.equalTo(textLbl.mas_right).offset(10);
+                make.height.equalTo(@0.5);
+                make.width.equalTo(@(kWidth(35)));
+                make.top.equalTo(textLbl.mas_top).offset(-5);
+                
+            }];
+        }
+    }
+}
+
 - (void)initSubviews {
     
     //text

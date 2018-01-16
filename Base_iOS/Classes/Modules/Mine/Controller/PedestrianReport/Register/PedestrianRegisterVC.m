@@ -8,10 +8,9 @@
 
 #import "PedestrianRegisterVC.h"
 #import "CoinHeader.h"
-#import "AppConfig.h"
 #import "NSString+Date.h"
 #import "NSString+Check.h"
-#import "UIBarButtonItem+convience.h"
+#import "UILabel+Extension.h"
 #import "UIButton+EnLargeEdge.h"
 #import "TLProgressHUD.h"
 
@@ -23,6 +22,8 @@
 
 @interface PedestrianRegisterVC ()
 
+//进度
+@property (nonatomic, strong) UIView *progressView;
 //用户名
 @property (nonatomic,strong) TLTextField *nameTF;
 //证件类型
@@ -31,12 +32,12 @@
 @property (nonatomic, strong) TLTextField *certNoTF;
 //验证码
 @property (nonatomic, strong) TLTextField *verifyTF;
-//
-@property (nonatomic, copy) NSString *verifyCode;
 //验证码图片
 @property (nonatomic, strong) UIImageView *verifyIV;
 //同意按钮
 @property (nonatomic, strong) UIButton *checkBtn;
+//提示
+@property (nonatomic, strong) UILabel *promptLbl;
 //
 @property (nonatomic, assign) BOOL isFirst;
 
@@ -53,12 +54,85 @@
     [self getToken];
     //获取图片验证码
     [self requestImgVerify];
+    //进度
+    [self initProgressView];
     //
     [self initSubviews];
 }
 
 #pragma mark - Init
+- (void)initProgressView {
+    
+    self.progressView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 120)];
+    
+    [self.bgSV addSubview:self.progressView];
+    
+    NSArray *textArr = @[@"填写身\n份信息", @"补充用\n户信息", @"完成\n注册"];
+    
+    for (int i = 0; i < 3; i++) {
+        
+        UIColor *numColor = i == 0 ? kAppCustomMainColor: kPlaceholderColor;
+        CGFloat numW = 35;
+        CGFloat leftMargin = (i-1)*kScreenWidth/4.0;
+        //数字
+        UILabel *numLbl = [UILabel labelWithBackgroundColor:numColor textColor:kWhiteColor font:20.0];
+        
+        numLbl.textAlignment = NSTextAlignmentCenter;
+        
+        numLbl.text = [NSString stringWithFormat:@"%d", i+1];
+        numLbl.layer.cornerRadius = numW/2.0;
+        numLbl.clipsToBounds = YES;
+        numLbl.layer.borderWidth = 3;
+        numLbl.layer.borderColor = kLineColor.CGColor;
+        
+        [self.progressView addSubview:numLbl];
+        [numLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.width.height.equalTo(@(numW));
+            make.top.equalTo(@20);
+            make.centerX.equalTo(@(leftMargin));
+            
+        }];
+        
+        UIColor *textColor = i == 0 ? kAppCustomMainColor: kTextColor4;
+
+        //步骤
+        UILabel *textLbl = [UILabel labelWithBackgroundColor:kClearColor textColor:textColor font:14.0];
+        
+        textLbl.textAlignment = NSTextAlignmentCenter;
+        textLbl.numberOfLines = 0;
+        textLbl.text = textArr[i];
+        
+        [self.progressView addSubview:textLbl];
+        [textLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.top.equalTo(numLbl.mas_bottom).offset(15);
+            make.centerX.equalTo(@(leftMargin));
+            
+        }];
+        
+        if (i < 2) {
+            
+            //line
+            UIView *line = [[UIView alloc] init];
+            
+            line.backgroundColor = kPlaceholderColor;
+            
+            [self.progressView addSubview:line];
+            [line mas_makeConstraints:^(MASConstraintMaker *make) {
+                
+                make.left.equalTo(textLbl.mas_right).offset(10);
+                make.height.equalTo(@0.5);
+                make.width.equalTo(@(kWidth(35)));
+                make.top.equalTo(textLbl.mas_top).offset(-5);
+                
+            }];
+        }
+    }
+}
+
 - (void)initSubviews {
+    
     
     self.view.backgroundColor = kBackgroundColor;
     
@@ -73,10 +147,10 @@
     
     bgView.backgroundColor = kWhiteColor;
     
-    [self.view addSubview:bgView];
+    [self.bgSV addSubview:bgView];
     [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(@(10));
+        make.top.equalTo(self.progressView.mas_bottom).offset(0);
         make.left.equalTo(@0);
         make.height.equalTo(@(count*h+(count-1)*lineHeight));
         make.width.equalTo(@(w));
@@ -210,6 +284,31 @@
         
     }];
     
+    //提示
+    UILabel *promptLbl = [UILabel labelWithBackgroundColor:kClearColor textColor:kTextColor2 font:14.0];
+    
+    promptLbl.numberOfLines = 0;
+    
+    [promptLbl labelWithTextString:@"如果您没有办理过贷款或信用卡，那么只能登录到中国人民银行征信中心选择\"数字证书验证\"方式验证身份注册。\n征信中心地址：https://ipcrs.pbccrc.org.cn/" lineSpace:5];
+    [self.view addSubview:promptLbl];
+    [promptLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(nextBtn.mas_bottom).offset(25);
+        make.left.equalTo(@15);
+        make.right.equalTo(@(-15));
+        
+    }];
+    
+    self.promptLbl = promptLbl;
+    
+}
+
+- (void)viewDidLayoutSubviews {
+    
+    [super viewDidLayoutSubviews];
+    
+    self.bgSV.contentSize = CGSizeMake(kScreenWidth, self.promptLbl.yy + 20);
+
 }
 
 #pragma mark - Events
@@ -435,7 +534,7 @@
     //验证登录名是否正确
     NSArray *dataArr = [hpple searchWithXPathQuery:@"//input[@name='org.apache.struts.taglib.html.TOKEN']"];
     //获取注册流程需要用到的Token
-    if (dataArr > 0) {
+    if (dataArr.count > 0) {
         
         TFHppleElement *element = dataArr[0];
         

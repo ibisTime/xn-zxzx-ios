@@ -13,8 +13,8 @@
 {
 
     NSInteger _time;
-    NSInteger _totalTime;
     NSTimer *_timer;
+
 }
 
 - (instancetype)initWithFrame:(CGRect)frame totalTime:(NSInteger)total
@@ -36,6 +36,14 @@
     return self;
 }
 
+#pragma mark - Setting
+- (void)setTotalTime:(NSInteger)totalTime {
+    
+    _totalTime = totalTime;
+    
+    _time = totalTime;
+}
+
 - (void)forbid
 {
 
@@ -48,8 +56,6 @@
     self.enabled = YES;
 
 }
-
-
 
 - (void)begin{
 

@@ -1,12 +1,13 @@
 //
-//  PedestrianQuestionVC.m
+//  PedestrianFindPwdQuestionVC.m
 //  Base_iOS
 //
-//  Created by 蔡卓越 on 2018/1/12.
+//  Created by 蔡卓越 on 2018/1/16.
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
 
-#import "PedestrianQuestionVC.h"
+#import "PedestrianFindPwdQuestionVC.h"
+
 #import "CoinHeader.h"
 #import "AppConfig.h"
 #import "NSString+Check.h"
@@ -21,7 +22,7 @@
 
 #define kOptionCount 5
 
-@interface PedestrianQuestionVC ()
+@interface PedestrianFindPwdQuestionVC ()
 //questionList
 @property (nonatomic, strong) NSMutableArray <PedestrianQuestionModel *> *questionList;
 //tableview
@@ -37,13 +38,12 @@
 
 @end
 
-@implementation PedestrianQuestionVC
+@implementation PedestrianFindPwdQuestionVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    self.title = @"获取身份验证码";
+    self.title = @"验证身份";
     
     self.questionList = [NSMutableArray array];
     
@@ -54,7 +54,6 @@
     [self initCountDownView];
     //获取问题列表
     [self requestQuestionList];
-    
 }
 
 #pragma mark - Init
@@ -170,11 +169,9 @@
     
     self.http = http;
     http.showView = self.view;
-    http.url = kAppendUrl(@"reportAction.do");
-    http.parameters[@"method"] = @"submitKBA";
-    http.parameters[@"authtype"] = @"2";
+    http.url = kAppendUrl(@"resetPassword.do");
+    http.parameters[@"method"] = @"saveKbaApply";
     http.parameters[@"org.apache.struts.taglib.html.TOKEN"] = [TLUser user].tempToken;
-    http.parameters[@"ApplicationOption"] = @"21";
     
     //循环传参
     [self.questionList enumerateObjectsUsingBlock:^(PedestrianQuestionModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -196,7 +193,7 @@
         [obj.optionList enumerateObjectsUsingBlock:^(AnswerOption * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             
             [self idx:idx key:[NSString stringWithFormat:@"options%ld", idx] value:obj.option];
-
+            
         }];
     }];
     
@@ -210,11 +207,11 @@
     [http setHeaderWithValue:@"zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2" headerField:@"Accept-Language"];
     
     [http postWithSuccess:^(NSString *encoding, id responseObject) {
-
+        
         [self getCommitResultWithEncoding:encoding responseObject:responseObject];
-
+        
     } failure:^(NSError *error) {
-
+        
     }];
     
 }
@@ -254,13 +251,13 @@
         return ;
     }
     //
-    NSArray *dataArr = [hpple searchWithXPathQuery:@"//p"];
+    NSArray *dataArr = [hpple searchWithXPathQuery:@"//font"];
     
     for (TFHppleElement *element in dataArr) {
         
-        if ([element.content containsString:@"1.您的查询申请已提交，若通过身份验证，会以短信形式将身份验证码发送到您预留手机上，请妥善保管，您可在24小时后访问平台获取结果。"]) {
+        if ([element.content containsString:@"您的重置密码申请已提交，系统会对您的相关信息进行审核，审核结果将于24小时后反馈到您的手机，请注意查收。"]) {
             
-            [TLAlert alertWithTitle:@"提示" message:@"1.您的查询申请已提交，若通过身份验证，会以短信形式将身份验证码发送到您预留手机上，请妥善保管，您可在24小时后访问平台获取结果。\n2.为保护您的信息安全，您申请的信用信息产品将在平台上保留7个自然日，过时平台会自动清理，请及时登录查看结果。" confirmMsg:@"OK" confirmAction:^{
+            [TLAlert alertWithTitle:@"提示" message:@"您的重置密码申请已提交，系统会对您的相关信息进行审核，审核结果将于24小时后反馈到您的手机，请注意查收。" confirmMsg:@"OK" confirmAction:^{
                 
                 [self.navigationController popToRootViewControllerAnimated:YES];
             }];
@@ -276,14 +273,13 @@
     ZYNetworking *http = [ZYNetworking new];
     
     http.showView = self.view;
-    http.url = kAppendUrl(@"reportAction.do");
-    http.parameters[@"method"] = @"checkishasreport";
+    http.url = kAppendUrl(@"resetPassword.do");
+    http.parameters[@"method"] = @"chooseCertify";
     http.parameters[@"authtype"] = @"2";
     http.parameters[@"org.apache.struts.taglib.html.TOKEN"] = [TLUser user].tempToken;
-    http.parameters[@"ApplicationOption"] = @"21";
     
     //Referer
-    [http setHeaderWithValue:@"https://ipcrs.pbccrc.org.cn/reportAction.do?method=applicationReport" headerField:@"Referer"];
+    [http setHeaderWithValue:@"https://ipcrs.pbccrc.org.cn/resetPassword.do" headerField:@"Referer"];
     //Accept
     [http setHeaderWithValue:@"text/html, application/xhtml+xml, application/xml, */*" headerField:@"Accept"];
     //Upgrade-Insecure-Requests
@@ -295,8 +291,6 @@
     
     [http postWithSuccess:^(NSString *encoding, id responseObject) {
         
-        //获取Token
-        [self getTokenWithEncoding:encoding responseObject:responseObject];
         //获取问题列表
         [self getQuestionWithEncoding:encoding responseObject:responseObject];
         
@@ -417,5 +411,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 @end

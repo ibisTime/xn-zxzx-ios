@@ -115,7 +115,7 @@
             
         } else {
             
-            if (newObjs > 0) {
+            if (newObjs.count > 0) {
                 //还有数据
                 self.start += 1;
                 if (refresh) {

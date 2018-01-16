@@ -9,6 +9,7 @@
 #import "TLTextField.h"
 #import "AppColorMacro.h"
 #import "UIColor+Extension.h"
+#import "TLUIHeader.h"
 
 @implementation TLTextField
 
@@ -45,6 +46,13 @@
         //关闭自动大写
         self.autocapitalizationType = UITextAutocapitalizationTypeNone;
 
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, self.height-0.5, self.width, 0.5)];
+        
+        line.backgroundColor = kLineColor;
+        
+        [self addSubview:line];
+        
+        self.line = line;
     }
     return self;
     

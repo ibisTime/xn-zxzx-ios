@@ -9,9 +9,9 @@
 #import "PedestrianCommitRegisterVC.h"
 
 #import "CoinHeader.h"
-#import "AppConfig.h"
 #import "NSString+Date.h"
 #import "NSString+Check.h"
+#import "UILabel+Extension.h"
 #import "TLProgressHUD.h"
 
 #import "TLTextField.h"
@@ -23,6 +23,8 @@
 
 @interface PedestrianCommitRegisterVC ()<UITextFieldDelegate>
 
+//进度
+@property (nonatomic, strong) UIView *progressView;
 //用户名
 @property (nonatomic,strong) TLTextField *nameTF;
 //密码
@@ -46,11 +48,83 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"补充用户信息";
+    //进度
+    [self initProgressView];
     //补充信息
     [self initSubviews];
 }
 
 #pragma mark - Init
+- (void)initProgressView {
+    
+    self.progressView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 120)];
+    
+    [self.bgSV addSubview:self.progressView];
+    
+    NSArray *textArr = @[@"填写身\n份信息", @"补充用\n户信息", @"完成\n注册"];
+    
+    for (int i = 0; i < 3; i++) {
+        
+        UIColor *numColor = i < 2 ? kAppCustomMainColor: kPlaceholderColor;
+        CGFloat numW = 35;
+        CGFloat leftMargin = (i-1)*kScreenWidth/4.0;
+        //数字
+        UILabel *numLbl = [UILabel labelWithBackgroundColor:numColor textColor:kWhiteColor font:20.0];
+        
+        numLbl.textAlignment = NSTextAlignmentCenter;
+        
+        numLbl.text = [NSString stringWithFormat:@"%d", i+1];
+        numLbl.layer.cornerRadius = numW/2.0;
+        numLbl.clipsToBounds = YES;
+        numLbl.layer.borderWidth = 3;
+        numLbl.layer.borderColor = kLineColor.CGColor;
+        
+        [self.progressView addSubview:numLbl];
+        [numLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.width.height.equalTo(@(numW));
+            make.top.equalTo(@20);
+            make.centerX.equalTo(@(leftMargin));
+            
+        }];
+        
+        UIColor *textColor = i < 2 ? kAppCustomMainColor: kTextColor4;
+        
+        //步骤
+        UILabel *textLbl = [UILabel labelWithBackgroundColor:kClearColor textColor:textColor font:14.0];
+        
+        textLbl.textAlignment = NSTextAlignmentCenter;
+        textLbl.numberOfLines = 0;
+        textLbl.text = textArr[i];
+        
+        [self.progressView addSubview:textLbl];
+        [textLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.top.equalTo(numLbl.mas_bottom).offset(15);
+            make.centerX.equalTo(@(leftMargin));
+            
+        }];
+        
+        if (i < 2) {
+            
+            //line
+            UIView *line = [[UIView alloc] init];
+            
+            line.backgroundColor = kPlaceholderColor;
+            
+            [self.progressView addSubview:line];
+            [line mas_makeConstraints:^(MASConstraintMaker *make) {
+                
+                make.left.equalTo(textLbl.mas_right).offset(10);
+                make.height.equalTo(@0.5);
+                make.width.equalTo(@(kWidth(35)));
+                make.top.equalTo(textLbl.mas_top).offset(-5);
+                
+            }];
+        }
+    }
+}
+
 - (void)initSubviews {
     
     self.view.backgroundColor = kBackgroundColor;
@@ -60,46 +134,77 @@
     CGFloat leftW = 100;
 
     NSInteger count = 5;
-    CGFloat lineHeight = 0.5;
+    CGFloat lineHeight = 0;
     //背景
-    UIView *bgView = [[UIView alloc] init];
+//    UIView *bgView = [[UIView alloc] init];
+//
+//    bgView.backgroundColor = kWhiteColor;
+//
+//    [self.view addSubview:bgView];
+//    [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.top.equalTo(self.progressView.mas_bottom).offset(0);
+//        make.left.equalTo(@0);
+//        make.height.equalTo(@(count*h+(count-1)*lineHeight));
+//        make.width.equalTo(@(w));
+//
+//    }];
     
-    bgView.backgroundColor = kWhiteColor;
+    //登录名
+    TLTextField *nameTF = [[TLTextField alloc] initWithFrame:CGRectMake(0, self.progressView.yy, w, h) leftTitle:@"登录名:" titleWidth:leftW placeholder:@"请输入登录名"];
+    nameTF.delegate = self;
+    [self.bgSV addSubview:nameTF];
+    self.nameTF = nameTF;
+    //提示:
+    UILabel *namePromptLbl = [UILabel labelWithBackgroundColor:kClearColor textColor:kTextColor2 font:14.0];
     
-    [self.view addSubview:bgView];
-    [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+    namePromptLbl.numberOfLines = 0;
+    
+    [namePromptLbl labelWithTextString:@"提示: 登录名由6-16位数字、字母组成, 不能有中文或特殊字符。" lineSpace:5];
+    [self.bgSV addSubview:namePromptLbl];
+    [namePromptLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(@(10));
-        make.left.equalTo(@0);
-        make.height.equalTo(@(count*h+(count-1)*lineHeight));
-        make.width.equalTo(@(w));
+        make.top.equalTo(@(nameTF.yy));
+        make.left.equalTo(@15);
+        make.width.equalTo(@(kScreenWidth-30));
         
     }];
     
-    //账号
-    TLTextField *nameTF = [[TLTextField alloc] initWithFrame:CGRectMake(0, 0, w, h) leftTitle:@"登录名:" titleWidth:leftW placeholder:@"请输入登录名"];
-    nameTF.delegate = self;
-    [bgView addSubview:nameTF];
-    self.nameTF = nameTF;
+    CGFloat pH1 = 40;
     
     //密码
-    TLTextField *pwdTF = [[TLTextField alloc] initWithFrame:CGRectMake(0, nameTF.yy+lineHeight, w, h) leftTitle:@"密码:" titleWidth:leftW placeholder:@"请输入登录密码"];
+    TLTextField *pwdTF = [[TLTextField alloc] initWithFrame:CGRectMake(0, nameTF.yy+lineHeight + pH1, w, h) leftTitle:@"密码:" titleWidth:leftW placeholder:@"请输入登录密码"];
     
     pwdTF.secureTextEntry = YES;
-    [bgView addSubview:pwdTF];
+    [self.bgSV addSubview:pwdTF];
     self.pwdTF = pwdTF;
     
+    //提示:
+    UILabel *pwdPromptLbl = [UILabel labelWithBackgroundColor:kClearColor textColor:kTextColor2 font:14.0];
+    
+    pwdPromptLbl.numberOfLines = 0;
+    
+    [pwdPromptLbl labelWithTextString:@"提示: 密码长度必须在6-20之间, 可以使用数字、小写字母和大写字母, 但必须同时包含数字和字母。" lineSpace:5];
+    [self.bgSV addSubview:pwdPromptLbl];
+    [pwdPromptLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(@(pwdTF.yy + 10));
+        make.left.equalTo(@15);
+        make.width.equalTo(@(kScreenWidth-30));
+
+    }];
+    
     //电子邮箱
-    TLTextField *emailTF = [[TLTextField alloc] initWithFrame:CGRectMake(0, pwdTF.yy+lineHeight, w, h) leftTitle:@"电子邮箱:" titleWidth:leftW placeholder:@"请输入电子邮箱(选填)"];
+    TLTextField *emailTF = [[TLTextField alloc] initWithFrame:CGRectMake(0, pwdTF.yy+lineHeight + 55, w, h) leftTitle:@"电子邮箱:" titleWidth:leftW placeholder:@"请输入电子邮箱(选填)"];
     emailTF.keyboardType = UIKeyboardTypeEmailAddress;
-    [bgView addSubview:emailTF];
+    [self.bgSV addSubview:emailTF];
     self.emailTF = emailTF;
     
     //手机号
     TLTextField *mobileTF = [[TLTextField alloc] initWithFrame:CGRectMake(0, emailTF.yy+lineHeight, w, h) leftTitle:@"手机号:" titleWidth:leftW placeholder:@"请输入手机号"];
     
     mobileTF.keyboardType = UIKeyboardTypeNumberPad;
-    [bgView addSubview:mobileTF];
+    [self.bgSV addSubview:mobileTF];
     self.mobileTF = mobileTF;
     
     //短信动态码
@@ -111,26 +216,26 @@
     captchaView.captchaTf.keyboardType = UIKeyboardTypeASCIICapable;
     
     [captchaView.captchaBtn addTarget:self action:@selector(sendCaptcha) forControlEvents:UIControlEventTouchUpInside];
-    [bgView addSubview:captchaView];
+    [self.bgSV addSubview:captchaView];
     
     self.captchaView = captchaView;
     
-    for (int i = 0; i < count; i++) {
-        
-        UIView *line = [[UIView alloc] init];
-        
-        line.backgroundColor = kLineColor;
-        
-        [bgView addSubview:line];
-        [line mas_makeConstraints:^(MASConstraintMaker *make) {
-            
-            make.left.equalTo(@0);
-            make.right.equalTo(@0);
-            make.height.equalTo(@(lineHeight));
-            make.top.equalTo(@((i+1)*h+i*lineHeight));
-            
-        }];
-    }
+//    for (int i = 0; i < count; i++) {
+//
+//        UIView *line = [[UIView alloc] init];
+//
+//        line.backgroundColor = kLineColor;
+//
+//        [self.bgSV addSubview:line];
+//        [line mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//            make.left.equalTo(@0);
+//            make.right.equalTo(@0);
+//            make.height.equalTo(@(lineHeight));
+//            make.top.equalTo(@((i+1)*h+i*lineHeight));
+//
+//        }];
+//    }
     
     //提交注册
     UIButton *commitBtn = [UIButton buttonWithTitle:@"提交注册" titleColor:kWhiteColor backgroundColor:kAppCustomMainColor titleFont:17.0 cornerRadius:5];
@@ -141,7 +246,7 @@
         make.left.equalTo(@(15));
         make.height.equalTo(@(h - 5));
         make.right.equalTo(@(-15));
-        make.top.equalTo(bgView.mas_bottom).offset(28+30);
+        make.top.equalTo(captchaView.mas_bottom).offset(28+30);
         
     }];
 }
@@ -241,9 +346,9 @@
         return ;
     }
     
-    if (self.pwdTF.text.length > 16) {
+    if (self.pwdTF.text.length > 20) {
         
-        [TLAlert alertWithInfo:@"登录密码不能大于16个字符"];
+        [TLAlert alertWithInfo:@"登录密码不能大于20个字符"];
         return ;
     }
     
@@ -312,7 +417,6 @@
     NSArray *spanArr = [hpple searchWithXPathQuery:@"//span"];
     
     NSString *registerPrompt = @"";
-//    NSString *verifyPrompt = @"";
     
     for (TFHppleElement *element in spanArr) {
         
@@ -320,23 +424,7 @@
             //过滤">|\n|\r|\t"符号
             registerPrompt = [element.content regularExpressionWithPattern:@">|\n|\r|\t| "];
         }
-        
-//        if ([[element objectForKey:@"id"] isEqualToString:@"_@MSG@_"]) {
-//            //过滤">|\n|\r|\t"符号
-//            verifyPrompt = [element.content regularExpressionWithPattern:@">|\n|\r|\t| "];
-//        }
     }
-    
-    //先判断动态码再判断姓名和证件号码,每次点击下一步失败就刷新动态码
-    
-//    if ([verifyPrompt valid]) {
-//
-//        [TLAlert alertWithInfo:verifyPrompt];
-//        //刷新Token
-//        [self getTokenWithEncoding:encoding responseObject:responseObject];
-//
-//        return ;
-//    }
     
     if ([registerPrompt valid]) {
         
@@ -463,7 +551,7 @@
     //验证登录名是否正确
     NSArray *dataArr = [hpple searchWithXPathQuery:@"//input[@name='org.apache.struts.taglib.html.TOKEN']"];
     //获取注册流程需要用到的Token
-    if (dataArr > 0) {
+    if (dataArr.count > 0) {
         
         TFHppleElement *element = dataArr[0];
         

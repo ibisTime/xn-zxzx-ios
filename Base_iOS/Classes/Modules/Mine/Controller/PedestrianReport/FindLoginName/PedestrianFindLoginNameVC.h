@@ -1,5 +1,5 @@
 //
-//  PedestrianFindIdInfoVC.h
+//  PedestrianFindLoginNameVC.h
 //  Base_iOS
 //
 //  Created by 蔡卓越 on 2018/1/15.
@@ -11,6 +11,6 @@
 /**
  找回登录名
  */
-@interface PedestrianFindIdInfoVC : PedestrianBaseVC
+@interface PedestrianFindLoginNameVC : PedestrianBaseVC
 
 @end

@@ -11,6 +11,8 @@
 @interface TLTextField : UITextField
 
 @property (nonatomic, strong) UILabel *leftLbl;
+//line
+@property (nonatomic, strong) UIView *line;
 
 - (instancetype)initWithFrame:(CGRect)frame
                     leftTitle:(NSString *)leftTitle

@@ -12,7 +12,7 @@
 #import "AppConfig.h"
 #import "NSString+Date.h"
 #import "NSString+Check.h"
-#import "UIBarButtonItem+convience.h"
+#import "UIControl+Block.h"
 #import "TLProgressHUD.h"
 
 #import "AccountTf.h"
@@ -21,9 +21,8 @@
 #import "NoReportVC.h"
 #import "PedestrianVerifyVC.h"
 
-#import "PedestrianRegisterVC.h"
-#import "PedestrianCommitRegisterVC.h"
-#import "PedestrianRegisterSuccessVC.h"
+#import "PedestrianFindLoginNameVC.h"
+#import "PedestrianFindPwdVC.h"
 
 @interface PedestrianLoginVC ()
 //用户名
@@ -51,7 +50,7 @@
     
     //获取图片验证码
     [self requestImgVerify];
-    //登录、注册
+    //登录
     [self initSubviews];
     
 }
@@ -60,9 +59,6 @@
 - (void)initSubviews {
     
     self.view.backgroundColor = kBackgroundColor;
-    //注册
-    
-    [UIBarButtonItem addRightItemWithTitle:@"注册" titleColor:kWhiteColor frame:CGRectMake(0, 0, 40, 44) vc:self action:@selector(goRegister)];
     
     CGFloat w = kScreenWidth;
     CGFloat h = ACCOUNT_HEIGHT;
@@ -155,7 +151,43 @@
         make.top.equalTo(bgView.mas_bottom).offset(28+30);
         
     }];
+    //找回登录名
+    UIButton *findNameBtn = [UIButton buttonWithTitle:@"找回登录名" titleColor:kTextColor2 backgroundColor:kClearColor titleFont:14.0];
     
+    [findNameBtn bk_addEventHandler:^(id sender) {
+        
+        PedestrianFindLoginNameVC *findNameVC = [PedestrianFindLoginNameVC new];
+        
+        [self.navigationController pushViewController:findNameVC animated:YES];
+        
+    } forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:findNameBtn];
+    [findNameBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(loginBtn.mas_bottom).offset(10);
+        make.left.equalTo(@15);
+        
+    }];
+    
+    //找回密码
+    UIButton *findPwdBtn = [UIButton buttonWithTitle:@"找回密码" titleColor:kTextColor2 backgroundColor:kClearColor titleFont:14.0];
+    
+    [findPwdBtn bk_addEventHandler:^(id sender) {
+        
+        PedestrianFindPwdVC *findPwdVC = [PedestrianFindPwdVC new];
+        
+        [self.navigationController pushViewController:findPwdVC animated:YES];
+        
+    } forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:findPwdBtn];
+    [findPwdBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(loginBtn.mas_bottom).offset(10);
+        make.right.equalTo(@(-15));
+        
+    }];
 }
 
 #pragma mark - Events
@@ -273,13 +305,6 @@
     }
     //请求欢迎界面
     [self requestWelcomePage];
-}
-
-- (void)goRegister {
-    
-    PedestrianRegisterVC *registerVC = [PedestrianRegisterVC new];
-
-    [self.navigationController pushViewController:registerVC animated:YES];
 }
 
 - (void)changeVerify {
