@@ -15,6 +15,8 @@
 
 @interface PedestrianReportVC ()<WKNavigationDelegate>
 
+@property (nonatomic, strong) WKWebView *webView;
+
 @end
 
 @implementation PedestrianReportVC
@@ -34,8 +36,11 @@
     WKWebViewConfiguration *webConfig = [[WKWebViewConfiguration alloc] init];
     
     WKWebView *webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNavigationBarHeight) configuration:webConfig];
-    [self.view addSubview:webView];
+    
     webView.navigationDelegate = self;
+
+    [self.view addSubview:webView];
+    self.webView = webView;
     
     NSURL *url = [[NSURL alloc] initWithString:self.reportUrl];
     NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:url];
@@ -62,12 +67,6 @@
     [req setValue:@"ipcrs.pbccrc.org.cn" forHTTPHeaderField:@"Host"];
     //Connection
     [req setValue:@"keep-alive" forHTTPHeaderField:@"Connection"];
-    //Cookie
-    if ([[AppConfig getUsetDefaultCookie] valid]) {
-        
-        [req setValue:[AppConfig getUsetDefaultCookie] forHTTPHeaderField:@"Cookie"];
-        NSLog(@"cookie = %@", [AppConfig getUsetDefaultCookie]);
-    }
     
     // 实例化网络会话
     NSURLSession *session = [NSURLSession sharedSession];
@@ -81,12 +80,19 @@
         // 将请求到的网页数据用loadHTMLString 的方法加载
         NSString *htmlStr = [NSString convertHtmlWithEncoding:textEncoding data:data];
         
-        [webView loadHTMLString:htmlStr baseURL:nil];
+        [self loadHTMLStringWithHtml:htmlStr];
     }];
     
     // 开启网络任务
     [task resume];
     
+}
+
+#pragma mark - LoadHtml
+- (void)loadHTMLStringWithHtml:(NSString *)html {
+    
+    [self.webView loadHTMLString:html baseURL:nil];
+
 }
 
 #pragma mark - Setting

@@ -80,6 +80,8 @@
 		212B1DCA1FF399DE00C61685 /* IdAuthVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 212B1DC91FF399DE00C61685 /* IdAuthVC.m */; };
 		212B1DCD1FF39EA700C61685 /* BaseAuthVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 212B1DCC1FF39EA700C61685 /* BaseAuthVC.m */; };
 		212BB8251FECA46A00AFD519 /* QuestionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 212BB8241FECA46A00AFD519 /* QuestionTableView.m */; };
+		212CB7AA200F26B900DAC030 /* PedestrianSendVerifyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 212CB7A9200F26B900DAC030 /* PedestrianSendVerifyVC.m */; };
+		212CB7AD200F27AB00DAC030 /* PedestrianVerifySuccessVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 212CB7AC200F27AB00DAC030 /* PedestrianVerifySuccessVC.m */; };
 		212E4E491FFDF86B00830736 /* CreditReportEMContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 212E4E481FFDF86B00830736 /* CreditReportEMContactCell.m */; };
 		21301E601FE25A9100A98CB7 /* AuthVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301E5F1FE25A9100A98CB7 /* AuthVC.m */; };
 		21301E641FE26C1700A98CB7 /* UIImage+Tint.m in Sources */ = {isa = PBXBuildFile; fileRef = 21301E631FE26C1700A98CB7 /* UIImage+Tint.m */; };
@@ -347,6 +349,10 @@
 		212B1DCC1FF39EA700C61685 /* BaseAuthVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseAuthVC.m; sourceTree = "<group>"; };
 		212BB8231FECA46A00AFD519 /* QuestionTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuestionTableView.h; sourceTree = "<group>"; };
 		212BB8241FECA46A00AFD519 /* QuestionTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuestionTableView.m; sourceTree = "<group>"; };
+		212CB7A8200F26B900DAC030 /* PedestrianSendVerifyVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PedestrianSendVerifyVC.h; sourceTree = "<group>"; };
+		212CB7A9200F26B900DAC030 /* PedestrianSendVerifyVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PedestrianSendVerifyVC.m; sourceTree = "<group>"; };
+		212CB7AB200F27AB00DAC030 /* PedestrianVerifySuccessVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PedestrianVerifySuccessVC.h; sourceTree = "<group>"; };
+		212CB7AC200F27AB00DAC030 /* PedestrianVerifySuccessVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PedestrianVerifySuccessVC.m; sourceTree = "<group>"; };
 		212E4E471FFDF86B00830736 /* CreditReportEMContactCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreditReportEMContactCell.h; sourceTree = "<group>"; };
 		212E4E481FFDF86B00830736 /* CreditReportEMContactCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreditReportEMContactCell.m; sourceTree = "<group>"; };
 		21301E5E1FE25A9100A98CB7 /* AuthVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthVC.h; sourceTree = "<group>"; };
@@ -1384,6 +1390,10 @@
 			children = (
 				2130AC2720085FB200CB5E67 /* PedestrianVerifyVC.h */,
 				2130AC2820085FB200CB5E67 /* PedestrianVerifyVC.m */,
+				212CB7A8200F26B900DAC030 /* PedestrianSendVerifyVC.h */,
+				212CB7A9200F26B900DAC030 /* PedestrianSendVerifyVC.m */,
+				212CB7AB200F27AB00DAC030 /* PedestrianVerifySuccessVC.h */,
+				212CB7AC200F27AB00DAC030 /* PedestrianVerifySuccessVC.m */,
 			);
 			path = Verify;
 			sourceTree = "<group>";
@@ -2108,6 +2118,7 @@
 				21AC58AA1FDE75AA00F19DE8 /* HttpLogger.m in Sources */,
 				21AC58961FDE741A00F19DE8 /* AccountTf.m in Sources */,
 				2130AC2520085B4100CB5E67 /* PedestrianQuestionVC.m in Sources */,
+				212CB7AD200F27AB00DAC030 /* PedestrianVerifySuccessVC.m in Sources */,
 				21111BCB1F8B5F2C0021B3FE /* MovieAddComment.m in Sources */,
 				21AC59401FDE7A1B00F19DE8 /* SortBar.m in Sources */,
 				21AC59451FDE7A1B00F19DE8 /* CustomPickerView.m in Sources */,
@@ -2122,6 +2133,7 @@
 				212B1DA21FF226FB00C61685 /* ZMAuthVC.m in Sources */,
 				21AC59431FDE7A1B00F19DE8 /* HourPickerView.m in Sources */,
 				21111BD81F8B5F2C0021B3FE /* UIApplication+Custom.m in Sources */,
+				212CB7AA200F26B900DAC030 /* PedestrianSendVerifyVC.m in Sources */,
 				21AC58AB1FDE75AA00F19DE8 /* HttpRequestObject.m in Sources */,
 				21290BAB1FF5D8C700CB74A7 /* CreditRepostCell.m in Sources */,
 				212B1DC01FF27B8800C61685 /* UIView+XMGExtension.m in Sources */,

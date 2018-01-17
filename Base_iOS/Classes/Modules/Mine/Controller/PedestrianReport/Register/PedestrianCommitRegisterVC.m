@@ -11,6 +11,7 @@
 #import "CoinHeader.h"
 #import "NSString+Date.h"
 #import "NSString+Check.h"
+#import "NSString+CGSize.h"
 #import "UILabel+Extension.h"
 #import "TLProgressHUD.h"
 
@@ -133,22 +134,7 @@
     CGFloat h = ACCOUNT_HEIGHT;
     CGFloat leftW = 100;
 
-    NSInteger count = 5;
     CGFloat lineHeight = 0;
-    //背景
-//    UIView *bgView = [[UIView alloc] init];
-//
-//    bgView.backgroundColor = kWhiteColor;
-//
-//    [self.view addSubview:bgView];
-//    [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
-//
-//        make.top.equalTo(self.progressView.mas_bottom).offset(0);
-//        make.left.equalTo(@0);
-//        make.height.equalTo(@(count*h+(count-1)*lineHeight));
-//        make.width.equalTo(@(w));
-//
-//    }];
     
     //登录名
     TLTextField *nameTF = [[TLTextField alloc] initWithFrame:CGRectMake(0, self.progressView.yy, w, h) leftTitle:@"登录名:" titleWidth:leftW placeholder:@"请输入登录名"];
@@ -160,17 +146,19 @@
     
     namePromptLbl.numberOfLines = 0;
     
-    [namePromptLbl labelWithTextString:@"提示: 登录名由6-16位数字、字母组成, 不能有中文或特殊字符。" lineSpace:5];
+    NSString *nameText = @"提示: 登录名由6-16位数字、字母组成, 不能有中文或特殊字符。";
+    
+    [namePromptLbl labelWithTextString:nameText lineSpace:5];
     [self.bgSV addSubview:namePromptLbl];
     [namePromptLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(@(nameTF.yy));
+        make.top.equalTo(@(nameTF.yy+8));
         make.left.equalTo(@15);
         make.width.equalTo(@(kScreenWidth-30));
         
     }];
     
-    CGFloat pH1 = 40;
+    CGFloat pH1 = [nameText calculateStringSize:CGSizeMake(kScreenWidth - 30, MAXFLOAT) font:Font(14.0)].height + 20;
     
     //密码
     TLTextField *pwdTF = [[TLTextField alloc] initWithFrame:CGRectMake(0, nameTF.yy+lineHeight + pH1, w, h) leftTitle:@"密码:" titleWidth:leftW placeholder:@"请输入登录密码"];
@@ -188,14 +176,16 @@
     [self.bgSV addSubview:pwdPromptLbl];
     [pwdPromptLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(@(pwdTF.yy + 10));
+        make.top.equalTo(@(pwdTF.yy + 8));
         make.left.equalTo(@15);
         make.width.equalTo(@(kScreenWidth-30));
 
     }];
     
+    CGFloat pH2 = [nameText calculateStringSize:CGSizeMake(kScreenWidth - 30, MAXFLOAT) font:Font(14.0)].height + 20;
+    
     //电子邮箱
-    TLTextField *emailTF = [[TLTextField alloc] initWithFrame:CGRectMake(0, pwdTF.yy+lineHeight + 55, w, h) leftTitle:@"电子邮箱:" titleWidth:leftW placeholder:@"请输入电子邮箱(选填)"];
+    TLTextField *emailTF = [[TLTextField alloc] initWithFrame:CGRectMake(0, pwdTF.yy+lineHeight + pH2, w, h) leftTitle:@"电子邮箱:" titleWidth:leftW placeholder:@"请输入电子邮箱(选填)"];
     emailTF.keyboardType = UIKeyboardTypeEmailAddress;
     [self.bgSV addSubview:emailTF];
     self.emailTF = emailTF;
@@ -282,6 +272,8 @@
     
     [http postWithSuccess:^(NSString *encoding, id responseObject) {
         
+        [self.captchaView.captchaBtn begin];
+
         [self getVerifyWithEncoding:encoding responseObject:responseObject];
         
     } failure:^(NSError *error) {
@@ -293,6 +285,13 @@
  解析短信动态码
  */
 - (void)getVerifyWithEncoding:(NSString *)encoding responseObject:(id)responseObject {
+    
+    //系统错误
+    [self systemErrorWithBlock:^{
+        
+        return ;
+        
+    } encoding:encoding responseObject:responseObject];
     
     //result不为空说明动态码发送成功,否则发送失败
     NSString *result = [NSString convertHtmlWithEncoding:encoding data:responseObject];
@@ -413,6 +412,17 @@
     NSLog(@"htmlStr = %@", htmlStr);
     
     TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
+    
+    //系统错误
+    [self systemErrorWithBlock:^{
+        
+        //刷新Token
+        [self getTokenWithEncoding:encoding responseObject:responseObject];
+        
+        return ;
+        
+    } encoding:encoding responseObject:responseObject];
+    
     //验证登录名是否正确
     NSArray *spanArr = [hpple searchWithXPathQuery:@"//span"];
     
@@ -429,34 +439,6 @@
     if ([registerPrompt valid]) {
         
         [TLAlert alertWithInfo:registerPrompt];
-        //刷新Token
-        [self getTokenWithEncoding:encoding responseObject:responseObject];
-
-        return ;
-    }
-    
-    NSArray *errorArr = [hpple searchWithXPathQuery:@"//div[@class='error']"];
-    
-    if (errorArr.count > 0) {
-        
-        [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
-        //刷新Token
-        [self getTokenWithEncoding:encoding responseObject:responseObject];
-
-        return ;
-    }
-    
-    NSArray *titleArr = [hpple searchWithXPathQuery:@"//title"];
-    NSString *title = @"";
-    
-    for (TFHppleElement *element in titleArr) {
-        
-        title = element.content;
-    }
-    
-    if (![title valid]) {
-        
-        [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
         //刷新Token
         [self getTokenWithEncoding:encoding responseObject:responseObject];
 
@@ -548,6 +530,14 @@
 - (void)getTokenWithEncoding:(NSString *)encoding responseObject:(id)responseObject {
     
     TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
+    
+    //系统错误
+    [self systemErrorWithBlock:^{
+        
+        return ;
+        
+    } encoding:encoding responseObject:responseObject];
+    
     //验证登录名是否正确
     NSArray *dataArr = [hpple searchWithXPathQuery:@"//input[@name='org.apache.struts.taglib.html.TOKEN']"];
     //获取注册流程需要用到的Token

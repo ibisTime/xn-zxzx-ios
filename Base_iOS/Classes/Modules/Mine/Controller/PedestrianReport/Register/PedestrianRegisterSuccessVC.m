@@ -111,7 +111,7 @@
     [self.view addSubview:promptLbl];
     [promptLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(self.view.mas_top).offset(30);
+        make.top.equalTo(self.progressView.mas_bottom).offset(30);
         make.left.equalTo(@15);
         make.right.equalTo(@(-15));
         

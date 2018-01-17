@@ -8,6 +8,9 @@
 
 #import "PedestrianBaseVC.h"
 
+/**
+ 身份验证码（查看报告前的界面）
+ */
 @interface PedestrianVerifyVC : PedestrianBaseVC
 
 @end

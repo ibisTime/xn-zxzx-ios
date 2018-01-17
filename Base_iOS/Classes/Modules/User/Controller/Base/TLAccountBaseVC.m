@@ -13,6 +13,8 @@
 
 @interface TLAccountBaseVC ()
 
+//@property (nonatomic,strong) UIScrollView *bgSV;
+
 @end
 
 @implementation TLAccountBaseVC

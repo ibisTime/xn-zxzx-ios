@@ -19,6 +19,7 @@
 #import "PedestrianManager.h"
 //C
 #import "PedestrianQuestionVC.h"
+#import "PedestrianSendVerifyVC.h"
 
 @interface NoReportVC ()
 //提示语
@@ -27,6 +28,8 @@
 @property (nonatomic, strong) UIButton *okBtn;
 //
 @property (nonatomic, strong) PedestrianManager *manager;
+//是否高等级
+@property (nonatomic, assign) BOOL isHighLevel;
 //first
 @property (nonatomic, assign) BOOL isFirst;
 
@@ -93,10 +96,27 @@
         if ([self.manager.reportStatus isEqualToString:@"1"]) {
 
             [self.navigationController popToRootViewControllerAnimated:YES];
+            
+        } else if ([self.manager.reportStatus isEqualToString:@"0"]) {
+
+            //等级低需要回答问题才能查看报告,高等级的用户只需发送验证码
+            if (_isHighLevel) {
+                
+                PedestrianSendVerifyVC *sendVerifyVC = [PedestrianSendVerifyVC new];
+                
+                [self.navigationController pushViewController:sendVerifyVC animated:YES];
+                
+            } else {
+                
+                PedestrianQuestionVC *questionVC = [PedestrianQuestionVC new];
+                
+                [self.navigationController pushViewController:questionVC animated:YES];
+            }
+            
         } else {
-
+            
             PedestrianQuestionVC *questionVC = [PedestrianQuestionVC new];
-
+            
             [self.navigationController pushViewController:questionVC animated:YES];
         }
 
@@ -164,6 +184,14 @@
     NSLog(@"htmlStr = %@", htmlStr);
     
     TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
+    
+    //系统错误
+    [self systemErrorWithBlock:^{
+        
+        return ;
+        
+    } encoding:encoding responseObject:responseObject];
+    
     //验证登录名是否正确
     NSArray *dataArr = [hpple searchWithXPathQuery:@"//li"];
     
@@ -187,7 +215,6 @@
                 if ([subElement.tagName isEqualToString:@"font"]) {
                     
                     //result
-                    
                     resultStr = subElement.text ? subElement.text: @"";
                 }
             }
@@ -208,6 +235,19 @@
         } else {
             
             _manager.reportStatus = @"0";
+        }
+    }
+    
+    //判断用户等级, 如果等级过高那就发送验证码
+    NSArray *labelArr = [hpple searchWithXPathQuery:@"//label"];
+    
+    _isHighLevel = YES;
+    
+    for (TFHppleElement *element in labelArr) {
+        
+        if ([element.content containsString:@"问题验证"]) {
+            
+            _isHighLevel = NO;
         }
     }
     

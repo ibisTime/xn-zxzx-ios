@@ -21,5 +21,9 @@
 @property (nonatomic, copy) NSString *idVerifyResult;
 //提示语
 @property (nonatomic, copy) NSString *idVerifyPromptStr;
+//编码格式
+@property (nonatomic, copy) NSString *encoding;
+//responseObject
+@property (nonatomic) id responseObject;
 
 @end

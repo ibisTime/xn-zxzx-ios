@@ -153,6 +153,8 @@
     
     [http postWithSuccess:^(NSString *encoding, id responseObject) {
         
+        [self.captchaView.captchaBtn begin];
+
         [self getVerifyWithEncoding:encoding responseObject:responseObject];
         
     } failure:^(NSError *error) {
@@ -165,6 +167,13 @@
  */
 - (void)getVerifyWithEncoding:(NSString *)encoding responseObject:(id)responseObject {
     
+    //系统错误
+    [self systemErrorWithBlock:^{
+        
+        return ;
+        
+    } encoding:encoding responseObject:responseObject];
+    
     //result不为空说明动态码发送成功,否则发送失败
     NSString *result = [NSString convertHtmlWithEncoding:encoding data:responseObject];
     
@@ -174,10 +183,14 @@
         
         [self.captchaView.captchaBtn begin];
         
+        return ;
+        
     } else {
         
         [TLAlert alertWithError:@"动态码获取失败，请稍后重试"];
+        return ;
     }
+
 }
 
 /**
@@ -268,6 +281,14 @@
     NSLog(@"htmlStr = %@", htmlStr);
 
     TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
+    
+    //系统错误
+    [self systemErrorWithBlock:^{
+        
+        return ;
+        
+    } encoding:encoding responseObject:responseObject];
+    
     //验证密码和验证码是否正确
     NSArray *spanArr = [hpple searchWithXPathQuery:@"//span"];
 
@@ -284,54 +305,29 @@
     if ([registerPrompt valid]) {
 
         [TLAlert alertWithInfo:registerPrompt];
-
         return ;
     }
 
     //判断用户等级, 如果等级过高那就提示用户去征信中心操作
     NSArray *labelArr = [hpple searchWithXPathQuery:@"//label"];
     
-    BOOL isHighLeval = YES;
+    BOOL isHighLevel = YES;
     
     for (TFHppleElement *element in labelArr) {
         
         if ([element.content containsString:@"问题验证"]) {
             
-            isHighLeval = NO;
+            isHighLevel = NO;
         }
     }
     
-    if (isHighLeval) {
+    if (isHighLevel) {
         
         [TLAlert alertWithTitle:@"提示" message:@"您安全等级过高，无法使用此功能。请自行前往官网修改。\n官网地址：https://ipcrs.pbccrc.org.cn/" confirmMsg:@"OK" confirmAction:^{
             
             [self.navigationController popToRootViewControllerAnimated:YES];
         }];
         
-        return ;
-    }
-    
-    NSArray *errorArr = [hpple searchWithXPathQuery:@"//div[@class='error']"];
-
-    if (errorArr.count > 0) {
-
-        [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
-
-        return ;
-    }
-
-    NSArray *titleArr = [hpple searchWithXPathQuery:@"//title"];
-    NSString *title = @"";
-
-    for (TFHppleElement *element in titleArr) {
-
-        title = element.content;
-    }
-
-    if (![title valid]) {
-
-        [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
-
         return ;
     }
     
@@ -354,6 +350,13 @@
     
     TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
   
+    //系统错误
+    [self systemErrorWithBlock:^{
+        
+        return ;
+        
+    } encoding:encoding responseObject:responseObject];
+    
     NSArray *dataArr = [hpple searchWithXPathQuery:@"//input[@name='org.apache.struts.taglib.html.TOKEN']"];
     //获取找回密码流程需要用的Token
     if (dataArr.count > 0) {
@@ -364,9 +367,12 @@
         
         [TLUser user].tempToken = attributes[@"value"];
         
+        return ;
+        
     } else {
         
         [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
+        return ;
     }
 }
 

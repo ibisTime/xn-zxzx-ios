@@ -6,8 +6,11 @@
 //  Copyright © 2018年 caizhuoyue. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "PedestrianVC.h"
 
-@interface NoReportVC : BaseViewController
+/**
+ 中转界面
+ */
+@interface NoReportVC : PedestrianVC
 
 @end

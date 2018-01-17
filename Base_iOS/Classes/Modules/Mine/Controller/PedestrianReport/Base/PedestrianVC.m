@@ -13,6 +13,7 @@
 #import "PedestrianRegisterVC.h"
 #import "PedestrianLoginVC.h"
 #import "PedestrianCommitRegisterVC.h"
+#import "PedestrianRegisterSuccessVC.h"
 
 @interface PedestrianVC ()
 
@@ -47,12 +48,16 @@
     
     [queryBtn bk_addEventHandler:^(id sender) {
         
-//        PedestrianRegisterVC *registerVC = [PedestrianRegisterVC new];
+        PedestrianRegisterVC *registerVC = [PedestrianRegisterVC new];
+
+        [self.navigationController pushViewController:registerVC animated:YES];
+//        PedestrianCommitRegisterVC *commitVC = [PedestrianCommitRegisterVC new];
 //
-//        [self.navigationController pushViewController:registerVC animated:YES];
-        PedestrianCommitRegisterVC *commitVC = [PedestrianCommitRegisterVC new];
+//        [self.navigationController pushViewController:commitVC animated:YES];
         
-        [self.navigationController pushViewController:commitVC animated:YES];
+//        PedestrianRegisterSuccessVC *successVC = [PedestrianRegisterSuccessVC new];
+//
+//        [self.navigationController pushViewController:successVC animated:YES];
         
     } forControlEvents:UIControlEventTouchUpInside];
     

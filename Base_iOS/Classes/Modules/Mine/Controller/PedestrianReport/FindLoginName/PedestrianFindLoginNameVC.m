@@ -229,6 +229,19 @@
     NSLog(@"htmlStr = %@", htmlStr);
     
     TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
+    
+    //系统错误
+    [self systemErrorWithBlock:^{
+        
+        //刷新验证码
+        [self requestImgVerify];
+        //刷新Token
+        [self getTokenWithEncoding:encoding responseObject:responseObject];
+        
+        return ;
+        
+    } encoding:encoding responseObject:responseObject];
+    
     //验证登录名是否正确
     NSArray *spanArr = [hpple searchWithXPathQuery:@"//span"];
     
@@ -260,30 +273,6 @@
     if ([registerPrompt valid]) {
         
         [self errorActionWithPrompt:registerPrompt encoding:encoding responseObject:responseObject];
-        
-        return ;
-    }
-    
-    NSArray *errorArr = [hpple searchWithXPathQuery:@"//div[@class='error']"];
-    
-    if (errorArr.count > 0) {
-        
-        [self errorActionWithPrompt:@"系统繁忙, 请稍后再试" encoding:encoding responseObject:responseObject];
-
-        return ;
-    }
-    
-    NSArray *titleArr = [hpple searchWithXPathQuery:@"//title"];
-    NSString *title = @"";
-    
-    for (TFHppleElement *element in titleArr) {
-        
-        title = element.content;
-    }
-    
-    if (![title valid]) {
-    
-        [self errorActionWithPrompt:@"系统繁忙, 请稍后再试" encoding:encoding responseObject:responseObject];
         
         return ;
     }

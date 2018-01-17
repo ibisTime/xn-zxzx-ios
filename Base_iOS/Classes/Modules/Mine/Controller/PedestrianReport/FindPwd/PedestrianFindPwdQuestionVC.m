@@ -56,6 +56,14 @@
     [self requestQuestionList];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    
+    [super viewDidDisappear:animated];
+    
+    [_timer invalidate];
+    _timer = nil;
+}
+
 #pragma mark - Init
 - (void)initTableView {
     
@@ -190,9 +198,9 @@
         //options
         [self idx:idx key:@"options" value:obj.options];
         //optionList
-        [obj.optionList enumerateObjectsUsingBlock:^(AnswerOption * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj.optionList enumerateObjectsUsingBlock:^(AnswerOption * _Nonnull obj, NSUInteger index, BOOL * _Nonnull stop) {
             
-            [self idx:idx key:[NSString stringWithFormat:@"options%ld", idx] value:obj.option];
+            [self idx:idx key:[NSString stringWithFormat:@"options%ld", index+1] value:obj.option];
             
         }];
     }];
@@ -240,6 +248,13 @@
     
     TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
     
+    //系统错误
+    [self systemErrorWithBlock:^{
+        
+        return ;
+        
+    } encoding:encoding responseObject:responseObject];
+    
     NSArray *errorArr = [hpple searchWithXPathQuery:@"//div[@class='erro_div1']"];
     //一天只能回答问题一次
     if (errorArr.count > 0) {
@@ -263,7 +278,7 @@
             }];
         }
     };
-    
+
 }
 
 #pragma mark - Data
@@ -311,6 +326,14 @@
     NSLog(@"htmlStr = %@", htmlStr);
     
     TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
+    
+    //系统错误
+    [self systemErrorWithBlock:^{
+        
+        return ;
+        
+    } encoding:encoding responseObject:responseObject];
+    
     //验证登录名是否正确
     NSArray *dataArr = [hpple searchWithXPathQuery:@"//input[@name='org.apache.struts.taglib.html.TOKEN']"];
     //获取注册流程需要用到的Token
