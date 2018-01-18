@@ -11,5 +11,7 @@
 #import <TFHpple.h>
 
 @interface PedestrianBaseVC : TLAccountBaseVC
+//是否返回上一页
+@property (nonatomic, assign) BOOL isBackPreviousPage;
 
 @end

@@ -32,7 +32,8 @@
 - (void)initSubviews {
     
     BaseWeakSelf;
-    
+    self.isBackPreviousPage = YES;
+
     //
     UILabel *titleLbl = [UILabel labelWithBackgroundColor:kClearColor textColor:kAppCustomMainColor font:20];
     
@@ -102,6 +103,8 @@
         
         PedestrianLoginVC *loginVC = [PedestrianLoginVC new];
         
+        loginVC.isBackPreviousPage = YES;
+
         [weakSelf.navigationController pushViewController:loginVC animated:YES];
         
     } forControlEvents:UIControlEventTouchUpInside];

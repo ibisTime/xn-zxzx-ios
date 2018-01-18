@@ -52,6 +52,7 @@
 - (void)initSubviews {
     
     self.view.backgroundColor = kBackgroundColor;
+    self.isBackPreviousPage = YES;
     
     CGFloat w = kScreenWidth;
     CGFloat h = ACCOUNT_HEIGHT;

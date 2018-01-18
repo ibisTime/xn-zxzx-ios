@@ -88,7 +88,7 @@
     //按钮
     UIButton *okBtn = [UIButton buttonWithTitle:_manager.reportBtnTitle titleColor:kWhiteColor backgroundColor:kAppCustomMainColor titleFont:16.0 cornerRadius:5];
     
-    [self.okBtn addTarget:self action:@selector(clickOkBtn) forControlEvents:UIControlEventTouchUpInside];
+    [okBtn addTarget:self action:@selector(clickOkBtn) forControlEvents:UIControlEventTouchUpInside];
     
     okBtn.frame = CGRectMake(100, 300, 100, 40);
     

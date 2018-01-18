@@ -125,6 +125,8 @@
         
         PedestrianLoginVC *loginVC = [PedestrianLoginVC new];
         
+        loginVC.isBackPreviousPage = NO;
+        
         [weakSelf.navigationController pushViewController:loginVC animated:YES];
         
     } forControlEvents:UIControlEventTouchUpInside];
