@@ -9,9 +9,8 @@
 #import "PedestrianBaseVC.h"
 
 #import "UIBarButtonItem+convience.h"
-
+#import "PedestrianManager.h"
 #import "TLAlert.h"
-#import <TFHpple.h>
 #import "NSString+Check.h"
 
 @interface PedestrianBaseVC ()
@@ -25,6 +24,8 @@
     // Do any additional setup after loading the view.
     
     [self initBackItem];
+    //添加通知
+    [self addNotification];
 }
 
 #pragma mark -  Init
@@ -43,54 +44,21 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:customView];
 }
 
+#pragma mark - Notification
+- (void)addNotification {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(systemError) name:kPedestrianSystemErrorNotification object:nil];
+}
+
 #pragma mark - Events
 - (void)clickBack {
     
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-
-- (void)systemErrorWithBlock:(SystemErrorBlock)block encoding:(NSString *)encoding responseObject:(id)responseObject {
-    //如果返回的内容有class='error'就报系统繁忙
-    TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
+- (void)systemError {
     
-    NSArray *errorArr = [hpple searchWithXPathQuery:@"//div[@class='error']"];
-    
-    if (errorArr.count > 0) {
-        
-        [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
-        
-        if (block) {
-            
-            block();
-        }
-    }
-    
-    //如果返回的内容是HTML格式再进行判断
-    NSString *htmlStr = [NSString convertHtmlWithEncoding:encoding data:responseObject];
-
-    if (![htmlStr containsString:@"DOCTYPE html"]) {
-        
-        return ;
-    }
-    //如果返回的内容没有title元素就报系统繁忙
-    NSArray *titleArr = [hpple searchWithXPathQuery:@"//title"];
-    NSString *title = @"";
-    
-    for (TFHppleElement *element in titleArr) {
-        
-        title = element.content;
-    }
-    
-    if (![title valid]) {
-        
-        [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
-        
-        if (block) {
-            
-            block();
-        }
-    }
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

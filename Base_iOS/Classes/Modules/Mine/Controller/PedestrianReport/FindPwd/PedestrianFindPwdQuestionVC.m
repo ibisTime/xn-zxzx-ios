@@ -8,13 +8,10 @@
 
 #import "PedestrianFindPwdQuestionVC.h"
 
-#import "CoinHeader.h"
-#import "AppConfig.h"
 #import "NSString+Check.h"
 #import "TLProgressHUD.h"
 #import "UILabel+Extension.h"
 
-#import <TFHpple.h>
 //M
 #import "PedestrianQuestionModel.h"
 //V
@@ -170,6 +167,7 @@
         if (![obj.answerResult valid]) {
             
             [TLAlert alertWithInfo:@"必须对所有的题作答!"];
+            return ;
         }
     }];
     
@@ -248,13 +246,6 @@
     
     TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
     
-    //系统错误
-    [self systemErrorWithBlock:^{
-        
-        return ;
-        
-    } encoding:encoding responseObject:responseObject];
-    
     NSArray *errorArr = [hpple searchWithXPathQuery:@"//div[@class='erro_div1']"];
     //一天只能回答问题一次
     if (errorArr.count > 0) {
@@ -262,17 +253,18 @@
         TFHppleElement *element = errorArr[0];
         
         [TLAlert alertWithInfo:[element.content regularExpressionWithPattern:@">|\n|\r|\t| "]];
-        
         return ;
     }
     //
     NSArray *dataArr = [hpple searchWithXPathQuery:@"//font"];
     
+    NSString *promptStr = @"您的重置密码申请已提交，系统会对您的相关信息进行审核，审核结果将于24小时后反馈到您的手机，请注意查收。";
+    
     for (TFHppleElement *element in dataArr) {
         
-        if ([element.content containsString:@"您的重置密码申请已提交，系统会对您的相关信息进行审核，审核结果将于24小时后反馈到您的手机，请注意查收。"]) {
+        if ([element.content containsString:promptStr]) {
             
-            [TLAlert alertWithTitle:@"提示" message:@"您的重置密码申请已提交，系统会对您的相关信息进行审核，审核结果将于24小时后反馈到您的手机，请注意查收。" confirmMsg:@"OK" confirmAction:^{
+            [TLAlert alertWithTitle:@"提示" message:promptStr confirmMsg:@"OK" confirmAction:^{
                 
                 [self.navigationController popToRootViewControllerAnimated:YES];
             }];
@@ -327,13 +319,6 @@
     
     TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
     
-    //系统错误
-    [self systemErrorWithBlock:^{
-        
-        return ;
-        
-    } encoding:encoding responseObject:responseObject];
-    
     //验证登录名是否正确
     NSArray *dataArr = [hpple searchWithXPathQuery:@"//input[@name='org.apache.struts.taglib.html.TOKEN']"];
     //获取注册流程需要用到的Token
@@ -345,9 +330,6 @@
         
         [TLUser user].tempToken = attributes[@"value"];
         
-    } else {
-        
-        [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
     }
 }
 

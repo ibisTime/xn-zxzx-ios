@@ -8,7 +8,6 @@
 
 #import "MineVC.h"
 
-#import "CoinHeader.h"
 #import "APICodeMacro.h"
 //M
 #import "MineGroup.h"
@@ -18,7 +17,6 @@
 
 //C
 #import "CreditReportVC.h"
-//#import "PedestrianLoginVC.h"
 #import "PedestrianVC.h"
 #import "SettingVC.h"
 #import "HTMLStrVC.h"
@@ -63,8 +61,6 @@
     [self addNotification];
     //
     [self changeInfo];
-    //版本号
-//    [self initVersionView];
     //服务信息
     [self initServiceInfo];
     
@@ -233,28 +229,6 @@
     
     [serviceView addSubview:self.serviceTimeLbl];
     
-}
-
-- (void)initVersionView {
-    //版本号
-    UILabel *versionLbl = [UILabel labelWithBackgroundColor:kClearColor textColor:kTextColor font:15.0];
-    
-    NSDictionary *infoDictionary = [NSBundle mainBundle].infoDictionary;
-    
-    NSString *version = infoDictionary[@"CFBundleShortVersionString"];
-    
-    versionLbl.text = [NSString stringWithFormat:@"V %@", version];
-    
-    [self.view addSubview:versionLbl];
-    [versionLbl mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.centerX.equalTo(@0);
-        make.bottom.equalTo(@(-20));
-        make.height.equalTo(@20);
-        
-    }];
-    
-    self.versionLbl = versionLbl;
 }
 
 #pragma mark - Notification

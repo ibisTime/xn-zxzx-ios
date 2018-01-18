@@ -186,7 +186,6 @@
         if (self.isShowMsg) {
             
             [TLAlert alertWithInfo:@"您的网络不通畅"];
-            
         }
         [_requestList removeObjectForKey:apiMethod];
         failure(error);

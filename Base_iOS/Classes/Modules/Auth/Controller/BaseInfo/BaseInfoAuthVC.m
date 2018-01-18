@@ -170,35 +170,30 @@
     if (![self.baseInfoView.marriageTF.text valid]) {
         
         [TLAlert alertWithInfo:@"请选择婚姻状态"];
-        
         return;
     }
     
     if (![self.baseInfoView.childernNumTF.text valid]) {
         
         [TLAlert alertWithInfo:@"请输入子女数量"];
-        
         return;
     }
     
     if (![self.baseInfoView.liveProvinceTF.text valid]) {
         
         [TLAlert alertWithInfo:@"请输入居住省市"];
-        
         return;
     }
     
     if (![self.baseInfoView.addressTF.text valid]) {
         
         [TLAlert alertWithInfo:@"请输入详细地址"];
-        
         return;
     }
     
     if (![self.baseInfoView.liveTimeTF.text valid]) {
         
         [TLAlert alertWithInfo:@"请输入居住时长"];
-        
         return;
     }
     
@@ -229,28 +224,24 @@
     if (![self.jobInfoView.incomeTF.text valid]) {
         
         [TLAlert alertWithInfo:@"请选择月收入"];
-        
         return;
     }
     
     if (![self.jobInfoView.companyNameTF.text valid]) {
         
         [TLAlert alertWithInfo:@"请输入单位名称"];
-        
         return;
     }
     
     if (![self.jobInfoView.provinceTF.text valid]) {
         
         [TLAlert alertWithInfo:@"请选择单位所在省市"];
-        
         return;
     }
     
     if (![self.jobInfoView.addressTF.text valid]) {
         
         [TLAlert alertWithInfo:@"请输入详细地址"];
-        
         return;
     }
     
@@ -276,7 +267,6 @@
     if (self.contactView.familyMobileTF.text.length != 11) {
         
         [TLAlert alertWithInfo:@"请输入11位手机号"];
-        
         return;
     }
     
@@ -301,7 +291,6 @@
     if (self.contactView.societyMobileTF.text.length != 11) {
         
         [TLAlert alertWithInfo:@"请输入11位手机号"];
-        
         return;
     }
 

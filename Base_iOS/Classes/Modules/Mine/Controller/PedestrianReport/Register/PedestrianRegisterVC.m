@@ -7,15 +7,11 @@
 //
 
 #import "PedestrianRegisterVC.h"
-#import "CoinHeader.h"
 #import "NSString+Date.h"
 #import "NSString+Check.h"
 #import "UILabel+Extension.h"
 #import "UIButton+EnLargeEdge.h"
 #import "TLProgressHUD.h"
-
-#import "AccountTf.h"
-#import <TFHpple.h>
 
 #import "WebVC.h"
 #import "PedestrianCommitRegisterVC.h"
@@ -317,7 +313,6 @@
     if (![self.nameTF.text valid]) {
         
         [TLAlert alertWithInfo:@"请输入姓名"];
-        
         return;
     }
     
@@ -330,7 +325,6 @@
     if (![self.verifyTF.text valid]) {
         
         [TLAlert alertWithInfo:@"请输入验证码"];
-        
         return;
     }
     
@@ -386,18 +380,6 @@
     
     TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
     
-    //系统错误
-    [self systemErrorWithBlock:^{
-        
-        //刷新验证码
-        [self requestImgVerify];
-        //刷新Token
-        [self getTokenWithEncoding:encoding responseObject:responseObject];
-        
-        return ;
-        
-    } encoding:encoding responseObject:responseObject];
-    
     //验证登录名是否正确
     NSArray *spanArr = [hpple searchWithXPathQuery:@"//span"];
     
@@ -426,7 +408,6 @@
         [self requestImgVerify];
         //刷新Token
         [self getTokenWithEncoding:encoding responseObject:responseObject];
-        
         return ;
     }
     
@@ -437,7 +418,6 @@
         [self requestImgVerify];
         //刷新Token
         [self getTokenWithEncoding:encoding responseObject:responseObject];
-
         return ;
     }
     
@@ -523,10 +503,7 @@
         
         [TLUser user].tempToken = attributes[@"value"];
         
-    } else {
-        
-        [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
-    }
+    } 
 }
 
 - (void)requestImgVerify {

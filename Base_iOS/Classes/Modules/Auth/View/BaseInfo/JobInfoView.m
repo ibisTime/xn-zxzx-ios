@@ -44,7 +44,6 @@
             weakSelf.area = area;
             
             weakSelf.provinceTF.text = [NSString stringWithFormat:@"%@ %@ %@",weakSelf.province,weakSelf.city,weakSelf.area];
-            
         };
         
     }

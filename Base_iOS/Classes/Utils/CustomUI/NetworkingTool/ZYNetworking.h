@@ -13,13 +13,13 @@
 
 + (AFHTTPSessionManager *)HTTPSessionManager;
 
-@property (nonatomic,strong) AFHTTPSessionManager *manager;
-@property (nonatomic,strong) NSMutableDictionary *parameters;
+@property (nonatomic, strong) AFHTTPSessionManager *manager;
+@property (nonatomic, strong) NSMutableDictionary *parameters;
 
-@property (nonatomic,copy) NSString *code; //接口编号
-@property (nonatomic,strong) UIView *showView; //hud展示superView
-@property (nonatomic,assign) BOOL isShowMsg; //是否展示警告信息
-@property (nonatomic,copy) NSString *url;
+@property (nonatomic, copy) NSString *code; //接口编号
+@property (nonatomic, strong) UIView *showView; //hud展示superView
+@property (nonatomic, assign) BOOL isShowMsg; //是否展示警告信息
+@property (nonatomic, copy) NSString *url;
 @property (nonatomic, copy) NSString *isShow;
 
 

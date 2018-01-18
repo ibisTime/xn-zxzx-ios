@@ -189,21 +189,18 @@
     if (self.firstIndex > self.secondIndex) {
         
         [TLAlert alertWithInfo:@"开始时间不能大于结束时间"];
-        
         return ;
     }
     
     if (self.firstIndex == 24 && self.secondIndex != 25) {
         
         [TLAlert alertWithInfo:@"请将结束时间选为关闭"];
-        
         return ;
     }
     
     if (self.firstIndex != 24 && self.secondIndex == 25) {
         
         [TLAlert alertWithInfo:@"请将开始时间选为关闭"];
-        
         return ;
     }
     

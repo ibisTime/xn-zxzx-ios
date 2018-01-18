@@ -115,7 +115,6 @@
             weakSelf.cityTf.text = city;
             weakSelf.proviceTf.text = province;
             weakSelf.areaTf.text = area;
-
         };
         
     }

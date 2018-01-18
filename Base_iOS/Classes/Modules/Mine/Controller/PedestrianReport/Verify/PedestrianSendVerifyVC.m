@@ -8,13 +8,9 @@
 
 #import "PedestrianSendVerifyVC.h"
 
-#import "CoinHeader.h"
 #import "CaptchaView.h"
-#import "AppConfig.h"
 #import "NSString+Date.h"
 #import "NSString+Check.h"
-
-#import <TFHpple.h>
 
 #import "PedestrianVerifySuccessVC.h"
 
@@ -121,13 +117,6 @@
  */
 - (void)getVerifyWithEncoding:(NSString *)encoding responseObject:(id)responseObject {
     
-    //系统错误
-    [self systemErrorWithBlock:^{
-        
-        return ;
-        
-    } encoding:encoding responseObject:responseObject];
-    
     //result不为空说明动态码发送成功,否则发送失败
     NSString *result = [NSString convertHtmlWithEncoding:encoding data:responseObject];
     
@@ -197,22 +186,10 @@
     
     NSLog(@"htmlStr = %@", htmlStr);
     
-    //系统错误
-    [self systemErrorWithBlock:^{
-        
-        return ;
-        
-    } encoding:encoding responseObject:responseObject];
-    
     //result为0代表身份验证码正确,1代表错误
     NSString *result = [NSString convertHtmlWithEncoding:encoding data:responseObject];
     
     if ([result isEqualToString:@"0"]) {
-        /*
-         counttime:验证码倒计时
-         reportformat:21(个人信息报告)
-         tradeCode:身份验证码
-         */
         
         PedestrianVerifySuccessVC *successVC = [PedestrianVerifySuccessVC new];
         

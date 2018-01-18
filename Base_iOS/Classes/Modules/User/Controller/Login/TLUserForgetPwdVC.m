@@ -111,7 +111,6 @@
     if (![self.phoneTf.text isPhoneNum]) {
         
         [TLAlert alertWithInfo:@"请输入正确的手机号"];
-        
         return;
     }
     
@@ -139,13 +138,12 @@
     if (![self.phoneTf.text isPhoneNum]) {
         
         [TLAlert alertWithInfo:@"请输入正确的手机号"];
-        
         return;
     }
     
     if (!(self.captchaView.captchaTf.text && self.captchaView.captchaTf.text.length > 3)) {
-        [TLAlert alertWithInfo:@"请输入正确的验证码"];
         
+        [TLAlert alertWithInfo:@"请输入正确的验证码"];
         return;
     }
     

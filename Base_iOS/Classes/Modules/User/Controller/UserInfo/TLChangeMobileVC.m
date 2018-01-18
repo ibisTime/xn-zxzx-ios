@@ -106,7 +106,6 @@
     if (![self.phoneTf.text isPhoneNum]) {
         
         [TLAlert alertWithInfo:@"请输入正确的手机号"];
-        
         return;
     }
 //    

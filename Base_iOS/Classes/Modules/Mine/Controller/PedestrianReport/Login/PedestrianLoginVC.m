@@ -8,8 +8,6 @@
 
 #import "PedestrianLoginVC.h"
 
-#import "CoinHeader.h"
-#import "AppConfig.h"
 #import "NSString+Date.h"
 #import "NSString+Check.h"
 #import "NSString+CGSize.h"
@@ -18,7 +16,6 @@
 #import "TLProgressHUD.h"
 
 #import "AccountTf.h"
-#import <TFHpple.h>
 
 #import "NoReportVC.h"
 #import "PedestrianVerifyVC.h"
@@ -59,6 +56,8 @@
 
 #pragma mark - Init
 - (void)initSubviews {
+    
+    BaseWeakSelf;
     
     self.view.backgroundColor = kBackgroundColor;
     
@@ -167,7 +166,7 @@
         
         PedestrianFindLoginNameVC *findNameVC = [PedestrianFindLoginNameVC new];
         
-        [self.navigationController pushViewController:findNameVC animated:YES];
+        [weakSelf.navigationController pushViewController:findNameVC animated:YES];
         
     } forControlEvents:UIControlEventTouchUpInside];
     
@@ -186,7 +185,7 @@
         
         PedestrianFindPwdVC *findPwdVC = [PedestrianFindPwdVC new];
         
-        [self.navigationController pushViewController:findPwdVC animated:YES];
+        [weakSelf.navigationController pushViewController:findPwdVC animated:YES];
         
     } forControlEvents:UIControlEventTouchUpInside];
     
@@ -202,13 +201,15 @@
 #pragma mark - Events
 - (void)goLogin {
     //chenshan2819
-//    self.nameTF.text = @"lixianjun_6666";
-//    self.pwdTF.text = @"q1i1a1n1";
-//
+    if ([AppConfig config].runEnv == RunEnvDev) {
+        
+        self.nameTF.text = @"lixianjun_6666";
+        self.pwdTF.text = @"q1i1a1n1";
+    }
+
     if (![self.nameTF.text valid]) {
         
         [TLAlert alertWithInfo:@"请输入用户名"];
-        
         return;
     }
     
@@ -221,18 +222,18 @@
     if (![self.verifyTF.text valid]) {
         
         [TLAlert alertWithInfo:@"请输入验证码"];
-        
         return;
     }
     
     [self.view endEditing:YES];
 
+    [TLProgressHUD show];
+    
     //时间戳
     NSString *timeStamp = [NSString getTimeStamp];
     
     ZYNetworking *http = [ZYNetworking new];
     
-    http.showView = self.view;
     http.url = kAppendUrl(@"login.do");
     http.parameters[@"method"] = @"login";
     http.parameters[@"date"] = timeStamp;
@@ -260,6 +261,7 @@
     NSLog(@"htmlStr = %@", htmlStr);
     
     TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
+    
     //验证登录名是否正确
     NSArray *spanArr = [hpple searchWithXPathQuery:@"//span"];
     
@@ -278,40 +280,29 @@
             verifyPrompt = [element.content regularExpressionWithPattern:@">|\n|\r|\t| "];
         }
     }
-    NSArray *titleArr = [hpple searchWithXPathQuery:@"//title"];
-    NSString *title = @"";
-    
-    for (TFHppleElement *element in titleArr) {
-        
-        title = element.content;
-    }
     
     //先判断验证码再判断登录名和密码,每次点击登录失败就刷新验证码
     
     if ([verifyPrompt valid]) {
         
+        [TLProgressHUD dismiss];
+
         [TLAlert alertWithInfo:verifyPrompt];
         //刷新验证码
         [self requestImgVerify];
-        
         return ;
     }
     
     if ([loginPrompt valid]) {
         
+        [TLProgressHUD dismiss];
+
         [TLAlert alertWithInfo:loginPrompt];
         //刷新验证码
         [self requestImgVerify];
-        
         return ;
     }
-    
-    if (![title valid]) {
-        
-        [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
-        //刷新验证码
-        [self requestImgVerify];
-    }
+
     //请求欢迎界面
     [self requestWelcomePage];
 }
@@ -388,6 +379,7 @@
         NSLog(@"htmlStr = %@", htmlStr);
         
         TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
+        
         //验证登录名是否正确
         NSArray *dataArr = [hpple searchWithXPathQuery:@"//p"];
         
@@ -409,7 +401,6 @@
         //如果返回的html含有欢迎登录个人信用信息服务平台或者上次访问时间，说明登录成功
         if ([str1 containsString:@"欢迎登录个人信用信息服务平台"] || [str2 containsString:@"上次访问时间"]) {
             
-            [TLAlert alertWithSucces:@"登录成功"];
             //查看报告
             [self requestReport];
         }
@@ -426,7 +417,6 @@
     
     ZYNetworking *http = [ZYNetworking new];
     
-    http.showView = self.view;
     http.parameters[@"method"] = @"queryReport";
     //Accept
     [http setHeaderWithValue:@"text/html, application/xhtml+xml, application/xml, */*" headerField:@"Accept"];
@@ -446,7 +436,10 @@
         NSLog(@"htmlStr = %@", htmlStr);
         
         TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
-        //验证登录名是否正确
+        
+        [TLAlert alertWithSucces:@"登录成功"];
+
+        //查询报告状态
         NSArray *dataArr = [hpple searchWithXPathQuery:@"//li"];
         
         NSString *disabledStr = @"";
@@ -468,19 +461,22 @@
             }
         }
         
-        //如果disabledStr不为空，说明用户没有报告
-        if ([disabledStr valid]) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-            NoReportVC *noReportVC = [NoReportVC new];
-            
-            [self.navigationController pushViewController:noReportVC animated:YES];
-            
-        } else {
-            
-            PedestrianVerifyVC *verifyVC = [PedestrianVerifyVC new];
-            
-            [self.navigationController pushViewController:verifyVC animated:YES];
-        }
+            //如果disabledStr不为空，说明用户没有报告
+            if ([disabledStr valid]) {
+                
+                NoReportVC *noReportVC = [NoReportVC new];
+                
+                [self.navigationController pushViewController:noReportVC animated:YES];
+                
+            } else {
+                
+                PedestrianVerifyVC *verifyVC = [PedestrianVerifyVC new];
+                
+                [self.navigationController pushViewController:verifyVC animated:YES];
+            }
+        });
         
     } failure:^(NSError *error) {
         

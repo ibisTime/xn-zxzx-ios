@@ -9,11 +9,10 @@
 #import "PedestrianVC.h"
 
 #import "UIControl+Block.h"
+#import "UIButton+EnLargeEdge.h"
 //C
 #import "PedestrianRegisterVC.h"
 #import "PedestrianLoginVC.h"
-#import "PedestrianCommitRegisterVC.h"
-#import "PedestrianRegisterSuccessVC.h"
 
 @interface PedestrianVC ()
 
@@ -31,6 +30,9 @@
 
 #pragma mark - Init
 - (void)initSubviews {
+    
+    BaseWeakSelf;
+    
     //
     UILabel *titleLbl = [UILabel labelWithBackgroundColor:kClearColor textColor:kAppCustomMainColor font:20];
     
@@ -50,14 +52,7 @@
         
         PedestrianRegisterVC *registerVC = [PedestrianRegisterVC new];
 
-        [self.navigationController pushViewController:registerVC animated:YES];
-//        PedestrianCommitRegisterVC *commitVC = [PedestrianCommitRegisterVC new];
-//
-//        [self.navigationController pushViewController:commitVC animated:YES];
-        
-//        PedestrianRegisterSuccessVC *successVC = [PedestrianRegisterSuccessVC new];
-//
-//        [self.navigationController pushViewController:successVC animated:YES];
+        [weakSelf.navigationController pushViewController:registerVC animated:YES];
         
     } forControlEvents:UIControlEventTouchUpInside];
     
@@ -77,8 +72,8 @@
     [self.view addSubview:loginView];
     [loginView mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(queryBtn.mas_bottom).offset(20);
-        make.centerX.equalTo(@0);
+        make.top.equalTo(queryBtn.mas_bottom).offset(0);
+        make.centerX.equalTo(@(10));
         
     }];
     
@@ -92,7 +87,7 @@
         
         make.left.equalTo(@0);
         make.centerY.equalTo(@0);
-        make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 40));
+        make.edges.mas_equalTo(UIEdgeInsetsMake(20, 0, 20, 90));
     }];
     
     //loginBtn
@@ -101,11 +96,13 @@
     loginBtn.layer.borderColor = kAppCustomMainColor.CGColor;
     loginBtn.layer.borderWidth = 0.5;
     
+    [loginBtn setEnlargeEdgeWithTop:0 right:20 bottom:20 left:20];
+    
     [loginBtn bk_addEventHandler:^(id sender) {
         
         PedestrianLoginVC *loginVC = [PedestrianLoginVC new];
         
-        [self.navigationController pushViewController:loginVC animated:YES];
+        [weakSelf.navigationController pushViewController:loginVC animated:YES];
         
     } forControlEvents:UIControlEventTouchUpInside];
     

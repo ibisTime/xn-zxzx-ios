@@ -8,14 +8,10 @@
 
 #import "PedestrianFindPwdVC.h"
 
-#import "CoinHeader.h"
 #import "NSString+Date.h"
 #import "NSString+Check.h"
-#import "UIButton+EnLargeEdge.h"
 #import "TLProgressHUD.h"
 #import "UILabel+Extension.h"
-
-#import <TFHpple.h>
 #import "PedestrianResetPwdVC.h"
 
 @interface PedestrianFindPwdVC ()
@@ -189,14 +185,12 @@
     if (![self.loginNameTF.text valid]) {
         
         [TLAlert alertWithInfo:@"请输入登录名"];
-        
         return;
     }
     
     if (![self.realNameTF.text valid]) {
         
         [TLAlert alertWithInfo:@"请输入姓名"];
-        
         return;
     }
     
@@ -209,7 +203,6 @@
     if (![self.verifyTF.text valid]) {
         
         [TLAlert alertWithInfo:@"请输入验证码"];
-        
         return;
     }
     
@@ -260,16 +253,6 @@
     NSLog(@"htmlStr = %@", htmlStr);
     
     TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
-    
-    //系统错误
-    [self systemErrorWithBlock:^{
-        
-        //刷新验证码
-        [self requestImgVerify];
-        
-        return ;
-        
-    } encoding:encoding responseObject:responseObject];
     
     //验证登录名是否正确
     NSArray *spanArr = [hpple searchWithXPathQuery:@"//span"];

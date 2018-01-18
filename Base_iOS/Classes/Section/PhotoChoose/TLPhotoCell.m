@@ -72,8 +72,6 @@
 
         } else {
         
-        
-        
             self.photoItem.isSelected = YES;
             self.selectedBtn.selected = YES;
             

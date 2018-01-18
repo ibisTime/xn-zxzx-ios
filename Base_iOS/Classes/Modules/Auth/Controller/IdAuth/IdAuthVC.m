@@ -78,7 +78,6 @@
             weakSelf.type = type;
             
             [weakSelf commitIDCard];
-            
         }
         
     };

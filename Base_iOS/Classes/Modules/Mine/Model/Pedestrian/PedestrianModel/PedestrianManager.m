@@ -7,6 +7,8 @@
 //
 
 #import "PedestrianManager.h"
+//系统错误
+NSString *const kPedestrianSystemErrorNotification = @"kPedestrianSystemErrorNotification";
 
 @implementation PedestrianManager
 

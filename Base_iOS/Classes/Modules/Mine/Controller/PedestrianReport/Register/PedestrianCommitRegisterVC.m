@@ -8,7 +8,6 @@
 
 #import "PedestrianCommitRegisterVC.h"
 
-#import "CoinHeader.h"
 #import "NSString+Date.h"
 #import "NSString+Check.h"
 #import "NSString+CGSize.h"
@@ -17,7 +16,6 @@
 
 #import "TLTextField.h"
 #import "CaptchaView.h"
-#import <TFHpple.h>
 
 #import "NoReportVC.h"
 #import "PedestrianRegisterSuccessVC.h"
@@ -286,13 +284,6 @@
  */
 - (void)getVerifyWithEncoding:(NSString *)encoding responseObject:(id)responseObject {
     
-    //系统错误
-    [self systemErrorWithBlock:^{
-        
-        return ;
-        
-    } encoding:encoding responseObject:responseObject];
-    
     //result不为空说明动态码发送成功,否则发送失败
     NSString *result = [NSString convertHtmlWithEncoding:encoding data:responseObject];
     
@@ -413,16 +404,6 @@
     
     TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
     
-    //系统错误
-    [self systemErrorWithBlock:^{
-        
-        //刷新Token
-        [self getTokenWithEncoding:encoding responseObject:responseObject];
-        
-        return ;
-        
-    } encoding:encoding responseObject:responseObject];
-    
     //验证登录名是否正确
     NSArray *spanArr = [hpple searchWithXPathQuery:@"//span"];
     
@@ -441,7 +422,6 @@
         [TLAlert alertWithInfo:registerPrompt];
         //刷新Token
         [self getTokenWithEncoding:encoding responseObject:responseObject];
-
         return ;
     }
     
@@ -460,6 +440,7 @@
     if (!isSuccess) {
         
         [TLAlert alertWithError:@"注册失败"];
+        return ;
     }
     
     PedestrianRegisterSuccessVC *successVC = [PedestrianRegisterSuccessVC new];
@@ -531,13 +512,6 @@
     
     TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
     
-    //系统错误
-    [self systemErrorWithBlock:^{
-        
-        return ;
-        
-    } encoding:encoding responseObject:responseObject];
-    
     //验证登录名是否正确
     NSArray *dataArr = [hpple searchWithXPathQuery:@"//input[@name='org.apache.struts.taglib.html.TOKEN']"];
     //获取注册流程需要用到的Token
@@ -549,10 +523,7 @@
         
         [TLUser user].tempToken = attributes[@"value"];
         
-    } else {
-        
-        [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
-    }
+    } 
 }
 
 #pragma mark - UITextfieldDelegate

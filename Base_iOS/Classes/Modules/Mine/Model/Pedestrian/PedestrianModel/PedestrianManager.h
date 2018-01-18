@@ -27,3 +27,5 @@
 @property (nonatomic) id responseObject;
 
 @end
+
+FOUNDATION_EXTERN  NSString *const kPedestrianSystemErrorNotification;

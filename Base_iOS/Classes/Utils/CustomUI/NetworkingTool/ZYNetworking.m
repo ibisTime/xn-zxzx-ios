@@ -16,21 +16,12 @@
 #import "TLAlert.h"
 #import "NSString+Check.h"
 #import "NSString+Extension.h"
+#import <TFHpple.h>
+#import "PedestrianManager.h"
 
 @implementation ZYNetworking
 //默认header：User-Agent、Connection、Content-Type
 
-/*Cache-Control
-[http setHeaderWithValue:@"no-cache" headerField:@"Cache-Control"];
-//Accept-Encoding
-[http setHeaderWithValue:@"gzip, deflate, br" headerField:@"Accept-Encoding"];
-//Accept-Language
-[http setHeaderWithValue:@"zh-CN,zh;q=0.9,en;q=0.8" headerField:@"Accept-Language"];
- //Accept
- [http setHeaderWithValue:@"image/gif, image/jpeg, image/pjpeg, application/x-ms-application, application/xaml+xml, application/x-ms-xbap, *//*" headerField:@"Accept"];
-                                                                                                                                              //Accept-Language
-                                                                                                                                              [http setHeaderWithValue:@"zh-CN" headerField:@"Accept-Language"];
-*/
 + (AFHTTPSessionManager *)HTTPSessionManager
 {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -103,10 +94,8 @@
     return [self.manager POST:self.url parameters:self.parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         [HttpLogger logDebugInfoWithRequest:task.currentRequest apiName:self.code requestParams:self.parameters httpMethod:@"POST"];
-
-//        [HttpLogger logDebugInfoWithResponse:task.response apiName:self.code resposeString:responseObject request:task.originalRequest error:nil];
         
-        NSLog(@"Header = %@", task.currentRequest.allHTTPHeaderFields);
+//        NSLog(@"Header = %@", task.currentRequest.allHTTPHeaderFields);
 
         if(self.showView) {
             
@@ -117,25 +106,17 @@
         
         NSString *textEncoding = [response textEncodingName];
         
-        if (response.statusCode >= 200 && response.statusCode < 300) {
+        //判断是否有系统错误
+        BOOL isError = [self systemErrorWithEncoding:textEncoding responseObject:responseObject];
+        
+        if (!isError) {
             
-            //设置cookie
-//            NSString *cookie = response.allHeaderFields[@"Set-Cookie"];
-//
-//            [AppConfig setUserDefaultCookie:cookie];
-            
-//            NSLog(@"Cookie = %@", cookie);
-
-            if(success) {
+            if (success) {
                 
-                success(textEncoding, responseObject);
+                success(textEncoding,responseObject);
             }
-        } else {
-            
-            [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
         }
         
-    
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
         [HttpLogger logDebugInfoWithRequest:task.currentRequest apiName:self.code requestParams:self.parameters httpMethod:@"POST"];
@@ -236,25 +217,22 @@
     
         [HttpLogger logDebugInfoWithRequest:task.currentRequest apiName:@"" requestParams:self.parameters httpMethod:@"GET"];
 
-        NSLog(@"Header = %@", task.currentRequest.allHTTPHeaderFields);
-
-//        [HttpLogger logDebugInfoWithResponse:task.response apiName:nil resposeString:responseObject request:task.originalRequest error:nil];
+//        NSLog(@"Header = %@", task.currentRequest.allHTTPHeaderFields);
         
         NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
         
-        if (response.statusCode >= 200 && response.statusCode < 300) {
-            
-            //响应返回的编码格式
-            NSString *textEncoding = [response textEncodingName];
+        //响应返回的编码格式
+        NSString *textEncoding = [response textEncodingName];
+        
+        //判断是否有系统错误
+        BOOL isError = [self systemErrorWithEncoding:textEncoding responseObject:responseObject];
+        
+        if (!isError) {
             
             if (success) {
                 
                 success(textEncoding,responseObject);
             }
-            
-        } else {
-            
-            [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -283,6 +261,47 @@
 - (void)setHeaderWithValue:(NSString *)value headerField:(NSString *)headerField {
     
     [_manager.requestSerializer setValue:value forHTTPHeaderField:headerField];
+}
+
+- (BOOL)systemErrorWithEncoding:(NSString *)encoding responseObject:(id)responseObject {
+    //如果返回的内容有class='error'就报系统繁忙
+    TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
+    
+    NSArray *errorArr = [hpple searchWithXPathQuery:@"//div[@class='error']"];
+    
+    if (errorArr.count > 0) {
+        
+        [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kPedestrianSystemErrorNotification object:nil];
+
+        return YES;
+    }
+    
+    //如果返回的内容是HTML格式再进行判断
+    NSString *htmlStr = [NSString convertHtmlWithEncoding:encoding data:responseObject];
+    
+    if ([htmlStr containsString:@"DOCTYPE html"]) {
+        
+        //如果长时间未操作点击下一步时返回的内容没有title元素，然后报系统繁忙
+        NSArray *titleArr = [hpple searchWithXPathQuery:@"//title"];
+        NSString *title = @"";
+        
+        for (TFHppleElement *element in titleArr) {
+            
+            title = element.content;
+        }
+        
+        if (![title valid]) {
+            
+            [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kPedestrianSystemErrorNotification object:nil];
+            return YES;
+        }
+        
+    }
+    
+    return NO;
 }
 
 @end

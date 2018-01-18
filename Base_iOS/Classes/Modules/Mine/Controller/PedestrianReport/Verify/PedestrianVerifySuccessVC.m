@@ -8,13 +8,9 @@
 
 #import "PedestrianVerifySuccessVC.h"
 
-#import "CoinHeader.h"
-#import "AppConfig.h"
 #import "UIControl+Block.h"
 #import "NSString+Check.h"
 #import "TLProgressHUD.h"
-
-#import <TFHpple.h>
 
 @interface PedestrianVerifySuccessVC ()
 
@@ -38,6 +34,8 @@
 
 #pragma mark - Init
 - (void)initSubviews {
+    
+    BaseWeakSelf;
     
     CGFloat iconW = kWidth(100);
     //图标
@@ -77,7 +75,7 @@
     
     [okBtn bk_addEventHandler:^(id sender) {
         
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [weakSelf.navigationController popToRootViewControllerAnimated:YES];
         
     } forControlEvents:UIControlEventTouchUpInside];
     

@@ -8,13 +8,10 @@
 
 #import "NoReportVC.h"
 
-#import "CoinHeader.h"
-#import "AppConfig.h"
 #import "UIControl+Block.h"
 #import "NSString+Check.h"
 #import "TLProgressHUD.h"
 
-#import <TFHpple.h>
 //M
 #import "PedestrianManager.h"
 //C
@@ -91,36 +88,7 @@
     //按钮
     UIButton *okBtn = [UIButton buttonWithTitle:_manager.reportBtnTitle titleColor:kWhiteColor backgroundColor:kAppCustomMainColor titleFont:16.0 cornerRadius:5];
     
-    [okBtn bk_addEventHandler:^(id sender) {
-
-        if ([self.manager.reportStatus isEqualToString:@"1"]) {
-
-            [self.navigationController popToRootViewControllerAnimated:YES];
-            
-        } else if ([self.manager.reportStatus isEqualToString:@"0"]) {
-
-            //等级低需要回答问题才能查看报告,高等级的用户只需发送验证码
-            if (_isHighLevel) {
-                
-                PedestrianSendVerifyVC *sendVerifyVC = [PedestrianSendVerifyVC new];
-                
-                [self.navigationController pushViewController:sendVerifyVC animated:YES];
-                
-            } else {
-                
-                PedestrianQuestionVC *questionVC = [PedestrianQuestionVC new];
-                
-                [self.navigationController pushViewController:questionVC animated:YES];
-            }
-            
-        } else {
-            
-            PedestrianQuestionVC *questionVC = [PedestrianQuestionVC new];
-            
-            [self.navigationController pushViewController:questionVC animated:YES];
-        }
-
-    } forControlEvents:UIControlEventTouchUpInside];
+    [self.okBtn addTarget:self action:@selector(clickOkBtn) forControlEvents:UIControlEventTouchUpInside];
     
     okBtn.frame = CGRectMake(100, 300, 100, 40);
     
@@ -135,6 +103,37 @@
     }];
     
     self.okBtn = okBtn;
+}
+
+#pragma mark - Events
+- (void)clickOkBtn {
+    
+    if ([self.manager.reportStatus isEqualToString:@"1"]) {
+        
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        
+    } else if ([self.manager.reportStatus isEqualToString:@"0"]) {
+        
+        //等级低需要回答问题才能查看报告,高等级的用户只需发送验证码
+        if (_isHighLevel) {
+            
+            PedestrianSendVerifyVC *sendVerifyVC = [PedestrianSendVerifyVC new];
+            
+            [self.navigationController pushViewController:sendVerifyVC animated:YES];
+            
+        } else {
+            
+            PedestrianQuestionVC *questionVC = [PedestrianQuestionVC new];
+            
+            [self.navigationController pushViewController:questionVC animated:YES];
+        }
+        
+    } else {
+        
+        PedestrianQuestionVC *questionVC = [PedestrianQuestionVC new];
+        
+        [self.navigationController pushViewController:questionVC animated:YES];
+    }
 }
 
 #pragma mark -  Data
@@ -184,13 +183,6 @@
     NSLog(@"htmlStr = %@", htmlStr);
     
     TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
-    
-    //系统错误
-    [self systemErrorWithBlock:^{
-        
-        return ;
-        
-    } encoding:encoding responseObject:responseObject];
     
     //验证登录名是否正确
     NSArray *dataArr = [hpple searchWithXPathQuery:@"//li"];
@@ -278,9 +270,6 @@
         
         [TLUser user].tempToken = attributes[@"value"];
         
-    } else {
-        
-        [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
     }
 }
 

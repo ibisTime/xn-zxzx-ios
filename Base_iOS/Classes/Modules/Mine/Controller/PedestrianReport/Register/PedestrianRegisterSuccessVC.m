@@ -101,6 +101,8 @@
 
 - (void)initSubviews {
     
+    BaseWeakSelf;
+    
     //text
     UILabel *promptLbl = [UILabel labelWithBackgroundColor:kClearColor textColor:kTextColor font:15.0];
     
@@ -123,7 +125,7 @@
         
         PedestrianLoginVC *loginVC = [PedestrianLoginVC new];
         
-        [self.navigationController pushViewController:loginVC animated:YES];
+        [weakSelf.navigationController pushViewController:loginVC animated:YES];
         
     } forControlEvents:UIControlEventTouchUpInside];
     

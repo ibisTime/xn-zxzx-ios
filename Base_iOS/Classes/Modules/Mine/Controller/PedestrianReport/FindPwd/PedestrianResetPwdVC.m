@@ -8,14 +8,11 @@
 
 #import "PedestrianResetPwdVC.h"
 
-#import "CoinHeader.h"
-#import "NSString+Date.h"
 #import "NSString+Check.h"
 #import "TLProgressHUD.h"
 
 #import "TLTextField.h"
 #import "CaptchaView.h"
-#import <TFHpple.h>
 
 //C
 #import "PedestrianFindPwdQuestionVC.h"
@@ -167,13 +164,6 @@
  */
 - (void)getVerifyWithEncoding:(NSString *)encoding responseObject:(id)responseObject {
     
-    //系统错误
-    [self systemErrorWithBlock:^{
-        
-        return ;
-        
-    } encoding:encoding responseObject:responseObject];
-    
     //result不为空说明动态码发送成功,否则发送失败
     NSString *result = [NSString convertHtmlWithEncoding:encoding data:responseObject];
     
@@ -282,13 +272,6 @@
 
     TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
     
-    //系统错误
-    [self systemErrorWithBlock:^{
-        
-        return ;
-        
-    } encoding:encoding responseObject:responseObject];
-    
     //验证密码和验证码是否正确
     NSArray *spanArr = [hpple searchWithXPathQuery:@"//span"];
 
@@ -349,13 +332,6 @@
     NSLog(@"htmlStr = %@", htmlStr);
     
     TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
-  
-    //系统错误
-    [self systemErrorWithBlock:^{
-        
-        return ;
-        
-    } encoding:encoding responseObject:responseObject];
     
     NSArray *dataArr = [hpple searchWithXPathQuery:@"//input[@name='org.apache.struts.taglib.html.TOKEN']"];
     //获取找回密码流程需要用的Token

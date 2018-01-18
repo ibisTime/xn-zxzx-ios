@@ -10,7 +10,6 @@
 #import <WebKit/WebKit.h>
 #import "TLProgressHUD.h"
 
-#import "AppConfig.h"
 #import "NSString+Check.h"
 
 @interface PedestrianReportVC ()<WKNavigationDelegate>

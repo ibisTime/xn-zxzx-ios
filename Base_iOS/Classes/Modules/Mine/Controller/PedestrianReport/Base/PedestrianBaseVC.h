@@ -8,11 +8,8 @@
 
 #import "TLAccountBaseVC.h"
 
-typedef void(^SystemErrorBlock)();
+#import <TFHpple.h>
 
 @interface PedestrianBaseVC : TLAccountBaseVC
-
-//系统错误
-- (void)systemErrorWithBlock:(SystemErrorBlock)block encoding:(NSString *)encoding responseObject:(id)responseObject;
 
 @end

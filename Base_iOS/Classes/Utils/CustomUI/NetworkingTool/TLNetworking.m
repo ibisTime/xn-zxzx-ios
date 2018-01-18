@@ -166,31 +166,25 @@
           if(self.isShowMsg) { //异常也是失败
               
               [TLAlert alertWithInfo:responseObject[@"errorInfo"]];
-
           }
-      
-      
       }
-      
-      
-    
-      
+
    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
        
        if(self.showView){
+           
            [TLProgressHUD dismiss];
        }
        
        if (self.isShowMsg) {
            
            [TLAlert alertWithInfo:@"网络异常"];
-
        }
        
        if(failure){
+           
            failure(error);
        }
-       
    }];
 
 }
@@ -199,10 +193,8 @@
 
     if([responseObj[@"success"] isEqual:@1]){
     
-        
     }
 }
-
 
 + (NSURLSessionDataTask *)POST:(NSString *)URLString
                     parameters:(NSDictionary *)parameters
@@ -216,20 +208,16 @@
         if (success) {
             
             success(responseObject);
-            
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
-        if(failure){
+        if(failure) {
             
             failure(error);
-            
         }
         
     }];
-
-
 }
 
 + (NSURLSessionDataTask *)POST:(NSString *)URLString
@@ -243,18 +231,15 @@
     AFHTTPSessionManager *manager = [self HTTPSessionManager];
     
     return [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
-        if(failure){
+        if(failure) {
+            
             failure(error);
         }
-        
     }];
-    
 }
-
 
 //#pragma mark - GET
 + (NSURLSessionDataTask *)GET:(NSString *)URLString
@@ -265,24 +250,20 @@
 {
     AFHTTPSessionManager *manager = [self HTTPSessionManager];
     
-    
     return [manager GET:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         if (success) {
+            
             success(@"",responseObject);
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
         if (failure) {
+            
             failure(error);
         }
-        
     }];
-    
-    
 }
-
-
 
 @end

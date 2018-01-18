@@ -122,8 +122,6 @@
             address.isSelected = NO;
             //            [self.addressRoom addObject:address];
             [weakSelf.addressTableView beginRefreshing];
-            
-            
         }
         
     };
