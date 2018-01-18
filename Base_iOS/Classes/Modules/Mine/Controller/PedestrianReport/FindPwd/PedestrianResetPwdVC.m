@@ -238,8 +238,6 @@
     
     //Referer
     [http setHeaderWithValue:@"https://ipcrs.pbccrc.org.cn/resetPassword.do" headerField:@"Referer"];
-    //Content-Type
-    [http setHeaderWithValue:@"application/x-www-form-urlencoded" headerField:@"Content-Type"];
     //Accept
     [http setHeaderWithValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" headerField:@"Accept"];
     //Accept-Language
@@ -308,7 +306,7 @@
         
         [TLAlert alertWithTitle:@"提示" message:@"您安全等级过高，无法使用此功能。请自行前往官网修改。\n官网地址：https://ipcrs.pbccrc.org.cn/" confirmMsg:@"OK" confirmAction:^{
             
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            [self backPedestrianHome];
         }];
         
         return ;

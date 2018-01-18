@@ -35,6 +35,8 @@
     [manager.requestSerializer setValue:@"no-cache" forHTTPHeaderField:@"Cache-Control"];
     //Accept-Encoding
     [manager.requestSerializer setValue:@"gzip, deflate, br" forHTTPHeaderField:@"Accept-Encoding"];
+    //Content-Type
+    [manager.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/javascript",@"text/html",@"text/plain", nil];
@@ -272,7 +274,12 @@
     if (errorArr.count > 0) {
         
         [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kPedestrianSystemErrorNotification object:nil];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kPedestrianSystemErrorNotification object:nil];
+            
+        });
 
         return YES;
     }
@@ -295,7 +302,11 @@
             
             [TLAlert alertWithInfo:@"系统繁忙, 请稍后再试"];
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:kPedestrianSystemErrorNotification object:nil];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:kPedestrianSystemErrorNotification object:nil];
+
+            });
             return YES;
         }
         

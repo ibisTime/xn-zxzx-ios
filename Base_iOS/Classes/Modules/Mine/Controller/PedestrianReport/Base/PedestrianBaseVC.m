@@ -73,21 +73,28 @@
     [TLAlert alertWithTitle:@"提示" msg:@"确定要返回征信首页？" confirmMsg:@"确定" cancleMsg:@"取消" cancle:^(UIAlertAction *action) {
         
     } confirm:^(UIAlertAction *action) {
-        //返回征信中心首页
-        for (UIViewController *vc in self.navigationController.viewControllers) {
-            
-            if ([vc isKindOfClass:[PedestrianVC class]]) {
-                
-                [self.navigationController popToViewController:vc animated:YES];
-            }
-        }
+        
+        [self backPedestrianHome];
     }];
     
 }
 
 - (void)systemError {
     
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self backPedestrianHome];
+
+}
+
+- (void)backPedestrianHome {
+    
+    //返回征信中心首页
+    for (UIViewController *vc in self.navigationController.viewControllers) {
+        
+        if ([vc isKindOfClass:[PedestrianVC class]]) {
+            
+            [self.navigationController popToViewController:vc animated:YES];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {

@@ -163,15 +163,22 @@
 }
 
 - (void)commitAnswer {
+    //判断是否全部填完
+    __block BOOL isAllAnswer = YES;
     
     [self.questionList enumerateObjectsUsingBlock:^(PedestrianQuestionModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
         if (![obj.answerResult valid]) {
             
-            [TLAlert alertWithInfo:@"必须对所有的题作答!"];
-            return ;
+            isAllAnswer = NO;
         }
     }];
+    
+    if (!isAllAnswer) {
+        
+        [TLAlert alertWithInfo:@"必须对所有的题作答!"];
+        return ;
+    }
     
     ZYNetworking *http = [ZYNetworking new];
     
@@ -267,8 +274,8 @@
         if ([element.content containsString:@"1.您的查询申请已提交，若通过身份验证，会以短信形式将身份验证码发送到您预留手机上，请妥善保管，您可在24小时后访问平台获取结果。"]) {
             
             [TLAlert alertWithTitle:@"提示" message:@"1.您的查询申请已提交，若通过身份验证，会以短信形式将身份验证码发送到您预留手机上，请妥善保管，您可在24小时后访问平台获取结果。\n2.为保护您的信息安全，您申请的信用信息产品将在平台上保留7个自然日，过时平台会自动清理，请及时登录查看结果。" confirmMsg:@"OK" confirmAction:^{
-                
-                [self.navigationController popToRootViewControllerAnimated:YES];
+               
+                [self backPedestrianHome];
             }];
         }
     };
@@ -324,9 +331,8 @@
     
     TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
     
-    //验证登录名是否正确
+    //获取回答问题需要用到的Token
     NSArray *dataArr = [hpple searchWithXPathQuery:@"//input[@name='org.apache.struts.taglib.html.TOKEN']"];
-    //获取注册流程需要用到的Token
     if (dataArr.count > 0) {
         
         TFHppleElement *element = dataArr[0];

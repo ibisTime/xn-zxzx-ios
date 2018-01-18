@@ -75,7 +75,8 @@
     
     [okBtn bk_addEventHandler:^(id sender) {
         
-        [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+        [weakSelf backPedestrianHome];
+
         
     } forControlEvents:UIControlEventTouchUpInside];
     

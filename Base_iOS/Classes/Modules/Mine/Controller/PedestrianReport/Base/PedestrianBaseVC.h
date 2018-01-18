@@ -14,4 +14,7 @@
 //是否返回上一页
 @property (nonatomic, assign) BOOL isBackPreviousPage;
 
+//返回征信中心首页
+- (void)backPedestrianHome;
+
 @end

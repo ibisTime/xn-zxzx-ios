@@ -54,18 +54,10 @@
     [req setValue:@"zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2" forHTTPHeaderField:@"Accept-Language"];
     //Cache-Control
     [req setValue:@"max-age=0" forHTTPHeaderField:@"Cache-Control"];
-    //Accept-Encoding
-    [req setValue:@"gzip, deflate, br" forHTTPHeaderField:@"Accept-Encoding"];
-    //Content-Type
-    [req setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     //Referer
     [req setValue:@"https://ipcrs.pbccrc.org.cn/reportAction.do?method=queryReport" forHTTPHeaderField:@"Referer"];
     //Upgrade-Insecure-Requests
     [req setValue:@"1" forHTTPHeaderField:@"Upgrade-Insecure-Requests"];
-    //Host
-    [req setValue:@"ipcrs.pbccrc.org.cn" forHTTPHeaderField:@"Host"];
-    //Connection
-    [req setValue:@"keep-alive" forHTTPHeaderField:@"Connection"];
     
     // 实例化网络会话
     NSURLSession *session = [NSURLSession sharedSession];
