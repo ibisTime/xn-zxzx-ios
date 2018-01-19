@@ -43,6 +43,8 @@
 @property (nonatomic, strong) UILabel *serviceTimeLbl;
 //版本号
 @property (nonatomic, strong) UILabel *versionLbl;
+//电话
+@property (nonatomic, copy) NSString *mobile;
 
 @end
 
@@ -220,11 +222,16 @@
         make.width.equalTo(@(kScreenWidth));
         
     }];
-    
+    //服务电话
     self.mobileLbl = [UILabel labelWithFrame:CGRectMake(0, 0, kScreenWidth, 16) textAligment:NSTextAlignmentCenter backgroundColor:kClearColor font:Font(15) textColor:kTextColor];
     
     [serviceView addSubview:self.mobileLbl];
     
+    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(callMobile)];
+    
+    [serviceView addGestureRecognizer:tapGR];
+    
+    //服务时间
     self.serviceTimeLbl = [UILabel labelWithFrame:CGRectMake(0, self.mobileLbl.yy + 10, kScreenWidth, 12) textAligment:NSTextAlignmentCenter backgroundColor:kClearColor font:Font(15) textColor:kTextColor];
     
     [serviceView addSubview:self.serviceTimeLbl];
@@ -237,18 +244,14 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeInfo) name:kUserInfoChange object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginOut) name:kUserLoginOutNotification object:nil];
-    
-    
 }
 
 #pragma mark - Events
 - (void)changeInfo {
     //
-    
     [self.headerView.userPhoto sd_setImageWithURL:[NSURL URLWithString:[[TLUser user].photo convertImageUrl]] placeholderImage:USER_PLACEHOLDER_SMALL];
     
     self.headerView.nameLbl.text = [TLUser user].mobile;
-
 }
 
 - (void)loginOut {
@@ -256,7 +259,6 @@
     self.headerView.nameLbl.text = @"";
     
     self.headerView.userPhoto.image = USER_PLACEHOLDER_SMALL;
-    
 }
 
 - (void)changeHeadIconWithKey:(NSString *)key imgData:(NSData *)imgData {
@@ -280,10 +282,19 @@
         
     } failure:^(NSError *error) {
         
-        
     }];
 }
 
+- (void)callMobile {
+    //
+    NSString *mobile = [NSString stringWithFormat:@"telprompt://%@", self.mobile];
+    
+    NSURL *url = [NSURL URLWithString:mobile];
+    
+    [[UIApplication sharedApplication] openURL:url];
+}
+
+#pragma mark - Data
 - (void)requestServiceTime {
     
     TLNetworking *http = [TLNetworking new];
@@ -294,7 +305,9 @@
     
     [http postWithSuccess:^(id responseObject) {
         
-        self.serviceTimeLbl.text = [NSString stringWithFormat:@"服务时间: %@", responseObject[@"data"][@"cvalue"]];
+        self.mobile = responseObject[@"data"][@"cvalue"];
+        
+        self.serviceTimeLbl.text = [NSString stringWithFormat:@"服务时间: %@", self.mobile];
         
     } failure:^(NSError *error) {
         
@@ -331,7 +344,6 @@
             
         default:
             break;
-            
     }
 }
 

@@ -15,6 +15,7 @@
 
 #import "TLProgressHUD.h"
 #import "UIBarButtonItem+convience.h"
+#import "NSString+Check.h"
 #import "APICodeMacro.h"
 
 @interface CreditReportVC ()
@@ -23,6 +24,8 @@
 @property (nonatomic, strong) QuestionModel *reportModel;
 //
 @property (nonatomic, strong) CreditReportTableView *tableView;
+//暂无报告
+@property (nonatomic, strong) UIView *placeHolderView;
 
 @end
 
@@ -42,9 +45,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //
+    //返回按钮
     [self initItem];
-    //
+    //资质报告
     [self initTableView];
     
     if (self.type == ReportTypeLookReport) {
@@ -66,6 +69,44 @@
     
     [UIBarButtonItem addLeftItemWithImageName:@"返回-黑色" frame:CGRectMake(-10, 0, 40, 44) vc:self action:@selector(clickBack)];
 
+}
+
+/**
+ 暂无调查单
+ */
+- (void)initPlaceHolderView {
+    
+    self.placeHolderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - 40)];
+    
+    [self.view addSubview:self.placeHolderView];
+    
+    UIImageView *searchIV = [[UIImageView alloc] init];
+    
+    searchIV.image = kImage(@"no_report");
+    
+    searchIV.centerX = kScreenWidth/2.0;
+    
+    [self.placeHolderView addSubview:searchIV];
+    [searchIV mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerX.equalTo(@0);
+        make.top.equalTo(@90);
+        
+    }];
+    
+    UILabel *textLbl = [UILabel labelWithBackgroundColor:kClearColor textColor:kTextColor2 font:14.0];
+    
+    textLbl.text = @"暂无资信报告";
+    
+    textLbl.textAlignment = NSTextAlignmentCenter;
+    
+    [self.placeHolderView addSubview:textLbl];
+    [textLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(searchIV.mas_bottom).offset(20);
+        make.centerX.equalTo(searchIV.mas_centerX);
+        
+    }];
 }
 
 /**
@@ -96,7 +137,7 @@
     [self requestMarriage];
     //获取职业列表
     [self requestJob];
-    //获取输入列表
+    //获取收入列表
     [self requestIncome];
     //获取亲属关系列表
     [self requestFamilyRelation];
@@ -107,7 +148,7 @@
 #pragma mark - Data
 
 /**
- 根据reportCode查询报关单详情
+ 根据reportCode查询报告单详情
  */
 - (void)queryReportDetail {
     
@@ -142,7 +183,7 @@
 
 
 /**
- 查看最新的报关单详情
+ 查看最新的报告单详情
  */
 - (void)queryLastReportDetail {
     
@@ -155,6 +196,13 @@
     [http postWithSuccess:^(id responseObject) {
         
         self.reportModel = [QuestionModel mj_objectWithKeyValues:responseObject[@"data"]];
+        
+        if (![self.reportModel.F1 valid]) {
+            
+            //暂无报告
+            [self initPlaceHolderView];
+            return ;
+        }
         
         ReportModel *reportModel = [ReportModel new];
         

@@ -19,7 +19,8 @@
 @property (nonatomic, strong) QuestionTableView *tableView;
 //问卷列表
 @property (nonatomic, strong) NSMutableArray <QuestionModel *> *questions;
-
+//暂无调查单
+@property (nonatomic, strong) UIView *placeHolderView;
 
 @end
 
@@ -38,6 +39,8 @@
     // Do any additional setup after loading the view.
     
     self.title = @"认证";
+    //暂无调查单
+    [self initPlaceHolderView];
     //
     [self initTableView];
     //获取调查单列表
@@ -48,6 +51,42 @@
 #pragma mark - Init
 
 /**
+ 暂无调查单
+ */
+- (void)initPlaceHolderView {
+    
+    self.placeHolderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSuperViewHeight - 40)];
+    
+    UIImageView *searchIV = [[UIImageView alloc] init];
+    
+    searchIV.image = kImage(@"no_report");
+    
+    searchIV.centerX = kScreenWidth/2.0;
+    
+    [self.placeHolderView addSubview:searchIV];
+    [searchIV mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerX.equalTo(@0);
+        make.top.equalTo(@90);
+        
+    }];
+    
+    UILabel *textLbl = [UILabel labelWithBackgroundColor:kClearColor textColor:kTextColor2 font:14.0];
+    
+    textLbl.text = @"暂无调查单";
+    
+    textLbl.textAlignment = NSTextAlignmentCenter;
+    
+    [self.placeHolderView addSubview:textLbl];
+    [textLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(searchIV.mas_bottom).offset(20);
+        make.centerX.equalTo(searchIV.mas_centerX);
+        
+    }];
+}
+
+/**
  初始化tableview
  */
 - (void)initTableView {
@@ -55,7 +94,7 @@
     self.tableView = [[QuestionTableView alloc] init];
     
     self.tableView.refreshDelegate = self;
-    
+    self.tableView.placeHolderView = self.placeHolderView;
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         
