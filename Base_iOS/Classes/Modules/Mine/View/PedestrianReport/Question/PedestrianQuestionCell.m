@@ -87,6 +87,7 @@
     
     self.optionLbl.text = answerOption.option;
     self.optionBtn.selected = answerOption.select;
+    
 }
 
 @end

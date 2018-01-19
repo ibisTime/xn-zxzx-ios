@@ -85,23 +85,28 @@ static NSString *identifierCell = @"PedestrianQuestionCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 45;
+    PedestrianQuestionModel *model = self.questionList[indexPath.section];
+    
+    return model.optionList[indexPath.row].cellHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    return 40;
+    PedestrianQuestionModel *model = self.questionList[section];
+
+    return model.sectionHeight;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     PedestrianQuestionModel *model = self.questionList[section];
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectZero];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, model.sectionHeight)];
     
     headerView.backgroundColor = kWhiteColor;
     //question
     UILabel *questionLbl = [UILabel labelWithBackgroundColor:kClearColor textColor:kTextColor font:16];
+    questionLbl.numberOfLines = 0;
     
 //    questionLbl.text = [NSString stringWithFormat:@"%ld: %@", section+1, model.question];
     questionLbl.text = model.question;
@@ -111,6 +116,7 @@ static NSString *identifierCell = @"PedestrianQuestionCell";
         
         make.centerY.equalTo(@0);
         make.left.equalTo(@15);
+        make.right.equalTo(@(-15));
         
     }];
     

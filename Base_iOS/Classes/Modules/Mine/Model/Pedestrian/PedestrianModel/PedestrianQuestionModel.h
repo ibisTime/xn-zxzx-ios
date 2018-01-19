@@ -8,6 +8,8 @@
 
 #import "BaseModel.h"
 
+#import <UIKit/UIKit.h>
+
 @class AnswerOption;
 
 @interface PedestrianQuestionModel : BaseModel
@@ -27,6 +29,8 @@
 @property (nonatomic, copy) NSString *answerResult;
 //options
 @property (nonatomic, copy) NSString *options;
+//
+@property (nonatomic, assign) CGFloat sectionHeight;
 
 @end
 
@@ -36,5 +40,7 @@
 @property (nonatomic, assign) BOOL select;
 //回答title
 @property (nonatomic, copy) NSString *option;
+//
+@property (nonatomic, assign) CGFloat cellHeight;
 
 @end

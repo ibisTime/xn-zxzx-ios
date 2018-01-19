@@ -99,12 +99,13 @@
     [self.bgSV addSubview:pwdTF];
     self.pwdTF = pwdTF;
     
+    NSString *pwdText = @"提示: 密码长度必须在6-20之间, 可以使用数字、小写字母和大写字母, 但必须同时包含数字和字母。";
     //提示:
     UILabel *pwdPromptLbl = [UILabel labelWithBackgroundColor:kClearColor textColor:kTextColor2 font:14.0];
     
     pwdPromptLbl.numberOfLines = 0;
     
-    [pwdPromptLbl labelWithTextString:@"提示: 密码长度必须在6-20之间, 可以使用数字、小写字母和大写字母, 但必须同时包含数字和字母。" lineSpace:5];
+    [pwdPromptLbl labelWithTextString:pwdText lineSpace:5];
     [self.bgSV addSubview:pwdPromptLbl];
     [pwdPromptLbl mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -114,7 +115,7 @@
         
     }];
     
-    CGFloat pH2 = [nameText calculateStringSize:CGSizeMake(kScreenWidth - 30, MAXFLOAT) font:Font(14.0)].height + 20;
+    CGFloat pH2 = [pwdText calculateStringSize:CGSizeMake(kScreenWidth - 30, MAXFLOAT) font:Font(14.0)].height + 20;
     
     //验证码
     AccountTf *verifyTF = [[AccountTf alloc] initWithFrame:CGRectMake(0, pwdTF.yy+lineHeight+pH2, w-115, h)];
