@@ -184,7 +184,30 @@
     
     TFHpple *hpple = [[TFHpple alloc] initWithHTMLData:responseObject encoding:encoding];
     
-    //验证登录名是否正确
+    //判断用户等级, 如果等级过高那就提示用户去征信中心操作
+    NSArray *labelArr = [hpple searchWithXPathQuery:@"//label"];
+    
+    BOOL isHighLevel = YES;
+    
+    for (TFHppleElement *element in labelArr) {
+        
+        if ([element.content containsString:@"问题验证"]) {
+            
+            isHighLevel = NO;
+        }
+    }
+    
+    if (isHighLevel) {
+        
+        [TLAlert alertWithTitle:@"提示" message:@"您安全等级过高，无法使用此功能。请自行前往官网修改。\n官网地址：https://ipcrs.pbccrc.org.cn/" confirmMsg:@"OK" confirmAction:^{
+            
+            [self backPedestrianHome];
+        }];
+        
+        return ;
+    }
+    
+    //
     NSArray *dataArr = [hpple searchWithXPathQuery:@"//li"];
     
     NSString *disabledStr = @"";
@@ -227,19 +250,6 @@
         } else {
             
             _manager.reportStatus = @"0";
-        }
-    }
-    
-    //判断用户等级, 如果等级过高那就发送验证码
-    NSArray *labelArr = [hpple searchWithXPathQuery:@"//label"];
-    
-    _isHighLevel = YES;
-    
-    for (TFHppleElement *element in labelArr) {
-        
-        if ([element.content containsString:@"问题验证"]) {
-            
-            _isHighLevel = NO;
         }
     }
     
