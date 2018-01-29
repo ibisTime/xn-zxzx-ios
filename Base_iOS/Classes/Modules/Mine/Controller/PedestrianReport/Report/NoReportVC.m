@@ -117,6 +117,13 @@
         //等级低需要回答问题才能查看报告,高等级的用户只需发送验证码
         if (_isHighLevel) {
             
+//            [TLAlert alertWithTitle:@"提示" message:@"您安全等级过高，无法使用此功能。请自行前往官网修改。\n官网地址：https://ipcrs.pbccrc.org.cn/" confirmMsg:@"OK" confirmAction:^{
+//
+//                [self backPedestrianHome];
+//            }];
+//
+//            return ;
+            
             PedestrianSendVerifyVC *sendVerifyVC = [PedestrianSendVerifyVC new];
             
             [self.navigationController pushViewController:sendVerifyVC animated:YES];
@@ -187,24 +194,14 @@
     //判断用户等级, 如果等级过高那就提示用户去征信中心操作
     NSArray *labelArr = [hpple searchWithXPathQuery:@"//label"];
     
-    BOOL isHighLevel = YES;
+    _isHighLevel = YES;
     
     for (TFHppleElement *element in labelArr) {
         
         if ([element.content containsString:@"问题验证"]) {
             
-            isHighLevel = NO;
+            _isHighLevel = NO;
         }
-    }
-    
-    if (isHighLevel) {
-        
-        [TLAlert alertWithTitle:@"提示" message:@"您安全等级过高，无法使用此功能。请自行前往官网修改。\n官网地址：https://ipcrs.pbccrc.org.cn/" confirmMsg:@"OK" confirmAction:^{
-            
-            [self backPedestrianHome];
-        }];
-        
-        return ;
     }
     
     //
